@@ -98,18 +98,21 @@ button:focus-visible {
 
 /* header Yordanose */
 
-/* 🌙 Dark mode for the entire page */
+/* ☀️ Light mode (when toggle ON) */
 body.dark-mode {
-  background-color: #0a0f24;
-  /* deep navy */
-  color: #ffffff;
+  background-color: #f9f9f9;
+  /* bright */
+  color: #121212;
+  /* dark text */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 🩵 Light mode (default) */
+/* 🌙 Default mode (when toggle OFF) */
 body {
-  background-color: #f9f9f9;
-  color: #121212;
+  background-color: #182536;
+  /* darker by default */
+  color: #ffffff;
+  /* white text */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -205,13 +208,7 @@ body.dark-mode #theme-toggle:hover {
   }
 
 
-@font-face {
-  font-family: 'Bai Jamjuree';
-  font-style: normal;
-  font-weight: 400;
-  src: url('fonts/BaiJamjuree-Regular.woff2') format('woff2');
-  font-display: swap;
-}
+
 
 @font-face {
   font-family: 'Bai Jamjuree';
@@ -221,13 +218,7 @@ body.dark-mode #theme-toggle:hover {
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'Bai Jamjuree';
-  font-style: normal;
-  font-weight: 500;
-  src: url('fonts/BaiJamjuree-Medium.woff2') format('woff2');
-  font-display: swap;
-}
+
 
 
 *,
