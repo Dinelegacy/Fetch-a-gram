@@ -1,15 +1,15 @@
-📸 Project Brief: Image Feed App
-📝 Overview
+# 📸 Project Brief: Image Feed App
+### 📝 Overview
 
 In this group project (4 members), you will create a web application that displays a collection of images fetched from an external API. The goal is to apply your knowledge of HTML, CSS, and vanilla JavaScript to build an interactive, data-driven interface.
 
 You are free to design the UI — get inspired by platforms like Instagram or Unsplash.
 
-🚀 Getting Started
+## 🚀 Getting Started
 
 You will receive starter code with basic HTML, CSS, and JavaScript files.
 
-To begin:
+### To begin:
 
 Fork or clone the repository
 
@@ -17,17 +17,17 @@ Build the app using the provided structure
 
 Only vanilla JavaScript — no frameworks or external libraries
 
-🔗 API Documentation:
+### 🔗 API Documentation:
 https://image-feed-api.vercel.app/
 
-✅ Core Requirements
-1️⃣ Fetch & Display Photos
+## ✅ Core Requirements
+### 1️⃣ Fetch & Display Photos
 
 Retrieve images from the API using JavaScript
 
 Render photos dynamically — no static images in HTML
 
-2️⃣ Add Interactivity
+### 2️⃣ Add Interactivity
 
 Include at least one interactive element — examples:
 
@@ -37,7 +37,7 @@ Include at least one interactive element — examples:
 
 🌙 Toggle dark mode
 
-3️⃣ Use Only HTML, CSS & JavaScript
+### 3️⃣ Use Only HTML, CSS & JavaScript
 
 HTML → Structure
 
@@ -47,7 +47,7 @@ JavaScript → Data fetching + interactions
 
 ❌ No frameworks or component libraries
 
-⭐ Bonus Features (Optional)
+## ⭐ Bonus Features (Optional)
 
 If your core functionality works well, you can add additional features:
 
@@ -56,14 +56,14 @@ Display likes & comments	Easier
 Loading states + error handling	Medium
 Pagination / Load More	Medium
 Submit new comments	Challenging
-🧪 Assessment Criteria
-🎯 S3
+## 🧪 Assessment Criteria
+### 🎯 S3
 
 ✅ Pass: Build an interactive, data-driven interface with JavaScript
 
 🌟 Pass with Distinction: Code is well-structured, interactive behavior is smooth, and UI design feels thoughtful & user-focused
 
-🤝 S4
+### 🤝 S4
 
 ✅ Pass: Collaborate using Git and GitHub
 (shared workflow, meaningful commit history, contributions from all members)
