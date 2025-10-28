@@ -94,3 +94,112 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+
+/* header Yordanose */
+
+/* 🌙 Dark mode for the entire page */
+body.dark-mode {
+  background-color: #0a0f24;
+  /* deep navy */
+  color: #ffffff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 🩵 Light mode (default) */
+body {
+  background-color: #f9f9f9;
+  color: #121212;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===== HEADER ===== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: inherit;
+  
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* border color in dark mode */
+body.dark-mode header {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+/* brand area */
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo {
+  width: 50px;
+  
+  height: auto;
+  object-fit: contain;
+}
+
+.site-name {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+}
+
+/* toggle button */
+#theme-toggle {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+#theme-toggle:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode #theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-brand {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  #theme-toggle {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    width: 30px;
+  }
+
+  .site-name {
+    font-size: 1rem;
+  }
+
+  #theme-toggle {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
