@@ -160,7 +160,7 @@ body.dark-mode header {
 .photo-section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  /* 3 per row */
+ 
   gap: 20px;
   padding: 20px;
   
