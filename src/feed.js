@@ -1,4 +1,4 @@
-export default function setupFeed() {
+export default function setupFeed(openPopup) {
   const section = document.getElementById("section1");
   const loadMoreBtn = document.getElementById("load-more");
   if (!section || !loadMoreBtn) return;
@@ -47,6 +47,12 @@ export default function setupFeed() {
       const img = document.createElement("img");
       img.src = p.src;
       img.alt = p.alt;
+
+      // To make image clickable to open popup
+img.addEventListener("click", () => {
+  openPopup(img.src);
+});
+
 
       // actions row
       const actions = document.createElement("div");
