@@ -1,5 +1,6 @@
 import './style.css'
 // header Yordanos
+import {  loadMoreImages } from './renderImages'; 
 
 // Select the toggle button
 const toggleBtn = document.getElementById("theme-toggle");
@@ -12,4 +13,5 @@ toggleBtn?.addEventListener("click", () => {
 });
 
 
-
+// fetchImages();
+loadMoreImages();

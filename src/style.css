@@ -166,104 +166,125 @@ body.dark-mode #theme-toggle:hover {
     font-size: 0.8rem;
   }
 }
-  /* section-layout-anna */
 
-  .photo-container {
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    height: 100%;
-    gap: 20px;
-  }
+/* section-layout-anna */
 
+.photo-container {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  height: 100%;
+  gap: 20px;
+}
+
+.photo-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 20px;
+  row-gap: 20px;
+  /* grid-auto-rows: 300px; */
+}
+
+@media (max-width: 768px) {
   .photo-list {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    column-gap: 20px;
-    row-gap: 20px;
-    /* grid-auto-rows: 300px; */
+    grid-template-columns: repeat(2, 1fr);
   }
+}
 
-  @media (max-width: 768px) {
-    .photo-list {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
+.show-more-btn {
+  display: block;
+  padding: 15px;
+  font-size: 18px;
+  background-color: #DADDE1;
+  background: linear-gradient(109.9deg, #6400BF 34.84%, #0F13B9 74.14%);
+  background: linear-gradient(87.63deg, #3E34EF 9.12%, #E8177E 107.88%);
+  background: linear-gradient(91.03deg, #A113C4 0%, #76C9ED 111.6%);
+  background: linear-gradient(91.27deg, #437BD7 -2.34%, #5629BD 98.28%);
+  background: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
 
-  .show-more-btn {
-    display: block;
-    padding: 15px;
-    font-size: 16px;
-    background-color: #DADDE1;
-    color: #3B414D;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: "Bai Jamjuree", sans-serif;
-  }
+  background: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%);
+  font-weight: 700;
 
-  .show-more-btn:hover {
-    box-shadow: 0 0 12px 4px rgba(79, 180, 198, 0.45);
-  }
+  /* width: 100%; */
+  /* min-height: 200px; */
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Bai Jamjuree", sans-serif;
+}
 
-  .show-more-btn:active {
-    opacity: 0.7;
-  }
+.show-more-btn:hover {
+  box-shadow: 0 0 12px 4px rgba(79, 180, 198, 0.45);
+}
 
-  /* temporary */
-  li {
-    background-color: white; 
-  } 
+.show-more-btn:active {
+  opacity: 0.7;
+}
+
+.show-more-wrapper {
+  display: flex;
+  align-items: center;
+  align-items: flex-end;
+  justify-content: center;
+
+}
+
+/* temporary */
+.photo-item {
+  background-color: white;
+}
 
 
-  /* FOOTER BOX */
+/* FOOTER BOX */
 
-  footer {
-    background-color: black;
-    color: white;
-    text-align: center;
-    padding: 25px 10px;
-  }
+footer {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 25px 10px;
+}
 
-  .footer-title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
+.footer-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
 
-  .footer-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    white-space: nowrap;
-    overflow-x: auto;
-    padding-bottom: 10px;
-  }
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
 
-  .footer-box {
-    background-color: #1e293b;
-    padding: 12px 20px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    min-width: 160px;
-    text-align: center;
-    transition: 0.3s;
-    flex-shrink: 0;
-  }
+.footer-box {
+  background-color: #1e293b;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 160px;
+  text-align: center;
+  transition: 0.3s;
+  flex-shrink: 0;
+}
 
-  .footer-box a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
+.footer-box a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
 
-  .footer-box a:hover {
-    color: lightyellow;
-  }
+.footer-box a:hover {
+  color: lightyellow;
+}
