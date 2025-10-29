@@ -238,3 +238,98 @@ body.dark-mode .actions button:hover {
 body.dark-mode #load-more:hover {
   background: rgba(255, 255, 255, 0.12);
 }
+
+
+FOOTER BOX
+
+footer{
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 25px 10px;
+  font-family: arial, sans-serif;
+}
+    .footer-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+    .footer-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      white-space: nowrap;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+
+    .footer-box {
+      background-color: #1e293b;
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      min-width: 160px;
+      text-align: center;
+      transition: 0.3s;
+      flex-shrink: 0;
+    }
+
+      .footer-box a {
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .footer-box a:hover {
+      color: lightyellow;
+    }
+    .footer {
+  background-color: grey;
+  color: white;
+  padding: 15px 30px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-left a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-left a:hover {
+  color: #f4b400;
+}
+
+.footer-right {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-right a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-right a:hover {
+  color: #f4b400;
+}
+
+.logo {
+  width: 30px;
+  height: auto;
+}
