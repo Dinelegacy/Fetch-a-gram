@@ -3,6 +3,11 @@ export default function setupHeader() {
   const toggleBtn = document.getElementById('theme-toggle');
   if (!toggleBtn) return;
 
+  // ✅ Start in dark mode by default
+  document.body.classList.add('dark-mode');
+  toggleBtn.textContent = '☀️ Light Mode';
+
+  // ✅ Toggle between modes on click
   toggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
     const dark = document.body.classList.contains('dark-mode');
