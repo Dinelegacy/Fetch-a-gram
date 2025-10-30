@@ -4,15 +4,12 @@ export default function setupFeed(openPopup) {
   if (!section || !loadMoreBtn) return;
 
   let page = 1;
-  const limit = 6;
-  const limit = 6;
 
   async function fetchPhotos(page) {
     try {
       const res = await fetch(`https://image-feed-api.vercel.app/api/images?page=${page}`);
       const data = await res.json();
 
-      // API returns data in data.data
       return data.data.map(p => ({
         src: p.image_url,
         likes_count: p.likes_count ?? 0,
@@ -29,12 +26,13 @@ export default function setupFeed(openPopup) {
       const card = document.createElement("div");
       card.className = "photo-card";
 
-      // Image + popup
       const img = document.createElement("img");
       img.src = p.src;
       img.alt = "photo";
 
-      // likes & comments
+      // 👉 теперь при клике открываем попап
+      img.addEventListener("click", () => openPopup(p.src));
+
       const actions = document.createElement("div");
       actions.className = "actions";
 
@@ -52,7 +50,6 @@ export default function setupFeed(openPopup) {
 
       card.appendChild(img);
       card.appendChild(actions);
-
       section.appendChild(card);
     });
   }
@@ -62,7 +59,8 @@ export default function setupFeed(openPopup) {
     renderPhotos(photos);
   }
 
-  load(); // first 6
+  load();
+
   loadMoreBtn.addEventListener("click", () => {
     page++;
     load();
