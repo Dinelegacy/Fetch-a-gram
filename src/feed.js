@@ -1,9 +1,10 @@
-export default function setupFeed() {
+export default function setupFeed(openPopup) {
   const section = document.getElementById("section1");
   const loadMoreBtn = document.getElementById("load-more");
   if (!section || !loadMoreBtn) return;
 
   let page = 1;
+  const limit = 6;
   const limit = 6;
 
   async function fetchPhotos(page) {
@@ -28,6 +29,7 @@ export default function setupFeed() {
       const card = document.createElement("div");
       card.className = "photo-card";
 
+      // Image + popup
       const img = document.createElement("img");
       img.src = p.src;
       img.alt = "photo";
@@ -61,7 +63,6 @@ export default function setupFeed() {
   }
 
   load(); // first 6
-
   loadMoreBtn.addEventListener("click", () => {
     page++;
     load();
