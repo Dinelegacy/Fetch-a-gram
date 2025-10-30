@@ -55,14 +55,19 @@ export default function setupFeed(openPopup) {
   }
 
   async function load() {
-    const photos = await fetchPhotos(page);
+    const photos = [
+      ...await fetchPhotos(page),
+      ...await fetchPhotos(page + 1),
+      ...await fetchPhotos(page + 2)
+    ]
     renderPhotos(photos);
   }
 
   load();
 
   loadMoreBtn.addEventListener("click", () => {
-    page++;
+    page = page + 3;
     load();
   });
+  
 }
