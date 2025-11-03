@@ -7,6 +7,15 @@ body {
   color: #121212;
   transition: background-color 0.3s, color 0.3s;
   font-family: system-ui, sans-serif;
+  min-height: 100vh;
+  width: 100%;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-x: hidden;
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 16px;
 }
 
 /* Dark mode for whole page */
@@ -24,7 +33,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1rem;
+  padding: 1.5rem 2rem;
   background-color: inherit;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -40,7 +49,7 @@ body.dark-mode header {
 }
 
 .logo {
-  width: 40px;
+  width: 56px;
   height: auto;
   object-fit: contain;
   display: block;
@@ -60,10 +69,11 @@ body.dark-mode header {
   background: transparent;
   border: 1px solid currentColor;
   color: inherit;
-  padding: 0.35rem 0.85rem;
+  padding: 0.6rem 1.1rem;
   border-radius: 999px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 /* Responsive header */
@@ -101,9 +111,9 @@ body.dark-mode header {
 .photo-section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  /* 3 per row */
   gap: 20px;
   padding: 20px;
+  grid-auto-flow: dense;
 }
 
 /* ===== CARD STYLE ===== */
@@ -156,7 +166,6 @@ body.dark-mode header {
 /* ===== COMMENT FORM ===== */
 .comment-form {
   display: none;
-  /* hidden until user clicks Comment */
   align-items: center;
   gap: 8px;
   margin-left: auto;
@@ -238,57 +247,148 @@ body.dark-mode .actions button:hover {
 body.dark-mode #load-more:hover {
   background: rgba(255, 255, 255, 0.12);
 }
+/* ===== POPUP OVERLAY ===== */
+#image-popup {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
+/* Show popup when visible */
+#image-popup:not(.hidden) {
+  display: flex;
+  opacity: 1;
+}
 
-FOOTER BOX
+/* Popup content — no frame */
+.popup-content {
+  background: transparent; /* Removed white box */
+  padding: 0;
+  border-radius: 0;
+  text-align: center;
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-footer{
+/* The popup image itself — clean and frameless */
+.popup-content img {
+  max-width: 100%;
+  max-height: 90vh;
+  border: none;
+  border-radius: 0;
+  box-shadow: none; /* Removed shadow frame */
+}
+
+/* Close button */
+#close-popup {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1001;
+}
+
+/* Popup actions (likes/comments) */
+#popup-actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding-top: 0.8rem;
+  font-size: 1rem;
+  color: #fff; 
+}
+
+/* Close button */
+#close-popup {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  z-index: 1001;
+}
+
+/* Popup actions (likes/comments) */
+#popup-actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  padding-top: 0.5rem;
+  font-size: 1rem;
+  color: #fff;
+}
+
+/* ===== FOOTER BOX ===== */
+footer {
   background-color: black;
   color: white;
   text-align: center;
   padding: 25px 10px;
   font-family: arial, sans-serif;
 }
-    .footer-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-    .footer-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      white-space: nowrap;
-      overflow-x: auto;
-      padding-bottom: 10px;
-    }
 
-    .footer-box {
-      background-color: #1e293b;
-      padding: 12px 20px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.1);
-      min-width: 160px;
-      text-align: center;
-      transition: 0.3s;
-      flex-shrink: 0;
-    }
+.footer-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
 
-      .footer-box a {
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
 
-    .footer-box a:hover {
-      color: lightyellow;
-    }
-    .footer {
+.footer-box {
+  background-color: #1e293b;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 160px;
+  text-align: center;
+  transition: 0.3s;
+  flex-shrink: 0;
+}
+
+.footer-box a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footer-box a:hover {
+  color: lightyellow;
+}
+
+.footer {
   background-color: grey;
   color: white;
   padding: 15px 30px;
@@ -296,8 +396,15 @@ footer{
 
 .footer-container {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 15px;
+  }
 }
 
 .footer-left {
