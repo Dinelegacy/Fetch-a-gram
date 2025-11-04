@@ -59,6 +59,20 @@ body {
   overflow-x: hidden;
   font-family: 'Bai Jamjuree', sans-serif;
   font-size: 16px;
+  position: relative; 
+}
+/* Anna: added 'position: relative' and 'body::after' for background decoration */
+body::after {
+  position: absolute;
+  content: "";
+  background-image: url('images/gradient.png');
+  background-repeat: repeat;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 
@@ -166,6 +180,7 @@ body.dark-mode header {
   /* Anna: position reative for loader positioning */
   position: relative;
 }
+
 
 /* ===== CARD STYLE ===== */
 .photo-card {
@@ -457,7 +472,7 @@ footer {
   height: auto;
 }
 
-/* STYLES FOR LOADER ELEMENT */
+/* Anna added: STYLES FOR LOADER ELEMENT */
 
 .lds-ripple-container {
   position: absolute;
@@ -506,3 +521,38 @@ body.dark-mode .lds-ripple div {
     opacity: 0;
   }
 }
+
+/* Anna added: STYLES FOR LIKES AND COMMENTS ICONS */
+
+.likes,
+.comments-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.likes svg,
+.comments-info svg {
+  width: 20px;
+}
+
+body.dark-mode .likes svg,
+body.dark-mode .comments-info svg {
+  fill: #ffffff;
+}
+
+/* DECORATIVE GRADIENT */
+
+/* .gradient {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: -1;
+
+}
+
+.gradient img {
+  max-width: 90%;
+} */

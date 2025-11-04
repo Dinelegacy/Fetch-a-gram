@@ -1,3 +1,6 @@
+import likeIcon from './icons/heart-solid-full.svg?raw'; //Anna: import like icon as SVG code (needed to use it in innerHTML and change colors)
+import commentIcon from './icons/comment-solid-full.svg?raw'; //Anna: import comment icon as SVG code (needed to use it in innerHTML and change colors)
+
 const loaderElement = document.querySelector('.lds-ripple-container'); // Anna: Select loader element. Alrady exist in the index.html
 
 export default function setupFeed(openPopup) {
@@ -39,12 +42,13 @@ export default function setupFeed(openPopup) {
 
       const likeInfo = document.createElement("span");
       likeInfo.className = "likes";
-      likeInfo.textContent = `❤️ ${p.likes_count} Likes`;
+      likeInfo.innerHTML = `${likeIcon} ${p.likes_count} Likes`; // Anna: Use likeIcon SVG code here
 
       const commentsCount = p.comments.length;
       const commentsInfo = document.createElement("span");
       commentsInfo.className = "comments-info";
-      commentsInfo.textContent = `💬 ${commentsCount} ${commentsCount === 1 ? 'Comment' : 'Comments'}`;
+      commentsInfo.innerHTML = `${commentIcon} ${commentsCount} ${commentsCount === 1 ? 'Comment' : 'Comments'}`; // Anna: Use commentIcon SVG code here
+
 
       actions.appendChild(likeInfo);
       actions.appendChild(commentsInfo);
