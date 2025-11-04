@@ -1,3 +1,5 @@
+const loaderElement = document.querySelector('.lds-ripple-container'); // Anna: Select loader element. Alrady exist in the index.html
+
 export default function setupFeed(openPopup) {
   const section = document.getElementById("section1");
   const loadMoreBtn = document.getElementById("load-more");
@@ -30,7 +32,6 @@ export default function setupFeed(openPopup) {
       img.src = p.src;
       img.alt = "photo";
 
-      // 👉 теперь при клике открываем попап
       img.addEventListener("click", () => openPopup(p.src));
 
       const actions = document.createElement("div");
@@ -55,12 +56,19 @@ export default function setupFeed(openPopup) {
   }
 
   async function load() {
+    loadMoreBtn.style.opacity = "0"; // Anna: Hide button during load
+    await new Promise(requestAnimationFrame); // Anna: Allow UI to update
+
     const photos = [
       ...await fetchPhotos(page),
       ...await fetchPhotos(page + 1),
       ...await fetchPhotos(page + 2)
-    ]
+    ];
+
     renderPhotos(photos);
+
+    loaderElement.remove(); // Anna: Remove loader element after first load of imges collection
+    loadMoreBtn.style.opacity = "1"; // Anna: return button after load
   }
 
   load();
@@ -69,5 +77,5 @@ export default function setupFeed(openPopup) {
     page = page + 3;
     load();
   });
-  
+
 }
