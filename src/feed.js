@@ -1,3 +1,8 @@
+import likeIcon from './icons/heart-solid-full.svg?raw'; //Anna: import like icon as SVG code (needed to use it in innerHTML and change colors)
+import commentIcon from './icons/comment-solid-full.svg?raw'; //Anna: import comment icon as SVG code (needed to use it in innerHTML and change colors)
+
+const loaderElement = document.querySelector('.lds-ripple-container'); // Anna: Select loader element. Alrady exist in the index.html
+
 export default function setupFeed(openPopup) {
    // Yordanos: Grab the main feed section and the "Load more" button.
   const section = document.getElementById("section1");
@@ -34,7 +39,6 @@ export default function setupFeed(openPopup) {
       img.src = p.src;
       img.alt = "photo";
 
-      // 👉 теперь при клике открываем попап
       img.addEventListener("click", () => openPopup(p.src));
 
       const actions = document.createElement("div");
@@ -42,12 +46,13 @@ export default function setupFeed(openPopup) {
 
       const likeInfo = document.createElement("span");
       likeInfo.className = "likes";
-      likeInfo.textContent = `❤️ ${p.likes_count} Likes`;// Anna: Use likeIcon SVG code here
+      likeInfo.innerHTML = `${likeIcon} ${p.likes_count} Likes`; // Anna: Use likeIcon SVG code here
 
       const commentsCount = p.comments.length;
       const commentsInfo = document.createElement("span");
       commentsInfo.className = "comments-info";
-      commentsInfo.textContent = `💬 ${commentsCount} ${commentsCount === 1 ? 'Comment' : 'Comments'}`;// Anna: Use commentIcon SVG code here
+      commentsInfo.innerHTML = `${commentIcon} ${commentsCount} ${commentsCount === 1 ? 'Comment' : 'Comments'}`; // Anna: Use commentIcon SVG code here
+
 
       actions.appendChild(likeInfo);
       actions.appendChild(commentsInfo);
@@ -59,14 +64,21 @@ export default function setupFeed(openPopup) {
   }
 
   async function load() {
+    loadMoreBtn.style.opacity = "0"; // Anna: Hide button during load
+    await new Promise(requestAnimationFrame); // Anna: Allow UI to update
+
     const photos = [
       //Andreas valegard: Fetch three consecutive pages in parallel, then combine.
       ...await fetchPhotos(page),
       ...await fetchPhotos(page + 1),
       ...await fetchPhotos(page + 2)
-    ]
+    ];
+
     renderPhotos(photos); // Yordanos: Paint all fetched photos to the DOM.
 
+
+    loaderElement.remove(); // Anna: Remove loader element after first load of imges collection
+    loadMoreBtn.style.opacity = "1"; // Anna: return button after load
   }
 
   load();
@@ -77,5 +89,5 @@ export default function setupFeed(openPopup) {
  page = page + 3;
     load();
   });
-  
+
 }
