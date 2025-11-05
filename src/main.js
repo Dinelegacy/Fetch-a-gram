@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 // import './style.css';
 
 // // 🌙 Dark / Light toggle (keep as-is)
@@ -63,6 +64,9 @@
 =======
 
 >>>>>>> origin/develop
+=======
+
+>>>>>>> origin/develop
 import './style.css';
 import setupHeader from './header.js';
 import setupFeed from './feed.js';
@@ -71,7 +75,10 @@ import setupPopup from './popup.js';
 const openPopup = setupPopup();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/develop
 =======
 >>>>>>> origin/develop
 setupHeader();

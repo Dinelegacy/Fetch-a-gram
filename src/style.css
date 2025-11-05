@@ -1,6 +1,9 @@
 /* ===== BASE STYLE ===== */
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/develop
 *,
 *::before,
 *::after {
@@ -44,6 +47,9 @@ main {
 img {
   display: block;
 }
+<<<<<<< HEAD
+>>>>>>> origin/develop
+=======
 >>>>>>> origin/develop
 
 /* Light mode default */
@@ -54,8 +60,11 @@ body {
   transition: background-color 0.3s, color 0.3s;
   font-family: system-ui, sans-serif;
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
+=======
+>>>>>>> origin/develop
   min-height: 100vh;
   width: 100%;
   min-width: 320px;
@@ -81,6 +90,9 @@ body::after {
   z-index: -1;
 }
 
+<<<<<<< HEAD
+>>>>>>> origin/develop
+=======
 >>>>>>> origin/develop
 
 /* Dark mode for whole page */
@@ -99,13 +111,19 @@ header {
   justify-content: space-between;
   align-items: center;
 <<<<<<< HEAD
+<<<<<<< HEAD
   padding: 0.75rem 1rem;
   background-color: inherit;
 =======
+=======
+>>>>>>> origin/develop
   padding: 1.5rem 2rem;
 
   background-color: inherit;
 
+<<<<<<< HEAD
+>>>>>>> origin/develop
+=======
 >>>>>>> origin/develop
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -122,7 +140,12 @@ body.dark-mode header {
 
 .logo {
 <<<<<<< HEAD
+<<<<<<< HEAD
   width: 40px;
+=======
+  width: 56px;
+
+>>>>>>> origin/develop
 =======
   width: 56px;
 
@@ -147,11 +170,14 @@ body.dark-mode header {
   border: 1px solid currentColor;
   color: inherit;
 <<<<<<< HEAD
+<<<<<<< HEAD
   padding: 0.35rem 0.85rem;
   border-radius: 999px;
   cursor: pointer;
   font-size: 0.9rem;
 =======
+=======
+>>>>>>> origin/develop
   padding: 0.6rem 1.1rem;
   /* bigger */
   border-radius: 999px;
@@ -159,6 +185,9 @@ body.dark-mode header {
   font-size: 1rem;
 
   font-weight: 600;
+<<<<<<< HEAD
+>>>>>>> origin/develop
+=======
 >>>>>>> origin/develop
 }
 
@@ -198,12 +227,15 @@ body.dark-mode header {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* 3 per row */
   gap: 20px;
   padding: 20px;
 }
 
 =======
+=======
+>>>>>>> origin/develop
   gap: 20px;
   padding: 20px;
   grid-auto-flow: dense;
@@ -212,6 +244,9 @@ body.dark-mode header {
 }
 
 
+<<<<<<< HEAD
+>>>>>>> origin/develop
+=======
 >>>>>>> origin/develop
 /* ===== CARD STYLE ===== */
 .photo-card {
@@ -224,6 +259,10 @@ body.dark-mode header {
   display: flex;
   flex-direction: column;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  cursor: pointer;
+>>>>>>> origin/develop
 =======
   cursor: pointer;
 >>>>>>> origin/develop
@@ -341,6 +380,10 @@ body.dark-mode .actions button:hover {
   font-size: 1rem;
   transition: background 0.3s;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/develop
 =======
 
 >>>>>>> origin/develop
@@ -354,6 +397,7 @@ body.dark-mode #load-more:hover {
   background: rgba(255, 255, 255, 0.12);
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /* Popups css section */
 
@@ -440,6 +484,8 @@ body.dark-mode #load-more:hover {
 #prev-popup { left: 30px; }
 #next-popup { right: 30px; }
 =======
+=======
+>>>>>>> origin/develop
 
 /* Popup overlay */
 #Image-popup {
@@ -678,5 +724,9 @@ body.dark-mode .comments-info svg {
 
 .gradient img {
   max-width: 90%;
+<<<<<<< HEAD
+} */
+>>>>>>> origin/develop
+=======
 } */
 >>>>>>> origin/develop

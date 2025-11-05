@@ -4,12 +4,18 @@ export default function setupHeader() {
   if (!toggleBtn) return;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> origin/develop
   // dark mode by default
   document.body.classList.add('dark-mode');
   toggleBtn.textContent = '☀️ Light Mode';
 
   // ✅ Toggle between modes on click
+<<<<<<< HEAD
+>>>>>>> origin/develop
+=======
 >>>>>>> origin/develop
   toggleBtn.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');

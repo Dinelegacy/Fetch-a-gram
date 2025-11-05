@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 export default function setupFeed(openPopup) {
   const section = document.getElementById("section1");
   const loadMoreBtn = document.getElementById("load-more");
@@ -117,6 +118,8 @@ export default function setupFeed(openPopup) {
       card.appendChild(actions);
       card.appendChild(comments);
 =======
+=======
+>>>>>>> origin/develop
 import likeIcon from './icons/heart-solid-full.svg?raw'; //Anna: import like icon as SVG code (needed to use it in innerHTML and change colors)
 import commentIcon from './icons/comment-solid-full.svg?raw'; //Anna: import comment icon as SVG code (needed to use it in innerHTML and change colors)
 
@@ -178,12 +181,16 @@ export default function setupFeed(openPopup) {
  // Yordanos: Insert the card into the main feed.
       card.appendChild(img);
       card.appendChild(actions);
+<<<<<<< HEAD
+>>>>>>> origin/develop
+=======
 >>>>>>> origin/develop
       section.appendChild(card);
     });
   }
 
   async function load() {
+<<<<<<< HEAD
 <<<<<<< HEAD
     const photos = await fetchPhotos(page, limit);
     allPhotos = allPhotos.concat(photos); // Jalal ADDED: update allPhotos array for popup carousel
@@ -197,6 +204,8 @@ export default function setupFeed(openPopup) {
     load();
   });
 =======
+=======
+>>>>>>> origin/develop
     loadMoreBtn.style.opacity = "0"; // Anna: Hide button during load
     await new Promise(requestAnimationFrame); // Anna: Allow UI to update
 
@@ -223,5 +232,8 @@ export default function setupFeed(openPopup) {
     load();
   });
 
+<<<<<<< HEAD
+>>>>>>> origin/develop
+=======
 >>>>>>> origin/develop
 }

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 export function renderImages() {
   const sections = document.querySelectorAll('.photo-section');
 
@@ -23,6 +24,8 @@ export function renderImages() {
     .catch((err) => console.error('Error fetching images:', err));
 }
 =======
+=======
+>>>>>>> origin/develop
 // export function renderImages() {
 //   const sections = document.querySelectorAll('.photo-section');
 
@@ -46,4 +49,7 @@ export function renderImages() {
 //     })
 //     .catch((err) => console.error('Error fetching images:', err));
 // }
+<<<<<<< HEAD
+>>>>>>> origin/develop
+=======
 >>>>>>> origin/develop
