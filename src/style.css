@@ -59,6 +59,20 @@ body {
   overflow-x: hidden;
   font-family: 'Bai Jamjuree', sans-serif;
   font-size: 16px;
+  position: relative; 
+}
+/* Anna: added 'position: relative' and 'body::after' for background decoration */
+body::after {
+  position: absolute;
+  content: "";
+  background-image: url('images/gradient.png');
+  background-repeat: repeat;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 
@@ -78,9 +92,9 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
-  
+
   background-color: inherit;
-  
+
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -96,7 +110,7 @@ body.dark-mode header {
 
 .logo {
   width: 56px;
-  
+
   height: auto;
   object-fit: contain;
   display: block;
@@ -121,7 +135,7 @@ body.dark-mode header {
   border-radius: 999px;
   cursor: pointer;
   font-size: 1rem;
-  
+
   font-weight: 600;
 }
 
@@ -160,12 +174,13 @@ body.dark-mode header {
 .photo-section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
- 
   gap: 20px;
   padding: 20px;
-  
   grid-auto-flow: dense;
+  /* Anna: position reative for loader positioning */
+  position: relative;
 }
+
 
 /* ===== CARD STYLE ===== */
 .photo-card {
@@ -291,6 +306,7 @@ body.dark-mode .actions button:hover {
   cursor: pointer;
   font-size: 1rem;
   transition: background 0.3s;
+
 }
 
 #load-more:hover {
@@ -304,17 +320,17 @@ body.dark-mode #load-more:hover {
 
 /* Popup overlay */
 #Image-popup {
-  position: fixed;           
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;             
-  height: 100vh;             
-  background-color: rgba(0, 0, 0, 0.8); 
-  display: flex;             
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;             
-  transition: opacity 0.3s ease; 
+  z-index: 1000;
+  transition: opacity 0.3s ease;
   opacity: 1;
 }
 
@@ -330,7 +346,7 @@ body.dark-mode #load-more:hover {
   max-height: 90%;
   border-radius: 8px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  cursor: pointer;           
+  cursor: pointer;
 }
 
 /* Close button */
@@ -342,7 +358,8 @@ body.dark-mode #load-more:hover {
   color: white;
   cursor: pointer;
   user-select: none;
-  z-index: 1001;             /* Make sure it’s above the image */
+  z-index: 1001;
+  /* Make sure it’s above the image */
 }
 
 
@@ -350,53 +367,56 @@ body.dark-mode #load-more:hover {
 
 /* FOOTER BOX */
 
-footer{
+footer {
   background-color: black;
   color: white;
   text-align: center;
   padding: 25px 10px;
   font-family: arial, sans-serif;
 }
-    .footer-title {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-    .footer-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      white-space: nowrap;
-      overflow-x: auto;
-      padding-bottom: 10px;
-    }
 
-    .footer-box {
-      background-color: #1e293b;
-      padding: 12px 20px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.1);
-      min-width: 160px;
-      text-align: center;
-      transition: 0.3s;
-      flex-shrink: 0;
-    }
+.footer-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
 
-      .footer-box a {
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  white-space: nowrap;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
 
-    .footer-box a:hover {
-      color: lightyellow;
-    }
-    .footer {
+.footer-box {
+  background-color: #1e293b;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 160px;
+  text-align: center;
+  transition: 0.3s;
+  flex-shrink: 0;
+}
+
+.footer-box a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footer-box a:hover {
+  color: lightyellow;
+}
+
+.footer {
   background-color: grey;
   color: white;
   padding: 15px 30px;
@@ -404,7 +424,7 @@ footer{
 
 .footer-container {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -413,9 +433,10 @@ footer{
   .footer-container {
     flex-direction: column;
     gap: 15px;
-    
+
   }
 }
+
 .footer-left {
   display: flex;
   align-items: center;
@@ -450,3 +471,88 @@ footer{
   width: 30px;
   height: auto;
 }
+
+/* Anna added: STYLES FOR LOADER ELEMENT */
+
+.lds-ripple-container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 2%;
+}
+
+.lds-ripple {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+body.dark-mode .lds-ripple div {
+  border: 4px solid #fff;
+}
+
+.lds-ripple div {
+  position: absolute;
+  border: 4px solid #333;
+  opacity: 1;
+  border-radius: 50%;
+  animation: lds-ripple 1s cubic-bezier(0, .2, .8, 1) infinite;
+}
+
+.lds-ripple div:nth-child(2) {
+  animation-delay: -.5s;
+}
+
+@keyframes lds-ripple {
+  0% {
+    top: 40px;
+    left: 40px;
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+
+  100% {
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+  }
+}
+
+/* Anna added: STYLES FOR LIKES AND COMMENTS ICONS */
+
+.likes,
+.comments-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.likes svg,
+.comments-info svg {
+  width: 20px;
+}
+
+body.dark-mode .likes svg,
+body.dark-mode .comments-info svg {
+  fill: #ffffff;
+}
+
+/* DECORATIVE GRADIENT */
+
+/* .gradient {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: -1;
+
+}
+
+.gradient img {
+  max-width: 90%;
+} */
