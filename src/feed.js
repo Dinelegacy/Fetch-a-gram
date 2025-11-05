@@ -67,16 +67,20 @@ export default function setupFeed(openPopup) {
       actions.className = "actions";
 
       // Like button + count
-      let likesCount = p.likesCount; // use API initial likes if available
-      const likeBtn = document.createElement("button");
-      likeBtn.className = "like-btn";
-      likeBtn.textContent = `❤️ ${likesCount}`;
+let likesCount = p.likesCount; // use API initial likes if available
+let liked = false; // track liked state
 
-      likeBtn.addEventListener("click", () => {
-        const liked = likeBtn.textContent.includes("❤️") && !likeBtn.textContent.includes("❤️ 0");
-        likesCount = liked ? likesCount - 1 : likesCount + 1;
-        likeBtn.textContent = `❤️ ${likesCount}`;
-      });
+const likeBtn = document.createElement("button");
+likeBtn.className = "like-btn";
+likeBtn.textContent = `❤️ ${likesCount}`;
+
+// Update like count on click
+likeBtn.addEventListener("click", () => {
+  liked = !liked; // toggle liked state
+  likesCount += liked ? 1 : -1; // increment or decrement
+  likeBtn.textContent = `❤️ ${likesCount}`; // always show emoji + count
+});
+
 
       // Comment button
       const commentBtn = document.createElement("button");

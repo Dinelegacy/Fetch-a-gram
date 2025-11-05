@@ -13,7 +13,7 @@ export default function setupPopup() {
 
       <div class="popup-right">
         <h3>Post Info</h3>
-        <p>(Your colleague will add likes, comments, etc here)</p>
+        <p>(This space is for Anna and Saheena to add likes and comments 😍 )</p>
       </div>
 
     </div>

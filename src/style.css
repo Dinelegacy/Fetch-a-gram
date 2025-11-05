@@ -259,23 +259,23 @@ body.dark-mode #load-more:hover {
 /* White Card (Professional Look) */
 .popup-card {
   background: #ffffff;
-  width: 75vw;              /* ✅ Professional width */
-  max-width: 1200px;        /* ✅ Stops stretching on large screens */
-  height: 80vh;             /* ✅ Balanced full-screen presence */
+  width: 75vw;             
+  max-width: 1200px;        
+  height: 80vh;            
   display: flex;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 6px 40px rgba(0,0,0,0.25); /* ✅ Premium drop shadow */
+  box-shadow: 0 6px 40px rgba(0,0,0,0.25); 
   position: relative;
 }
 
 /* IMAGE SIDE */
 .popup-left {
-  flex: 2.2;                /* ✅ Slightly more space for image */
+  flex: 2.2;               
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f9f9f9;      /* ✅ Soft backdrop so transparent images look good */
+  background: #f9f9f9;    
 }
 
 #popup-img {
@@ -291,6 +291,7 @@ body.dark-mode #load-more:hover {
   padding: 20px 24px;
   border-left: 1px solid #eee;
   overflow-y: auto;
+  color: #2c273d;
 }
 
 /* Close Button */
