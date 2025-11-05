@@ -16,6 +16,7 @@ export default function setupFeed(openPopup) {
       const data = await res.json();
 
       return data.data.map(p => ({
+        id:p.id,
         src: p.image_url,
         likes_count: p.likes_count ?? 0,
         comments: Array.isArray(p.comments) ? p.comments : [],
@@ -35,7 +36,11 @@ export default function setupFeed(openPopup) {
       img.src = p.src;
       img.alt = "photo";
 
-      img.addEventListener("click", () => openPopup(p.src));
+      //img.addEventListener("click", () => openPopup(p.src,p.likes_count));
+
+      img.addEventListener("click", () => {
+        openPopup(p.src, p.likes_count,p.id);
+      });
 
       const actions = document.createElement("div");
       actions.className = "actions";

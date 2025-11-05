@@ -556,3 +556,41 @@ body.dark-mode .comments-info svg {
 .gradient img {
   max-width: 90%;
 } */
+
+/* Side panel */
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.2rem;
+  align-items: center;
+  justify-content: center;
+}
+/* Like button */
+.like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  font-size: 14px;
+  background-color: #ffffff3b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.like-button .icon svg {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  fill: rgba(0, 0, 0, 0.019); 
+  transition: fill 0.2s ease; 
+}
+
+
+
