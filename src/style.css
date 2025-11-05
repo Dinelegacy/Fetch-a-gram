@@ -1,3 +1,247 @@
+
+/* ===== BASE STYLE ===== */
+
+/* Light mode default */
+body {
+  margin: 0;
+  background-color: #f9f9f9;
+  color: #121212;
+  transition: background-color 0.3s, color 0.3s;
+  font-family: system-ui, sans-serif;
+}
+
+/* Dark mode for whole page */
+body.dark-mode {
+  background-color: #0a0f24;
+  color: #ffffff;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ===== HEADER ===== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: inherit;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode header {
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logo {
+  width: 40px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.site-name {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#theme-toggle {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* Responsive header */
+@media (max-width: 768px) {
+  header {
+    padding: 0.6rem 0.75rem;
+  }
+
+  .logo {
+    width: 32px;
+  }
+
+  #theme-toggle {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    width: 28px;
+  }
+
+  .site-name {
+    font-size: 1rem;
+  }
+
+  #theme-toggle {
+    font-size: 0.8rem;
+    padding: 0.28rem 0.7rem;
+  }
+}
+
+/* ===== FEED GRID ===== */
+.photo-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /* 3 per row */
+  gap: 20px;
+  padding: 20px;
+}
+
+/* ===== CARD STYLE ===== */
+.photo-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-card:hover {
+  transform: scale(1.02);
+}
+
+.photo-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== ACTION BUTTONS ===== */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #fafafa;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.actions button {
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: inherit;
+  font-size: 0.9rem;
+}
+
+.actions button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* ===== COMMENT FORM ===== */
+.comment-form {
+  display: none;
+  /* hidden until user clicks Comment */
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.comment-input {
+  flex: 1;
+  min-width: 140px;
+  max-width: 220px;
+  padding: 6px 8px;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+}
+
+/* ===== COMMENTS LIST ===== */
+.comments {
+  display: none;
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 0.92rem;
+}
+
+.comment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.comment-time {
+  opacity: 0.7;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+/* ===== DARK MODE ===== */
+body.dark-mode .photo-card {
+  background-color: #12182b;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .actions {
+  background-color: #0a0f24;
+}
+
+body.dark-mode .comments {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.actions button:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .actions button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ===== SHOW MORE BUTTON ===== */
+#load-more {
+  display: block;
+  margin: 30px auto;
+  padding: 10px 20px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s;
+}
+
+#load-more:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode #load-more:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+
+/* Popup overlay */
 /* Overlay */
 #Image-popup {
   position: fixed;
