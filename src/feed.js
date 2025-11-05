@@ -1,5 +1,5 @@
-import likeIcon from './icons/heart-solid-full.svg?raw'; //Anna: import like icon as SVG code (needed to use it in innerHTML and change colors)
-import commentIcon from './icons/comment-solid-full.svg?raw'; //Anna: import comment icon as SVG code (needed to use it in innerHTML and change colors)
+import likeIcon from './icons/heart-solid-full.svg?raw'; // Anna: import like icon as SVG code (needed to use it in innerHTML and change colors)
+import commentIcon from './icons/comment-solid-full.svg?raw'; // Anna: import comment icon as SVG code (needed to use it in innerHTML and change colors)
 
 const loaderElement = document.querySelector('.lds-ripple-container'); // Anna: Select loader element. Already exist in the index.html
 
@@ -12,9 +12,11 @@ export default function setupFeed(openPopup) {
   const limit = 6;
   let allPhotos = []; // Jalal ADDED: store all fetched photos to use in popup carousel
 
+  // Fetch photos from API or fallback to placeholder images
   async function fetchPhotos(page, limit) {
+    const finalLimit = limit || 6; // fallback to 6 if undefined
     try {
-      const res = await fetch(`https://image-feed-api.vercel.app/photos?limit=${limit}&page=${page}`);
+      const res = await fetch(`https://image-feed-api.vercel.app/photos?limit=${finalLimit}&page=${page}`);
       const data = await res.json();
       return data.map(p => ({
         src: p.url || p.download_url || "",
@@ -22,14 +24,16 @@ export default function setupFeed(openPopup) {
         likesCount: p.likes_count || 0, // Jalal ADDED: store initial likes from API
         commentsList: p.comments || [], // Jalal ADDED: store initial comments from API
       })).filter(p => p.src);
-    } catch {
-      return Array.from({ length: limit }, (_, i) => ({
+    } catch (err) {
+      console.warn("API fetch failed, using placeholder images:", err);
+      return Array.from({ length: finalLimit }, (_, i) => ({
         src: `https://picsum.photos/seed/${page}-${i}/600/400`,
         alt: "placeholder",
       }));
     }
   }
 
+  // Add a comment element to the comment list
   function addComment(listEl, text) {
     const row = document.createElement("div");
     row.className = "comment";
@@ -46,6 +50,7 @@ export default function setupFeed(openPopup) {
     listEl.appendChild(row);
   }
 
+  // Render photos into the DOM
   function renderPhotos(photos) {
     photos.forEach((p, i) => {
       const card = document.createElement("div");
@@ -62,7 +67,7 @@ export default function setupFeed(openPopup) {
       actions.className = "actions";
 
       // Like button + count
-      let likesCount = 0; // this needs to be merged with Anna's individual likes
+      let likesCount = p.likesCount; // use API initial likes if available
       const likeBtn = document.createElement("button");
       likeBtn.className = "like-btn";
       likeBtn.textContent = `❤️ ${likesCount}`;
@@ -98,7 +103,7 @@ export default function setupFeed(openPopup) {
       const comments = document.createElement("div");
       comments.className = "comments";
 
-      // Toggle comment form
+      // Toggle comment form visibility
       commentBtn.addEventListener("click", () => {
         form.style.display = form.style.display === "flex" ? "none" : "flex";
       });
@@ -107,7 +112,7 @@ export default function setupFeed(openPopup) {
       const postComment = () => {
         const text = input.value.trim();
         if (!text) return;
-        addComment(comments, `You: ${text}`); // this needs to merge Anna's comments
+        addComment(comments, `You: ${text}`); // Jalal: keep live comments
         input.value = "";
         comments.style.display = "block";
         comments.scrollTop = comments.scrollHeight;
@@ -124,20 +129,21 @@ export default function setupFeed(openPopup) {
     });
   }
 
+  // Load photos from API
   async function load() {
     loadMoreBtn.style.opacity = "0"; // Anna: Hide button during load
     await new Promise(requestAnimationFrame); // Anna: Allow UI to update
 
     const photos = [
       // Andreas valegard: Fetch three consecutive pages in parallel, then combine.
-      ...await fetchPhotos(page),
-      ...await fetchPhotos(page + 1),
-      ...await fetchPhotos(page + 2)
+      ...await fetchPhotos(page, limit),
+      ...await fetchPhotos(page + 1, limit),
+      ...await fetchPhotos(page + 2, limit)
     ];
 
     renderPhotos(photos); // Yordanos: Paint all fetched photos to the DOM.
 
-    loaderElement.remove(); // Anna: Remove loader element after first load of images collection
+    loaderElement.remove(); // Anna: Remove loader element after first load
     loadMoreBtn.style.opacity = "1"; // Anna: return button after load
   }
 
@@ -145,7 +151,6 @@ export default function setupFeed(openPopup) {
 
   // Yordanos: On click, move the paging window forward by 3 and load more photos.
   loadMoreBtn.addEventListener("click", () => {
-    // Andreas valegard: Advance pagination in steps of three pages.
     page = page + 3;
     load();
   });
