@@ -1,6 +1,4 @@
 export default function setupPopup() {
-<<<<<<< HEAD
-<<<<<<< HEAD
   const popup = document.createElement("div");
   popup.id = "Image-popup";
   popup.className = "hidden";
@@ -17,34 +15,16 @@ export default function setupPopup() {
         <h3>Post Info</h3>
         <p>(This space is for Anna and Saheena to add likes and comments 😍)</p>
       </div>
-
     </div>
 
     <button id="prev-popup" class="popup-nav">&#10094;</button>
     <button id="next-popup" class="popup-nav">&#10095;</button>
-=======
-=======
->>>>>>> origin/develop
-    const popup = document.createElement("div");
-    popup.id = "Image-popup" 
-    popup.className = "hidden";
-
-   popup.innerHTML = `
-    <span id="close-popup">&times;</span>
-    <img id="popup-img" src="" alt="popup image">
-<<<<<<< HEAD
->>>>>>> origin/develop
-=======
->>>>>>> origin/develop
   `;
 
   document.body.appendChild(popup);
 
   const popupImg = popup.querySelector("#popup-img");
   const closeBtn = popup.querySelector("#close-popup");
-
-<<<<<<< HEAD
-<<<<<<< HEAD
   const prevBtn = popup.querySelector("#prev-popup");
   const nextBtn = popup.querySelector("#next-popup");
 
@@ -70,20 +50,3 @@ export default function setupPopup() {
     popup.classList.remove("hidden");
   };
 }
-=======
-=======
->>>>>>> origin/develop
-  closeBtn.addEventListener("click", () => {
-    popup.classList.add("hidden");
-  });
-
-  return function openPopup(src){
-    popupImg.src = src;
-    popup.classList.remove("hidden");
-  };
-<<<<<<< HEAD
-}
->>>>>>> origin/develop
-=======
-}
->>>>>>> origin/develop

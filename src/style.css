@@ -1,9 +1,4 @@
 /* ===== BASE STYLE ===== */
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> origin/develop
 *,
 *::before,
 *::after {
@@ -47,10 +42,6 @@ main {
 img {
   display: block;
 }
-<<<<<<< HEAD
->>>>>>> origin/develop
-=======
->>>>>>> origin/develop
 
 /* Light mode default */
 body {
@@ -58,25 +49,17 @@ body {
   background-color: #f9f9f9;
   color: #121212;
   transition: background-color 0.3s, color 0.3s;
-  font-family: system-ui, sans-serif;
-<<<<<<< HEAD
-<<<<<<< HEAD
-}
-=======
-=======
->>>>>>> origin/develop
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 16px;
   min-height: 100vh;
   width: 100%;
-  min-width: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow-x: hidden;
-  font-family: 'Bai Jamjuree', sans-serif;
-  font-size: 16px;
-  position: relative; 
+  position: relative;
 }
-/* Anna: added 'position: relative' and 'body::after' for background decoration */
+
 body::after {
   position: absolute;
   content: "";
@@ -89,11 +72,6 @@ body::after {
   height: 100%;
   z-index: -1;
 }
-
-<<<<<<< HEAD
->>>>>>> origin/develop
-=======
->>>>>>> origin/develop
 
 /* Dark mode for whole page */
 body.dark-mode {
@@ -110,21 +88,8 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-<<<<<<< HEAD
-<<<<<<< HEAD
-  padding: 0.75rem 1rem;
-  background-color: inherit;
-=======
-=======
->>>>>>> origin/develop
   padding: 1.5rem 2rem;
-
   background-color: inherit;
-
-<<<<<<< HEAD
->>>>>>> origin/develop
-=======
->>>>>>> origin/develop
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -139,17 +104,7 @@ body.dark-mode header {
 }
 
 .logo {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  width: 40px;
-=======
   width: 56px;
-
->>>>>>> origin/develop
-=======
-  width: 56px;
-
->>>>>>> origin/develop
   height: auto;
   object-fit: contain;
   display: block;
@@ -169,26 +124,11 @@ body.dark-mode header {
   background: transparent;
   border: 1px solid currentColor;
   color: inherit;
-<<<<<<< HEAD
-<<<<<<< HEAD
-  padding: 0.35rem 0.85rem;
-  border-radius: 999px;
-  cursor: pointer;
-  font-size: 0.9rem;
-=======
-=======
->>>>>>> origin/develop
   padding: 0.6rem 1.1rem;
-  /* bigger */
   border-radius: 999px;
   cursor: pointer;
   font-size: 1rem;
-
   font-weight: 600;
-<<<<<<< HEAD
->>>>>>> origin/develop
-=======
->>>>>>> origin/develop
 }
 
 /* Responsive header */
@@ -226,28 +166,12 @@ body.dark-mode header {
 .photo-section {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-<<<<<<< HEAD
-<<<<<<< HEAD
-  /* 3 per row */
-  gap: 20px;
-  padding: 20px;
-}
-
-=======
-=======
->>>>>>> origin/develop
   gap: 20px;
   padding: 20px;
   grid-auto-flow: dense;
-  /* Anna: position reative for loader positioning */
   position: relative;
 }
 
-
-<<<<<<< HEAD
->>>>>>> origin/develop
-=======
->>>>>>> origin/develop
 /* ===== CARD STYLE ===== */
 .photo-card {
   background: #ffffff;
@@ -258,14 +182,7 @@ body.dark-mode header {
   transition: transform 0.2s;
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   cursor: pointer;
->>>>>>> origin/develop
-=======
-  cursor: pointer;
->>>>>>> origin/develop
 }
 
 .photo-card:hover {
@@ -306,7 +223,6 @@ body.dark-mode header {
 /* ===== COMMENT FORM ===== */
 .comment-form {
   display: none;
-  /* hidden until user clicks Comment */
   align-items: center;
   gap: 8px;
   margin-left: auto;
@@ -359,10 +275,6 @@ body.dark-mode .comments {
   border-top-color: rgba(255, 255, 255, 0.12);
 }
 
-.actions button:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
 body.dark-mode .actions button:hover {
   background: rgba(255, 255, 255, 0.12);
 }
@@ -379,14 +291,6 @@ body.dark-mode .actions button:hover {
   cursor: pointer;
   font-size: 1rem;
   transition: background 0.3s;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/develop
-=======
-
->>>>>>> origin/develop
 }
 
 #load-more:hover {
@@ -397,97 +301,7 @@ body.dark-mode #load-more:hover {
   background: rgba(255, 255, 255, 0.12);
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-/* Popups css section */
-
-/* Overlay */
-#Image-popup {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.45);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 3000;
-}
-
-/* Hide */
-#Image-popup.hidden { display: none; }
-
-/* White Card  */
-.popup-card {
-  background: #ffffff;
-  width: 75vw;             
-  max-width: 1200px;       
-  height: 80vh;            
-  display: flex;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 6px 40px rgba(0,0,0,0.25); 
-  position: relative;
-}
-
-/* IMAGE SIDE */
-.popup-left {
-  flex: 2.2;                
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f9f9f9;      
-}
-
-#popup-img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-/* INFO SIDE (Right Panel) */
-.popup-right {
-  flex: 1;
-  background: #ffffff;
-  padding: 20px 24px;
-  border-left: 1px solid #eee;
-  overflow-y: auto;
-}
-
-/* Close Button */
-#close-popup {
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  font-size: 2.2rem;
-  cursor: pointer;
-  color: #333;
-}
-
-/* Next / Prev Arrows */
-.popup-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: white;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 0.4rem 0.7rem;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-  transition: 0.2s;
-}
-
-.popup-nav:hover {
-  transform: translateY(-50%) scale(1.12);
-}
-
-#prev-popup { left: 30px; }
-#next-popup { right: 30px; }
-=======
-=======
->>>>>>> origin/develop
-
-/* Popup overlay */
+/* ===== POPUPS ===== */
 #Image-popup {
   position: fixed;
   top: 0;
@@ -503,13 +317,11 @@ body.dark-mode #load-more:hover {
   opacity: 1;
 }
 
-/* Hidden by default */
 #Image-popup.hidden {
   display: none;
   opacity: 0;
 }
 
-/* The popup image */
 #Image-popup img {
   max-width: 90%;
   max-height: 90%;
@@ -518,7 +330,6 @@ body.dark-mode #load-more:hover {
   cursor: pointer;
 }
 
-/* Close button */
 #close-popup {
   position: absolute;
   top: 20px;
@@ -528,14 +339,9 @@ body.dark-mode #load-more:hover {
   cursor: pointer;
   user-select: none;
   z-index: 1001;
-  /* Make sure it’s above the image */
 }
 
-
-
-
-/* FOOTER BOX */
-
+/* ===== FOOTER ===== */
 footer {
   background-color: black;
   color: white;
@@ -585,148 +391,4 @@ footer {
   color: lightyellow;
 }
 
-.footer {
-  background-color: grey;
-  color: white;
-  padding: 15px 30px;
-}
 
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    gap: 15px;
-
-  }
-}
-
-.footer-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.footer-left a {
-  color: white;
-  text-decoration: none;
-}
-
-.footer-left a:hover {
-  color: #f4b400;
-}
-
-.footer-right {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.footer-right a {
-  color: white;
-  text-decoration: none;
-}
-
-.footer-right a:hover {
-  color: #f4b400;
-}
-
-.logo {
-  width: 30px;
-  height: auto;
-}
-
-/* Anna added: STYLES FOR LOADER ELEMENT */
-
-.lds-ripple-container {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 2%;
-}
-
-.lds-ripple {
-  display: inline-block;
-  position: relative;
-  width: 80px;
-  height: 80px;
-}
-
-body.dark-mode .lds-ripple div {
-  border: 4px solid #fff;
-}
-
-.lds-ripple div {
-  position: absolute;
-  border: 4px solid #333;
-  opacity: 1;
-  border-radius: 50%;
-  animation: lds-ripple 1s cubic-bezier(0, .2, .8, 1) infinite;
-}
-
-.lds-ripple div:nth-child(2) {
-  animation-delay: -.5s;
-}
-
-@keyframes lds-ripple {
-  0% {
-    top: 40px;
-    left: 40px;
-    width: 0;
-    height: 0;
-    opacity: 1;
-  }
-
-  100% {
-    top: 0;
-    left: 0;
-    width: 80px;
-    height: 80px;
-    opacity: 0;
-  }
-}
-
-/* Anna added: STYLES FOR LIKES AND COMMENTS ICONS */
-
-.likes,
-.comments-info {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.likes svg,
-.comments-info svg {
-  width: 20px;
-}
-
-body.dark-mode .likes svg,
-body.dark-mode .comments-info svg {
-  fill: #ffffff;
-}
-
-/* DECORATIVE GRADIENT */
-
-/* .gradient {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  z-index: -1;
-
-}
-
-.gradient img {
-  max-width: 90%;
-<<<<<<< HEAD
-} */
->>>>>>> origin/develop
-=======
-} */
->>>>>>> origin/develop
