@@ -13,8 +13,9 @@ export default function setupPopup() {
 
       <div class="popup-right">
         <h3>Post Info</h3>
-        <p>(This space is for Anna and Saheena to add likes and comments 😍)</p>
+        <p>(Your colleague will add likes, comments, etc here)</p>
       </div>
+
     </div>
 
     <button id="prev-popup" class="popup-nav">&#10094;</button>
@@ -25,6 +26,7 @@ export default function setupPopup() {
 
   const popupImg = popup.querySelector("#popup-img");
   const closeBtn = popup.querySelector("#close-popup");
+
   const prevBtn = popup.querySelector("#prev-popup");
   const nextBtn = popup.querySelector("#next-popup");
 
