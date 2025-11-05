@@ -23,16 +23,13 @@ export default function setupPopup() {
   const iconSpan = likeBtn.querySelector(".icon");
   const countSpan = likeBtn.querySelector(".count");
 
-  closeBtn.addEventListener("click", () => {
-    popup.classList.add("hidden");
-  });  //1. for the likes to be reflected in feed , should we reload the page or the section,else feed will still show old like count
-
   let currentImageId = null;
-  let userHasLiked = false; 
+  let userHasLiked = false;
 
+  // ✅ Function to open the popup
   function openPopup(src, likes = 0, id) {
     currentImageId = id;
-    userHasLiked = false; 
+    userHasLiked = false;
     popupImg.src = src;
 
     const cleanIcon = likeIcon.replace(/\n/g, '');
@@ -48,36 +45,68 @@ export default function setupPopup() {
     };
   }
 
-  likeBtn.addEventListener("click", () => {
-    //if (!currentImageId || userHasLiked) return;
-    //userHasLiked = true; 
-    likeImage(currentImageId);
+  // ✅ Close popup and refresh the feed card
+  closeBtn.addEventListener("click", async () => {
+    popup.classList.add("hidden");
+    if (currentImageId) {
+      await refreshSingleImage(currentImageId);
+    }
   });
 
+  // ✅ Handle like click inside popup
+  likeBtn.addEventListener("click", async () => {
+    if (!currentImageId) return;
+    await likeImage(currentImageId);
+  });
+
+  // ✅ Like image via API and update popup + feed instantly
   async function likeImage(id) {
-    try {
+   
       const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
+
       if (data.success) {
         const count = data.likes_count ?? 0;
         countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
         const svgEl = iconSpan.querySelector("svg");
         if (svgEl) svgEl.style.fill = "red";
-      } else {
+
+        // ✅ Update feed immediately
+        await updateLikeCountInFeed(id, count);
+      } 
+      else {
         console.error("Failed to update like:", data);
       }
+    
+    
+  }
+
+  // // ✅ Fetch single image data from API and update its likes in feed
+   async function refreshSingleImage(id) {
+     try {
+       const res = await fetch(`https://image-feed-api.vercel.app/api/images/${id}`);
+      const p = await res.json();
+      
+      if (!p) return;
+      updateLikeCountInFeed(p.id, p.likes_count ?? 0);
     } catch (err) {
-      console.error("Error liking image:", err);
+       console.error("Error refreshing image:", err);
+     }
+   
+  }
+
+  // ✅ Directly update the `.likes` span in the feed
+  async function updateLikeCountInFeed(id, newCount) {
+    const likeSpan = document.querySelector(`img[id="${id}"] ~ .actions .likes`);
+    if (likeSpan) {
+      likeSpan.innerHTML = `${likeIcon} ${newCount} ${newCount === 1 ? "Like" : "Likes"}`;
+    } else {
+      console.warn(`Like span not found for image id: ${id}`);
     }
   }
 
   return openPopup;
 }
-
- 
-// 2. mark as clicked if user already clicked? (if so remove comments at 52,53), check if its okay or multiple likes allowed

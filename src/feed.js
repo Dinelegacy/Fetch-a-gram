@@ -34,14 +34,16 @@ export default function setupFeed(openPopup) {
 
       const img = document.createElement("img");
       img.src = p.src;
+      img.id = p.id;
       img.alt = "photo";
 
-      //img.addEventListener("click", () => openPopup(p.src,p.likes_count));
-
-      img.addEventListener("click", () => {
-        openPopup(p.src, p.likes_count,p.id);
-      });
-
+  img.addEventListener("click", () => {
+  const likeSpan = img.parentElement.querySelector(".likes");
+  const match = likeSpan?.textContent.match(/\d+/);
+  const currentLikes = match ? parseInt(match[0], 10) : 0;
+  
+  openPopup(p.src, currentLikes, p.id);
+}); //instead of sending first api fetched data send the dom like data dynamically
       const actions = document.createElement("div");
       actions.className = "actions";
 
