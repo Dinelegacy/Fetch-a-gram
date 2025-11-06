@@ -1,5 +1,41 @@
 
-/* ===== BASE STYLE ===== */
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/BaiJamjuree-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
+  font-weight: 500;
+  src: url('./fonts/BaiJamjuree-Medium.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bai Jamjuree';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./fonts/BaiJamjuree-Bold.woff2') format('woff2');
+  font-display: swap;
+}
+
+main {
+  flex-grow: 1;
+  padding: 20px 40px;
+}
+
+img {
+  display: block;
+}
 
 /* Light mode default */
 body {
@@ -8,6 +44,29 @@ body {
   color: #121212;
   transition: background-color 0.3s, color 0.3s;
   font-family: system-ui, sans-serif;
+  min-height: 100vh;
+  width: 100%;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-x: hidden;
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-size: 16px;
+  position: relative; 
+}
+/* Anna: added 'position: relative' and 'body::after' for background decoration */
+body::after {
+  position: absolute;
+  content: "";
+  background-image: url('./images/gradient.png');
+  background-repeat: repeat;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 
 /* Dark mode for whole page */
