@@ -1,3 +1,5 @@
+import { renderComments } from './comments.js';
+
 export default function setupPopup() {
   const popup = document.createElement("div");
   popup.id = "Image-popup";
@@ -46,9 +48,16 @@ export default function setupPopup() {
   });
 
   return function openPopup(index, allPhotos) {
+    const photo = allPhotos[index];
     currentIndex = index;
     photosArray = allPhotos.map(photo => photo.src || photo.url || photo);
-    popupImg.src = photosArray[currentIndex];
+    // popupImg.src = photosArray[currentIndex];
+    popupImg.src = photo.src;
     popup.classList.remove("hidden");
+    const popupRight = popup.querySelector('.popup-right');
+    renderComments(photo.comments, popupRight);
   };
 }
+ 
+  
+

@@ -24,7 +24,7 @@ export default function setupFeed(openPopup) {
         src: p.image_url,// Yordanos: Image source URL used by the <img>.
         likes_count: p.likes_count ?? 0,
         comments: Array.isArray(p.comments) ? p.comments : [],
-      }));
+            }));
     } catch (err) {
       console.error("Error loading API:", err); // Yordanos: Log and recover.
       return [];// Yordanos: Return empty list so UI keeps working even if a page fails.
@@ -41,8 +41,9 @@ export default function setupFeed(openPopup) {
       img.src = p.src;
       img.alt = "photo";
     
-      img.addEventListener("click", () => openPopup(i, photos.map(p => ({ url: p.src })))); // Jalal 
-    
+      // img.addEventListener("click", () => openPopup(i, photos.map(p => ({ url: p.src })))); // Jalal 
+      img.addEventListener("click", () => openPopup(i, photos));
+
 
       const actions = document.createElement("div");
       actions.className = "actions";
