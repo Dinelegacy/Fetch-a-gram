@@ -42,8 +42,14 @@ export default function setupFeed(openPopup) {
       img.src = p.src;
       img.alt = "photo";
     
-      img.addEventListener("click", () => openPopup(i, photos.map(p => ({ url: p.src })))); // Jalal 
-    
+      img.addEventListener("click", () => {
+        const likeSpan = img.parentElement.querySelector(".likes");
+  const match = likeSpan?.textContent.match(/\d+/);
+  const currentLikes = match ? parseInt(match[0], 10) : 0;
+     // openPopup(i,photos.map(p => ({ url: p.src }))); // Jalal 
+      openPopup(i, photos.map(p => ({ url: p.src, id: p.id, likes: p.likes_count })));
+
+      });
 
       const actions = document.createElement("div");
       actions.className = "actions"; // Yordanos: Row for likes and comments counters.
