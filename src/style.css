@@ -663,7 +663,7 @@ body.dark-mode #site-header {
   padding: 4px 8px;
   font-size: 14px;
   background-color: #ffffff3b;
-  color: #fff;
+  color:black;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -676,3 +676,77 @@ body.dark-mode #site-header {
   fill: rgba(0, 0, 0, 0.019); 
   transition: fill 0.2s ease; 
 }
+.like-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 40px;
+  border-radius: 30px; /* rounded pill shape */
+  background: linear-gradient(135deg, #ff7eb9, #ff758c); /* gradient background */
+  color: #fff; /* text color */
+  font-family: "Poppins", "Roboto", sans-serif; /* modern font stack */
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* soft shadow */
+  transition: all 0.3s ease;
+  user-select: none; /* prevents text selection */
+}
+
+.like-box:hover {
+  transform: translateY(-3px); /* subtle lift effect */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  background: linear-gradient(135deg, #ff758c, #ff7eb9); /* hover gradient */
+}
+
+.like-box:active {
+  transform: translateY(0); /* press effect */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

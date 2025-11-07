@@ -14,16 +14,16 @@ export default function setupPopup() {
 
       <div class="popup-right">
         <h3>Post Info</h3>
-        <div class="like">
-              <button id="like-btn" class="like-button">
-        <span class="icon"></span> 
-        <span class="count">0 Likes</span>
-      </button>
-    </div>
+  <div class="like-box" onclick="likeFunction()">
+    <div>
+    <button id="like-btn" class="like-button">
+      <span class="icon"></span> 
+      <span class="count">0 Likes</span>
+    </button>
+  </div>
+</div>
       </div>
-      </div>
-
-    </div>
+      
 
     <button id="prev-popup" class="popup-nav">&#10094;</button>
     <button id="next-popup" class="popup-nav">&#10095;</button>
@@ -43,57 +43,57 @@ export default function setupPopup() {
   let currentIndex = 0;
   let photosArray = [];
 
-  
 
-  closeBtn.addEventListener("click" , async() => {
+
+  closeBtn.addEventListener("click", async () => {
     popup.classList.add("hidden");
     if (currentImageId) {
       await refreshSingleImage(currentImageId);
     }
   });
-  
+
   // ✅ Handle like click inside popup
   likeBtn.addEventListener("click", async () => {
     if (!currentImageId) return;
     await likeImage(currentImageId);
   });
-    // ✅ Like image via API and update popup + feed instantly
+  // ✅ Like image via API and update popup + feed instantly
   async function likeImage(id) {
-   
-      const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await response.json();
 
-      if (data.success) {
-        const count = data.likes_count ?? 0;
-        countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
-        const svgEl = iconSpan.querySelector("svg");
-        if (svgEl) svgEl.style.fill = "red";
+    const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await response.json();
 
-        // ✅ Update feed immediately
-        await updateLikeCountInFeed(id, count);
-      } 
-      else {
-        console.error("Failed to update like:", data);
-      }
-    
-    
+    if (data.success) {
+      const count = data.likes_count ?? 0;
+      countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
+      const svgEl = iconSpan.querySelector("svg");
+      if (svgEl) svgEl.style.fill = "red";
+
+      // ✅ Update feed immediately
+      await updateLikeCountInFeed(id, count);
+    }
+    else {
+      console.error("Failed to update like:", data);
+    }
+
+
   }
 
   // // ✅ Fetch single image data from API and update its likes in feed
-   async function refreshSingleImage(id) {
-     try {
-       const res = await fetch(`https://image-feed-api.vercel.app/api/images/${id}`);
+  async function refreshSingleImage(id) {
+    try {
+      const res = await fetch(`https://image-feed-api.vercel.app/api/images/${id}`);
       const p = await res.json();
-      
+
       if (!p) return;
       updateLikeCountInFeed(p.id, p.likes_count ?? 0);
     } catch (err) {
-       console.error("Error refreshing image:", err);
-     }
-   
+      console.error("Error refreshing image:", err);
+    }
+
   }
 
   // ✅ Directly update the `.likes` span in the feed
@@ -135,6 +135,6 @@ export default function setupPopup() {
       popup.classList.remove("hidden");
     };
   }
-    return openPopup;
+  return openPopup;
 
 }
