@@ -655,3 +655,24 @@ body.dark-mode #site-header {
     padding: 0.9rem 1rem;
   }
 }
+/* Like button */
+.like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  font-size: 14px;
+  background-color: #ffffff3b;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.like-button .icon svg {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  fill: rgba(0, 0, 0, 0.019); 
+  transition: fill 0.2s ease; 
+}
