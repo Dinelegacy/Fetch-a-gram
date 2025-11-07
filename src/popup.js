@@ -47,7 +47,7 @@ export default function setupPopup() {
     popupImg.src = photosArray[currentIndex];
   });
 
-  return function openPopup(index, allPhotos) {
+  return function openPopup(index, allPhotos) { // Anna: modified to accept allPhotos
     const photo = allPhotos[index];
     currentIndex = index;
     photosArray = allPhotos.map(photo => photo.src || photo.url || photo);
@@ -55,9 +55,9 @@ export default function setupPopup() {
     popupImg.src = photo.src;
     popup.classList.remove("hidden");
     const popupRight = popup.querySelector('.popup-right');
-    renderComments(photo.comments, popupRight);
+    renderComments(photo.comments, popupRight); // Anna: render comments in the popup right section
   };
 }
- 
+
   
 

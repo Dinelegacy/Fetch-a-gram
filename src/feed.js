@@ -42,7 +42,7 @@ export default function setupFeed(openPopup) {
       img.alt = "photo";
     
       // img.addEventListener("click", () => openPopup(i, photos.map(p => ({ url: p.src })))); // Jalal 
-      img.addEventListener("click", () => openPopup(i, photos));
+      img.addEventListener("click", () => openPopup(i, photos)); // Anna: needed to fix for commens function 
 
 
       const actions = document.createElement("div");

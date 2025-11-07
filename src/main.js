@@ -8,3 +8,12 @@ const openPopup = setupPopup();
 
 setupHeader();
 setupFeed(openPopup);
+
+async function getAll() {
+    const res = await fetch('https://image-feed-api.vercel.app/api/images?page=1');
+  const data = await res.json();
+
+  console.log('📸 Full API response:', data);
+}
+
+getAll();
