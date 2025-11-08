@@ -26,6 +26,10 @@ export default function setupPopup() {
     <button id="next-popup" class="popup-nav">&#10095;</button>
   `;
 
+  // TODO: delete old elements:
+  // <h3>Post Info</h3>
+  // <p>(This space is for Anna and Saheena to add likes and comments 😍 )</p> 
+
   document.body.appendChild(popup);
 
   const popupImg = popup.querySelector("#popup-img");

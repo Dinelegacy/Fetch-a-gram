@@ -5,7 +5,7 @@ import commentIcon from './icons/comment-solid-full.svg?raw'; //Anna: import com
 const loaderElement = document.querySelector('.lds-ripple-container'); // Anna: Select loader element. Alrady exist in the index.html
 
 export default function setupFeed(openPopup) {
-   // Yordanos: Grab the main feed section and the "Load more" button.
+  // Yordanos: Grab the main feed section and the "Load more" button.
   const section = document.getElementById("section1");
   const loadMoreBtn = document.getElementById("load-more");
   if (!section || !loadMoreBtn) return;// Yordanos: If required elements are missing, exit early to avoid errors.
@@ -14,7 +14,7 @@ export default function setupFeed(openPopup) {
   const limit = 6;
   let allPhotos = [];
 
-   // Yordanos: Fetch one page of photos from the API and normalize the shape we use in the UI.
+  // Yordanos: Fetch one page of photos from the API and normalize the shape we use in the UI.
   async function fetchPhotos(page) {
     try {
       const res = await fetch(`https://image-feed-api.vercel.app/api/images?page=${page}`);
@@ -26,15 +26,15 @@ export default function setupFeed(openPopup) {
         src: p.image_url,// Yordanos: Image source URL used by the <img>.
         likes_count: p.likes_count ?? 0,
         comments: Array.isArray(p.comments) ? p.comments : [],
-            }));
+      }));
     } catch (err) {
       console.error("Error loading API:", err); // Yordanos: Log and recover.
       return [];// Yordanos: Return empty list so UI keeps working even if a page fails.
     }
-    
+
   }
-  
-  
+
+
   // Yordanos: Render a list of photos into the feed (DOM creation + event wiring).
   function renderPhotos(photos) {
     photos.forEach((p, i) => {
@@ -44,7 +44,7 @@ export default function setupFeed(openPopup) {
       const img = document.createElement("img");
       img.src = p.src;
       img.alt = "photo";
-    
+
       img.addEventListener("click", () => openPopup(i, photos)); // Anna: needed to fix for commens function 
 
 
@@ -63,14 +63,14 @@ export default function setupFeed(openPopup) {
       // Yordanos: Attach counters to the actions row, then assemble the card.
       actions.appendChild(likeInfo);
       actions.appendChild(commentsInfo);
- // Yordanos: Insert the card into the main feed.
+      // Yordanos: Insert the card into the main feed.
       card.appendChild(img);
       card.appendChild(actions);
       section.appendChild(card); // Yordanos: Insert the card into the main feed.
     });
   }
 
-  
+
   async function load() {
     loadMoreBtn.style.opacity = "0"; // Anna: Hide button during load
     await new Promise(requestAnimationFrame); // Anna: Allow UI to update
@@ -96,7 +96,7 @@ export default function setupFeed(openPopup) {
   // Yordanos: On click, move the paging window forward by 3 and load more photos.
   loadMoreBtn.addEventListener("click", () => {
     // Andreas valegard: Advance pagination in steps of three pages.
- page = page + 3;
+    page = page + 3;
     load();
   });
 

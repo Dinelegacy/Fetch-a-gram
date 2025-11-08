@@ -1,8 +1,8 @@
 export function renderComments(photo, container) {
-    // clenup old comments container
+    // delete old comments 
     container.querySelectorAll('.comments-container').forEach(el => el.remove());
 
-    // create elements
+    // create comments elements
     const commentsContainer = document.createElement('div');
     commentsContainer.className = 'comments-container';
 
@@ -34,23 +34,20 @@ export function renderComments(photo, container) {
     const commentInput = popup.querySelector('.input-comment');
 
     let visibleCount = 3;
-    let localComments = Array.isArray(photo.comments) ? [...photo.comments] : [];
 
-    // to show newest comments first
-    localComments.reverse();
+    // create a local copy of comments in reverse order (newest first)
+    let localComments = Array.isArray(photo.comments) ? [...photo.comments].reverse() : [];
 
     const listEl = document.createElement('ul');
     listEl.classList.add('comments-list');
     commentsContainer.appendChild(listEl);
 
-    // update info text
     const updateInfo = () => {
         const total = localComments.length;
         const shown = listEl.querySelectorAll('.comment').length;
         info.textContent = `${shown} of ${total} comments`;
     };
 
-    // open/close popup
     const openCommentPopup = () => {
         popup.classList.add('active');
         document.body.classList.add('popup-open');
@@ -61,7 +58,6 @@ export function renderComments(photo, container) {
         document.body.classList.remove('popup-open');
     };
 
-    // show comments
     const renderVisible = () => {
         listEl.innerHTML = '';
 
@@ -82,16 +78,16 @@ export function renderComments(photo, container) {
             const item = document.createElement('li');
             item.className = 'comment';
 
-            const text = document.createElement('p');
-            text.className = 'comment-text';
-            text.textContent = c.comment;
-
             const author = document.createElement('p');
             author.className = 'comment-author';
             author.textContent = `Author: ${c.commenter_name}`;
 
-            item.appendChild(text);
+            const text = document.createElement('p');
+            text.className = 'comment-text';
+            text.textContent = c.comment;
+
             item.appendChild(author);
+            item.appendChild(text);
             listEl.appendChild(item);
         });
 
@@ -100,7 +96,7 @@ export function renderComments(photo, container) {
             visibleCount >= localComments.length ? 'none' : 'block';
     };
 
-    // add comment handler
+    // add comment 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const name = nameInput.value.trim();
@@ -109,7 +105,7 @@ export function renderComments(photo, container) {
 
         const id = photo.id;
         if (!id) {
-            console.error('❌Missing photo ID, please reopen the popup');
+            console.error('❌ Missing photo ID, please reopen the popup');
             return;
         }
 
@@ -124,12 +120,9 @@ export function renderComments(photo, container) {
             const data = await res.json();
 
             if (data.success) {
-                const newComment = {
-                    ...data.comment,
-                    date: new Date().toISOString() // to have date 
-                };
+                const newComment = data.comment;
 
-                // add new comment locally
+                // show latest comment on top
                 localComments.unshift(newComment);
                 if (!Array.isArray(photo.comments)) photo.comments = [];
                 photo.comments.unshift(newComment);
@@ -140,7 +133,7 @@ export function renderComments(photo, container) {
                 commentInput.value = '';
                 closeCommentPopup();
 
-                // update comments count in the photo card
+                // update comments counter in the photo card
                 const card = document.querySelector(`.photo-card[data-photo-id="${id}"]`);
                 const counter = card?.querySelector('.comments-info');
                 if (counter) {
@@ -172,6 +165,7 @@ export function renderComments(photo, container) {
         }
     });
 
+    // render 
     renderVisible();
     commentsContainer.appendChild(btns);
     container.appendChild(commentsContainer);
