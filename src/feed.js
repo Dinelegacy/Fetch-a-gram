@@ -1,3 +1,4 @@
+
 import likeIcon from './icons/heart-solid-full.svg?raw'; //Anna: import like icon as SVG code (needed to use it in innerHTML and change colors)
 import commentIcon from './icons/comment-solid-full.svg?raw'; //Anna: import comment icon as SVG code (needed to use it in innerHTML and change colors)
 
@@ -46,7 +47,7 @@ export default function setupFeed(openPopup) {
 
 
       const actions = document.createElement("div");
-      actions.className = "actions";
+      actions.className = "actions"; // Yordanos: Row for likes and comments counters.
 
       const likeInfo = document.createElement("span");
       likeInfo.className = "likes";
@@ -57,20 +58,22 @@ export default function setupFeed(openPopup) {
       commentsInfo.className = "comments-info";
       commentsInfo.innerHTML = `${commentIcon} ${commentsCount} ${commentsCount === 1 ? 'Comment' : 'Comments'}`; // Anna: Use commentIcon SVG code here
 
-
+      // Yordanos: Attach counters to the actions row, then assemble the card.
       actions.appendChild(likeInfo);
       actions.appendChild(commentsInfo);
  // Yordanos: Insert the card into the main feed.
       card.appendChild(img);
       card.appendChild(actions);
-      section.appendChild(card);
+      section.appendChild(card); // Yordanos: Insert the card into the main feed.
     });
   }
 
+  
   async function load() {
     loadMoreBtn.style.opacity = "0"; // Anna: Hide button during load
     await new Promise(requestAnimationFrame); // Anna: Allow UI to update
 
+    // Yordanos
     const photos = [
       //Andreas valegard: Fetch three consecutive pages in parallel, then combine.
       ...await fetchPhotos(page),
@@ -88,6 +91,7 @@ export default function setupFeed(openPopup) {
   load();
   // Yordanos: On click, move the paging window forward by 3 and load more photos.
 
+  // Yordanos: On click, move the paging window forward by 3 and load more photos.
   loadMoreBtn.addEventListener("click", () => {
     // Andreas valegard: Advance pagination in steps of three pages.
  page = page + 3;
