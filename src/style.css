@@ -626,3 +626,74 @@ body.dark-mode .comments-info svg {
 
 #prev-popup { left: 30px; }
 #next-popup { right: 30px; }
+
+/* Medium screens (tablets) */
+@media (max-width: 1024px) {
+  .popup-card {
+    width: 90vw;   
+    height: 80vh;
+  }
+}
+
+/* Small tablets and landscape phones */
+@media (max-width: 820px) {
+  .popup-card {
+    width: 95vw;
+    height: 75vh;
+  }
+  .popup-right {
+    flex: 0.9; 
+    padding: 16px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 600px) {
+  .popup-card {
+    flex-direction: column;   
+    width: 95vw;
+    height: 90vh;
+  }
+
+  .popup-left {
+    flex: none;
+    height: 60vh;              
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  #popup-img {
+    max-height: 100%;
+    width: auto;
+  }
+
+  .popup-right {
+    flex: none;
+    height: 30vh;             
+    width: 100%;
+    padding: 16px;
+    border-left: none;
+  }
+
+  /* Move arrows slightly inward on mobile */
+  #prev-popup { left: 10px; }
+  #next-popup { right: 10px; }
+}
+
+/* Very small screens */
+@media (max-width: 400px) {
+  .popup-card {
+    height: 92vh;
+  }
+
+  .popup-right {
+    padding: 12px;
+    height: 32vh;
+  }
+
+  #close-popup {
+    font-size: 1.6rem;
+    top: 10px;
+    right: 14px;
+  }
+}
