@@ -22,6 +22,7 @@ export default function setupFeed(openPopup) {
 
       // Yordanos: Normalize each item to ensure stable fields for rendering.
       return data.data.map(p => ({
+        id: p.id, // Anna: added id field for popup usage
         src: p.image_url,// Yordanos: Image source URL used by the <img>.
         likes_count: p.likes_count ?? 0,
         comments: Array.isArray(p.comments) ? p.comments : [],
@@ -30,19 +31,20 @@ export default function setupFeed(openPopup) {
       console.error("Error loading API:", err); // Yordanos: Log and recover.
       return [];// Yordanos: Return empty list so UI keeps working even if a page fails.
     }
+    
   }
-
+  
+  
   // Yordanos: Render a list of photos into the feed (DOM creation + event wiring).
   function renderPhotos(photos) {
     photos.forEach((p, i) => {
       const card = document.createElement("div");
       card.className = "photo-card";
-    
+      card.dataset.photoId = p.id; // Anna: added data attribute for popup usage
       const img = document.createElement("img");
       img.src = p.src;
       img.alt = "photo";
     
-      // img.addEventListener("click", () => openPopup(i, photos.map(p => ({ url: p.src })))); // Jalal 
       img.addEventListener("click", () => openPopup(i, photos)); // Anna: needed to fix for commens function 
 
 
@@ -53,7 +55,7 @@ export default function setupFeed(openPopup) {
       likeInfo.className = "likes";
       likeInfo.innerHTML = `${likeIcon} ${p.likes_count} Likes`; // Anna: Use likeIcon SVG code here
 
-      const commentsCount = p.comments.length;
+      const commentsCount = Array.isArray(p.comments) ? p.comments.length : 0; // Anna: Safely get comments count
       const commentsInfo = document.createElement("span");
       commentsInfo.className = "comments-info";
       commentsInfo.innerHTML = `${commentIcon} ${commentsCount} ${commentsCount === 1 ? 'Comment' : 'Comments'}`; // Anna: Use commentIcon SVG code here

@@ -1,93 +1,178 @@
-export function renderComments(commentsList, container) {
-    container.querySelectorAll('.comments-container').forEach(el => el.remove());    // Clear previous comments
+export function renderComments(photo, container) {
+    // clenup old comments container
+    container.querySelectorAll('.comments-container').forEach(el => el.remove());
 
+    // create elements
     const commentsContainer = document.createElement('div');
     commentsContainer.className = 'comments-container';
-    const commentsContainerTitle = document.createElement('h2');
-    commentsContainerTitle.textContent = 'Comments';
+
+    const title = document.createElement('h2');
+    title.textContent = 'Comments';
+    commentsContainer.appendChild(title);
+
+    const info = document.createElement('p');
+    info.classList.add('comments-info');
+    commentsContainer.appendChild(info);
+
+    const btns = document.createElement('div');
+    btns.classList.add('container-btn');
 
     const showMoreBtn = document.createElement('button');
     showMoreBtn.classList.add('comments-show-more-btn');
-    showMoreBtn.textContent = 'Show more comments';
-    const commentsInfo = document.createElement('p');
-    commentsInfo.classList.add('comments-info');
-    commentsContainer.appendChild(commentsContainerTitle);
+    showMoreBtn.textContent = 'Show more';
 
-    const form = document.createElement('form');
-    form.className = 'comment-form';
-    form.innerHTML = `
-    <div class="input-container">
-      <input type="text" name="comment" placeholder="Your comment" required />
-      <button type="submit" class="send-comment">⤴️</button>
-    <div>
-    `;
+    const addYourCommentBtn = document.createElement('button');
+    addYourCommentBtn.classList.add('your-comment-btn');
+    addYourCommentBtn.textContent = 'Comment';
+
+    btns.appendChild(showMoreBtn);
+    btns.appendChild(addYourCommentBtn);
+
+    const popup = document.getElementById('comments-popup');
+    const popupForm = popup.querySelector('form');
+    const nameInput = popup.querySelector('.input-name');
+    const commentInput = popup.querySelector('.input-comment');
 
     let visibleCount = 3;
-    let localComments = [...commentsList]; // копия исходных комментариев, чтобы можно было добавлять новые
+    let localComments = Array.isArray(photo.comments) ? [...photo.comments] : [];
 
+    // to show newest comments first
+    localComments.reverse();
 
+    const listEl = document.createElement('ul');
+    listEl.classList.add('comments-list');
+    commentsContainer.appendChild(listEl);
+
+    // update info text
     const updateInfo = () => {
         const total = localComments.length;
-        const shown = commentsContainer.querySelectorAll('.comment').length;
-        commentsInfo.textContent = `${shown} of ${total} comments`;
-      };
-      
-    if (!commentsList || commentsList.length === 0) {
-        commentsContainer.textContent = 'No comments yet.';
-        container.appendChild(commentsContainer);
-        return;
-    }
+        const shown = listEl.querySelectorAll('.comment').length;
+        info.textContent = `${shown} of ${total} comments`;
+    };
 
-    const renderVisibleComments = () => {
-        // Очистить старые комментарии, кроме заголовка и кнопки
-        commentsContainer.querySelectorAll('.comment').forEach(el => el.remove());
+    // open/close popup
+    const openCommentPopup = () => {
+        popup.classList.add('active');
+        document.body.classList.add('popup-open');
+    };
 
-        
-        // Отрисовать только нужное количество
-        commentsList.slice(0, visibleCount).forEach(comment => {
-            
-            const commentDiv = document.createElement('div');
-            commentDiv.className = 'comment';
+    const closeCommentPopup = () => {
+        popup.classList.remove('active');
+        document.body.classList.remove('popup-open');
+    };
+
+    // show comments
+    const renderVisible = () => {
+        listEl.innerHTML = '';
+
+        if (localComments.length === 0) {
+            const empty = document.createElement('li');
+            empty.className = 'comment';
+            const text = document.createElement('p');
+            text.className = 'comment-text';
+            text.textContent = 'No comments yet.';
+            empty.appendChild(text);
+            listEl.appendChild(empty);
+            showMoreBtn.style.display = 'none';
+            info.textContent = `0 of 0 comments`;
+            return;
+        }
+
+        localComments.slice(0, visibleCount).forEach(c => {
+            const item = document.createElement('li');
+            item.className = 'comment';
 
             const text = document.createElement('p');
             text.className = 'comment-text';
-            text.textContent = comment.comment;
+            text.textContent = c.comment;
 
             const author = document.createElement('p');
             author.className = 'comment-author';
-            author.textContent = `Author: ${comment.commenter_name}`;
+            author.textContent = `Author: ${c.commenter_name}`;
 
-            commentDiv.appendChild(text);
-            commentDiv.appendChild(author);
-            commentsContainer.appendChild(commentDiv);
-
-            const totalComments = commentsList ? commentsList.length : 0;
-            const numberOfShownComments = () => commentsContainer.querySelectorAll('.comment').length;
-            commentsInfo.textContent = `${numberOfShownComments()} of ${totalComments} comments`;
-    
-            commentsContainer.appendChild(commentsInfo);
-
-
-            commentsContainer.appendChild(showMoreBtn);
+            item.appendChild(text);
+            item.appendChild(author);
+            listEl.appendChild(item);
         });
 
-        commentsContainer.appendChild(form);
-
-    
+        updateInfo();
+        showMoreBtn.style.display =
+            visibleCount >= localComments.length ? 'none' : 'block';
     };
 
+    // add comment handler
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const name = nameInput.value.trim();
+        const commentText = commentInput.value.trim();
+        if (!name || !commentText) return;
 
+        const id = photo.id;
+        if (!id) {
+            console.error('❌Missing photo ID, please reopen the popup');
+            return;
+        }
+
+        try {
+            const res = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/comment`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ commenter_name: name, comment: commentText }),
+            });
+
+            if (!res.ok) throw new Error('Failed to post comment');
+            const data = await res.json();
+
+            if (data.success) {
+                const newComment = {
+                    ...data.comment,
+                    date: new Date().toISOString() // to have date 
+                };
+
+                // add new comment locally
+                localComments.unshift(newComment);
+                if (!Array.isArray(photo.comments)) photo.comments = [];
+                photo.comments.unshift(newComment);
+
+                renderVisible();
+
+                nameInput.value = '';
+                commentInput.value = '';
+                closeCommentPopup();
+
+                // update comments count in the photo card
+                const card = document.querySelector(`.photo-card[data-photo-id="${id}"]`);
+                const counter = card?.querySelector('.comments-info');
+                if (counter) {
+                    const svg = counter.querySelector('svg')?.outerHTML || '';
+                    const count = photo.comments.length;
+                    counter.innerHTML = `${svg} ${count} ${count === 1 ? 'Comment' : 'Comments'}`;
+                }
+            }
+        } catch (err) {
+            console.error('Error posting comment:', err);
+            alert('Something went wrong while posting your comment 😢');
+        }
+    };
+
+    // listeners
+    popupForm.removeEventListener('submit', handleSubmit);
+    popupForm.addEventListener('submit', handleSubmit);
 
     showMoreBtn.addEventListener('click', () => {
-        visibleCount += 3; // Показать ещё 3
-        renderVisibleComments();
+        visibleCount += 3;
+        renderVisible();
+    });
 
-        // Скрыть кнопку, если показаны все комментарии
-        if (visibleCount >= commentsList.length) {
-            showMoreBtn.style.display = 'none';
+    addYourCommentBtn.addEventListener('click', openCommentPopup);
+
+    popup.addEventListener('click', (e) => {
+        if (e.target.classList.contains('comments-popup')) {
+            closeCommentPopup();
         }
     });
 
-    renderVisibleComments();
+    renderVisible();
+    commentsContainer.appendChild(btns);
     container.appendChild(commentsContainer);
 }
