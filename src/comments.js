@@ -50,12 +50,10 @@ export function renderComments(photo, container) {
 
     const openCommentPopup = () => {
         popup.classList.add('active');
-        document.body.classList.add('popup-open');
     };
 
     const closeCommentPopup = () => {
         popup.classList.remove('active');
-        document.body.classList.remove('popup-open');
     };
 
     const renderVisible = () => {
