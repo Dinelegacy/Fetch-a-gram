@@ -16,15 +16,19 @@ export default function setupPopup() {
       </div>
 
       <div class="popup-right">
-        <h3>Post Info</h3>
-        <p>(This space is for Anna and Saheena to add likes and comments 😍 )</p> 
+      
       </div>
 
+      <div class= "carousel">
+
+ <button id="prev-popup" class="popup-nav">&#10094;</button>
+    <button id="next-popup" class="popup-nav">&#10095;</button>
+ 
+</div>
     </div>
 
-    <button id="prev-popup" class="popup-nav">&#10094;</button>
-    <button id="next-popup" class="popup-nav">&#10095;</button>
-  `;
+ `;
+   
 
   // TODO: delete old elements:
   // <h3>Post Info</h3>
