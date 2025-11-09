@@ -1,4 +1,5 @@
 import likeIcon from './icons/heart-solid-full.svg?raw';
+
 export default function setupPopup() {
   const popup = document.createElement("div");
   popup.id = "Image-popup";
@@ -14,19 +15,17 @@ export default function setupPopup() {
 
       <div class="popup-right">
         <h3>Post Info</h3>
-  <div class="like-box" onclick="likeFunction()">
-    <div>
-    <button id="like-btn" class="like-button">
-      <span class="icon"></span> 
-      <span class="count">0 Likes</span>
-    </button>
-  </div>
-</div>
+        <div>
+          <button id="like-btn" class="like-button">
+            <span class="icon"></span> 
+            <span class="count">0 Likes</span>
+          </button>
+        </div>
       </div>
-      
 
-    <button id="prev-popup" class="popup-nav">&#10094;</button>
-    <button id="next-popup" class="popup-nav">&#10095;</button>
+      <button id="prev-popup" class="popup-nav">&#10094;</button>
+      <button id="next-popup" class="popup-nav">&#10095;</button>
+    </div>
   `;
 
   document.body.appendChild(popup);
@@ -38,103 +37,149 @@ export default function setupPopup() {
   const countSpan = likeBtn.querySelector(".count");
   const prevBtn = popup.querySelector("#prev-popup");
   const nextBtn = popup.querySelector("#next-popup");
+
   let currentImageId = null;
-  let userHasLiked = false;
   let currentIndex = 0;
   let photosArray = [];
+  let changedLikes = new Set(); // Track liked images in popup
 
-
-
+  // -------------------
+  // Close popup
+  // -------------------
   closeBtn.addEventListener("click", async () => {
-    popup.classList.add("hidden");
-    if (currentImageId) {
-      await refreshSingleImage(currentImageId);
+    popup.classList.add("hidden"); // hide immediately
+
+    if (changedLikes.size > 0) {
+      // Refresh only images that changed
+      await Promise.all([...changedLikes].map(id => refreshSingleImage(id)));
+      changedLikes.clear();
     }
   });
 
-  // ✅ Handle like click inside popup
+  // -------------------
+  // Like button click
+  // -------------------
   likeBtn.addEventListener("click", async () => {
     if (!currentImageId) return;
     await likeImage(currentImageId);
   });
-  // ✅ Like image via API and update popup + feed instantly
-  async function likeImage(id) {
 
-    const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-    });
-    const data = await response.json();
+  // -------------------
+    // Like image via API
+    // -------------------
+    async function likeImage(id) {
+      try {
+        const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await response.json();
 
-    if (data.success) {
-      const count = data.likes_count ?? 0;
-      countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
-      const svgEl = iconSpan.querySelector("svg");
-      if (svgEl) svgEl.style.fill = "red";
+        if (data.success) {
+          const count = data.likes_count ?? 0;
+          countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
 
-      // ✅ Update feed immediately
-      await updateLikeCountInFeed(id, count);
+          const svgEl = iconSpan.querySelector("svg");
+          if (svgEl) svgEl.style.fill = "red";
+
+          // mark as changed
+          changedLikes.add(id);
+
+        // Update feed DOM immediately
+        await updateLikeCountInFeed(id, count);
+      }
+    } catch (err) {
+      console.error("Error liking image:", err);
     }
-    else {
-      console.error("Failed to update like:", data);
-    }
-
-
   }
 
-  // // ✅ Fetch single image data from API and update its likes in feed
+  // -------------------
+  // Refresh feed image
+  // -------------------
   async function refreshSingleImage(id) {
     try {
       const res = await fetch(`https://image-feed-api.vercel.app/api/images/${id}`);
       const p = await res.json();
-
       if (!p) return;
       updateLikeCountInFeed(p.id, p.likes_count ?? 0);
     } catch (err) {
-      console.error("Error refreshing image:", err);
+      console.error(err);
     }
-
   }
 
-  // ✅ Directly update the `.likes` span in the feed
+  // -------------------
+  // Update feed DOM + shared array
+  // -------------------
   async function updateLikeCountInFeed(id, newCount) {
     const likeSpan = document.querySelector(`img[id="${id}"] ~ .actions .likes`);
     if (likeSpan) {
       likeSpan.innerHTML = `${likeIcon} ${newCount} ${newCount === 1 ? "Like" : "Likes"}`;
-    } else {
-      console.warn(`Like span not found for image id: ${id}`);
+    }
+
+    // Update shared array for next popup open
+    const photo = window.__allPhotos?.find(p => p.id === id);
+    if (photo) photo.likes_count = newCount;
+  }
+
+  // -------------------
+  //   Update popup content (prev/next)
+  // -------------------
+  async function updatePopupContent() {
+    const photo = photosArray[currentIndex];
+    if (!photo) return;
+
+    popupImg.src = photo.src;
+    currentImageId = photo.id;
+
+    try {
+      const res = await fetch(`https://image-feed-api.vercel.app/api/images/${currentImageId}`);
+      const data = await res.json();
+      const count = data.likes_count ?? 0;
+
+      countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
+      const cleanIcon = likeIcon.replace(/\n/g, '');
+      iconSpan.innerHTML = cleanIcon;
+
+      const svgEl = iconSpan.querySelector("svg");
+      if (svgEl) svgEl.style.fill = "black";
+    } catch (err) {
+      console.error(err);
     }
   }
 
-
-  prevBtn.addEventListener("click", () => {
+  // -------------------
+  // Navigation buttons
+  // -------------------
+  prevBtn.addEventListener("click", async () => {
     currentIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
-    popupImg.src = photosArray[currentIndex];
+    await updatePopupContent();
   });
 
-  nextBtn.addEventListener("click", () => {
+  nextBtn.addEventListener("click", async () => {
     currentIndex = (currentIndex + 1) % photosArray.length;
-    popupImg.src = photosArray[currentIndex];
+    await updatePopupContent();
   });
 
-  return function openPopup(index, allPhotos, src, likes = 0, id) {
-    currentImageId = id;
-    userHasLiked = false;
+  // -------------------
+  // Public openPopup
+  // -------------------
+  return function openPopup(index, allPhotos) {
+    photosArray = allPhotos;
     currentIndex = index;
-    photosArray = allPhotos.map(photo => photo.src || photo.url || photo);
-    popupImg.src = photosArray?.[currentIndex] || src;
+    currentImageId = photosArray[currentIndex].id;
+
+    const currentPhoto = photosArray[currentIndex];
+    countSpan.textContent = `${currentPhoto.likes_count} ${currentPhoto.likes_count === 1 ? "Like" : "Likes"}`;
+
     const cleanIcon = likeIcon.replace(/\n/g, '');
     iconSpan.innerHTML = cleanIcon;
-
     const svgEl = iconSpan.querySelector("svg");
     if (svgEl) svgEl.style.fill = "black";
 
-    countSpan.textContent = `${likes} ${likes === 1 ? "Like" : "Likes"}`;
-    popupImg.onload = () => {
+    popupImg.src = currentPhoto.src;
 
-      popup.classList.remove("hidden");
-    };
-  }
-  return openPopup;
-
+    // Show popup after image loads (but only if not manually closed)
+popup.classList.remove("hidden"); // show popup immediately
+updatePopupContent();
+  };
 }

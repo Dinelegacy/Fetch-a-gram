@@ -659,8 +659,7 @@ body.dark-mode #site-header {
 .like-button {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 4px 8px;
+  gap: 4px; 
   font-size: 14px;
   background-color: #ffffff3b;
   color:black;

@@ -13,6 +13,7 @@ export default function setupFeed(openPopup) {
   let page = 1;// Yordanos: Start from page 1 of the API.
   const limit = 6;
   let allPhotos = [];
+   window.__allPhotos = allPhotos; // Sahee:make globally accessible for popup.js
 
    // Yordanos: Fetch one page of photos from the API and normalize the shape we use in the UI.
   async function fetchPhotos(page) {
@@ -22,6 +23,7 @@ export default function setupFeed(openPopup) {
 
       // Yordanos: Normalize each item to ensure stable fields for rendering.
       return data.data.map(p => ({
+        id: p.id,
         src: p.image_url,// Yordanos: Image source URL used by the <img>.
         likes_count: p.likes_count ?? 0,
         comments: Array.isArray(p.comments) ? p.comments : [],
@@ -39,16 +41,16 @@ export default function setupFeed(openPopup) {
       card.className = "photo-card";
     
       const img = document.createElement("img");
+      img.id  = p.id;
       img.src = p.src;
       img.alt = "photo";
     
-      img.addEventListener("click", () => {
-        const likeSpan = img.parentElement.querySelector(".likes");
-  const match = likeSpan?.textContent.match(/\d+/);
-  const currentLikes = match ? parseInt(match[0], 10) : 0;
-     // openPopup(i,photos.map(p => ({ url: p.src }))); // Jalal 
-      openPopup(i, photos.map(p => ({ url: p.src, id: p.id, likes: p.likes_count })));
 
+ img.addEventListener("click", () => {
+        openPopup(
+          i,
+          allPhotos // always pass the full updated array
+        );
       });
 
       const actions = document.createElement("div");
@@ -70,6 +72,11 @@ export default function setupFeed(openPopup) {
       card.appendChild(img);
       card.appendChild(actions);
       section.appendChild(card); // Yordanos: Insert the card into the main feed.
+
+        // Add to shared array if not already present
+      if (!allPhotos.some(photo => photo.id === p.id)) {
+        allPhotos.push(p);
+      }
     });
   }
 
