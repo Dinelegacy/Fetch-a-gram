@@ -1,5 +1,9 @@
+import { renderComments } from './comments.js';
+
 export default function setupPopup() {
   const popup = document.createElement("div");
+  const body = document.body;
+
   popup.id = "Image-popup";
   popup.className = "hidden";
 
@@ -12,8 +16,7 @@ export default function setupPopup() {
       </div>
 
       <div class="popup-right">
-        <h3>Post Info</h3>
-        <p>(This space is for Anna and Saheena to add likes and comments 😍 )</p>
+      
       </div>
 
       <div class= "carousel">
@@ -27,6 +30,10 @@ export default function setupPopup() {
  `;
    
 
+  // TODO: delete old elements:
+  // <h3>Post Info</h3>
+  // <p>(This space is for Anna and Saheena to add likes and comments 😍 )</p> 
+
   document.body.appendChild(popup);
 
   const popupImg = popup.querySelector("#popup-img");
@@ -38,7 +45,10 @@ export default function setupPopup() {
   let currentIndex = 0;
   let photosArray = [];
 
-  closeBtn.addEventListener("click", () => popup.classList.add("hidden"));
+  closeBtn.addEventListener("click", () => {
+    popup.classList.add("hidden");
+    body.classList.remove('popup-open'); // Anna: re-enable background scroll when popup is closed
+  });
 
   prevBtn.addEventListener("click", () => {
     currentIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
@@ -50,10 +60,19 @@ export default function setupPopup() {
     popupImg.src = photosArray[currentIndex];
   });
 
-  return function openPopup(index, allPhotos) {
+  return function openPopup(index, allPhotos) { // Anna: modified to accept allPhotos
+    const photo = allPhotos[index];
+    console.log("Opening popup for photo:", photo); //
     currentIndex = index;
     photosArray = allPhotos.map(photo => photo.src || photo.url || photo);
-    popupImg.src = photosArray[currentIndex];
+    popupImg.src = photo.src;
     popup.classList.remove("hidden");
+    body.classList.add('popup-open'); // Anna: prevent background scroll when popup is open
+    const popupRight = popup.querySelector('.popup-right');
+    console.log('Opening popup for photo:', photo);
+    renderComments(photo, popupRight); // Anna: render comments in the popup right section
   };
 }
+
+
+
