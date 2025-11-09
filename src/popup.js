@@ -16,11 +16,16 @@ export default function setupPopup() {
         <p>(This space is for Anna and Saheena to add likes and comments 😍 )</p>
       </div>
 
+      <div class= "carousel">
+
+ <button id="prev-popup" class="popup-nav">&#10094;</button>
+    <button id="next-popup" class="popup-nav">&#10095;</button>
+ 
+</div>
     </div>
 
-    <button id="prev-popup" class="popup-nav">&#10094;</button>
-    <button id="next-popup" class="popup-nav">&#10095;</button>
-  `;
+ `;
+   
 
   document.body.appendChild(popup);
 
