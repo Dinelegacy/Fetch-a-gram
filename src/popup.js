@@ -25,13 +25,11 @@ export default function setupPopup() {
           </button>
         </div>
       </div>
+      </div>
 
       <!-- Jalal: added carousel wrapper for navigation buttons -->
-      <div class="carousel">
         <button id="prev-popup" class="popup-nav">&#10094;</button>
         <button id="next-popup" class="popup-nav">&#10095;</button>
-      </div>
-    </div>
   `;
 
   document.body.appendChild(popup);
