@@ -19,7 +19,6 @@ export default function setupPopup() {
       <div class="popup-right">
       
       </div>
-      </div>
 
       
 </div>
