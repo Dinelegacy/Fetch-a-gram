@@ -19,13 +19,11 @@ export default function setupPopup() {
       
       </div>
 
-      <div class= "carousel">
+      </div> 
 
  <button id="prev-popup" class="popup-nav">&#10094;</button>
-    <button id="next-popup" class="popup-nav">&#10095;</button>
+  <button id="next-popup" class="popup-nav">&#10095;</button>
  
-</div>
-    </div>
 
  `;
    
