@@ -18,7 +18,7 @@ export default function setupPopup() {
 
       <div class="popup-right">
         <h3>Post Info</h3>
-        <div>
+        <div class="likes-container">
           <button id="like-btn" class="like-button">
             <span class="icon"></span> 
             <span class="count">0 Likes</span>
@@ -31,10 +31,6 @@ export default function setupPopup() {
     </div>
   `;
 
-  // TODO: delete old elements:
-  // <h3>Post Info</h3>
-  // <p>(This space is for Anna and Saheena to add likes and comments 😍 )</p> 
-
   document.body.appendChild(popup);
 
   const popupImg = popup.querySelector("#popup-img");
@@ -44,19 +40,21 @@ export default function setupPopup() {
   const countSpan = likeBtn.querySelector(".count");
   const prevBtn = popup.querySelector("#prev-popup");
   const nextBtn = popup.querySelector("#next-popup");
+  const popupRight = popup.querySelector(".popup-right");
 
   let currentImageId = null;
   let currentIndex = 0;
   let photosArray = [];
-  let changedLikes = new Set(); // Track liked images in popup
+  const changedLikes = new Set();
 
-  closeBtn.addEventListener("click", () => {
+  // -------------------
+  // Close popup
+  // -------------------
+  closeBtn.addEventListener("click", async () => {
     popup.classList.add("hidden");
     body.classList.remove('popup-open'); // Anna: re-enable background scroll when popup is closed
-  });
 
     if (changedLikes.size > 0) {
-      // Refresh only images that changed
       await Promise.all([...changedLikes].map(id => refreshSingleImage(id)));
       changedLikes.clear();
     }
@@ -71,27 +69,24 @@ export default function setupPopup() {
   });
 
   // -------------------
-    // Like image via API
-    // -------------------
-    async function likeImage(id) {
-      try {
-        const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        });
-        const data = await response.json();
+  // Like image via API
+  // -------------------
+  async function likeImage(id) {
+    try {
+      const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await response.json();
 
-        if (data.success) {
-          const count = data.likes_count ?? 0;
-          countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
+      if (data.success) {
+        const count = data.likes_count ?? 0;
+        countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
 
-          const svgEl = iconSpan.querySelector("svg");
-          if (svgEl) svgEl.style.fill = "red";
+        const svgEl = iconSpan.querySelector("svg");
+        if (svgEl) svgEl.style.fill = "red";
 
-          // mark as changed
-          changedLikes.add(id);
-
-        // Update feed DOM immediately
+        changedLikes.add(id);
         await updateLikeCountInFeed(id, count);
       }
     } catch (err) {
@@ -114,21 +109,23 @@ export default function setupPopup() {
   }
 
   // -------------------
-  // Update feed DOM + shared array
+  // Update feed DOM + local data
   // -------------------
   async function updateLikeCountInFeed(id, newCount) {
-    const likeSpan = document.querySelector(`img[id="${id}"] ~ .actions .likes`);
-    if (likeSpan) {
-      likeSpan.innerHTML = `${likeIcon} ${newCount} ${newCount === 1 ? "Like" : "Likes"}`;
+    const card = document.querySelector(`.photo-card[data-photo-id="${id}"]`);
+    if (card) {
+      const likeSpan = card.querySelector(".likes");
+      if (likeSpan) {
+        likeSpan.innerHTML = `${likeIcon} ${newCount} ${newCount === 1 ? "Like" : "Likes"}`;
+      }
     }
 
-    // Update shared array for next popup open
     const photo = window.__allPhotos?.find(p => p.id === id);
     if (photo) photo.likes_count = newCount;
   }
 
   // -------------------
-  //   Update popup content (prev/next)
+  // Update popup content
   // -------------------
   async function updatePopupContent() {
     const photo = photosArray[currentIndex];
@@ -148,6 +145,8 @@ export default function setupPopup() {
 
       const svgEl = iconSpan.querySelector("svg");
       if (svgEl) svgEl.style.fill = "black";
+
+      renderComments(photo, popupRight); // ✅ комментарии
     } catch (err) {
       console.error(err);
     }
@@ -166,42 +165,20 @@ export default function setupPopup() {
     await updatePopupContent();
   });
 
+  // -------------------
+  // Public function: open popup
+  // -------------------
   return function openPopup(index, allPhotos) { // Anna: modified to accept allPhotos
-    const photo = allPhotos[index];
-    console.log("Opening popup for photo:", photo); //
-    currentIndex = index;
-    photosArray = allPhotos.map(photo => photo.src || photo.url || photo);
-    popupImg.src = photo.src;
-    popup.classList.remove("hidden");
-    body.classList.add('popup-open'); // Anna: prevent background scroll when popup is open
-    const popupRight = popup.querySelector('.popup-right');
-    console.log('Opening popup for photo:', photo);
-    renderComments(photo, popupRight); // Anna: render comments in the popup right section
-  };
-}
-
-
-
-  // -------------------
-  // Public openPopup
-  // -------------------
-  return function openPopup(index, allPhotos) {
     photosArray = allPhotos;
     currentIndex = index;
-    currentImageId = photosArray[currentIndex].id;
+    const photo = photosArray[currentIndex];
 
-    const currentPhoto = photosArray[currentIndex];
-    countSpan.textContent = `${currentPhoto.likes_count} ${currentPhoto.likes_count === 1 ? "Like" : "Likes"}`;
+    currentImageId = photo.id;
+    popupImg.src = photo.src;
 
-    const cleanIcon = likeIcon.replace(/\n/g, '');
-    iconSpan.innerHTML = cleanIcon;
-    const svgEl = iconSpan.querySelector("svg");
-    if (svgEl) svgEl.style.fill = "black";
+    popup.classList.remove("hidden");
+    body.classList.add('popup-open');// Anna: prevent background scroll when popup is open
 
-    popupImg.src = currentPhoto.src;
-
-    // Show popup after image loads (but only if not manually closed)
-popup.classList.remove("hidden"); // show popup immediately
-updatePopupContent();
+    updatePopupContent();
   };
 }
