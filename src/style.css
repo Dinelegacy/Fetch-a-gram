@@ -513,16 +513,26 @@ footer {
   flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
-  .footer-container {
-    flex-direction: column;
-    gap: 15px;
 
-  }
+footer.footer .logo {
+  width: 32px;
+  height: auto;
+  filter: none;
+  opacity: 0.9;
 }
 
-.footer-left {
+.footer-left a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-left a:hover {
+  color: #f4b400;
+}
+
+.footer-right {
   display: flex;
+  gap: 20px;
   align-items: center;
   gap: 10px;
 }
@@ -948,3 +958,97 @@ body.popup-open {
   overflow: hidden;
   height: 100vh;
 }
+/* Like button */
+.like-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px; 
+  font-size: 14px;
+  background-color: #ffffff3b;
+  color:black;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.like-button .icon svg {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  fill: rgba(0, 0, 0, 0.019); 
+  transition: fill 0.2s ease; 
+}
+.like-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 40px;
+  border-radius: 30px; /* rounded pill shape */
+  background: linear-gradient(135deg, #ff7eb9, #ff758c); /* gradient background */
+  color: #fff; /* text color */
+  font-family: "Poppins", "Roboto", sans-serif; /* modern font stack */
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* soft shadow */
+  transition: all 0.3s ease;
+  user-select: none; /* prevents text selection */
+}
+
+.like-box:hover {
+  transform: translateY(-3px); /* subtle lift effect */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  background: linear-gradient(135deg, #ff758c, #ff7eb9); /* hover gradient */
+}
+
+.like-box:active {
+  transform: translateY(0); /* press effect */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
