@@ -41,10 +41,6 @@ You can explore the project’s API here:
 
 To run the project on your local machine:
 
-## 🚀 Running the Project
-
-To run the project on your local machine:
-
 ```bash
 # 1. Clone the repository
 git clone git@github.com:Dinelegacy/Fetch-a-gram.git
