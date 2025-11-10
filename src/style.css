@@ -383,6 +383,11 @@ body.dark-mode #load-more:hover {
   box-shadow: 0 6px 40px rgba(0, 0, 0, 0.25);
   position: relative;
 }
+@media (max-width: 768px) {
+  .popup-card {
+    flex-direction: column;
+  }
+}
 
 .popup-left {
   flex: 2.2;
