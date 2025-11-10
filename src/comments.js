@@ -83,9 +83,9 @@ export function renderComments(photo, container) {
             const text = document.createElement('p');
             text.className = 'comment-text';
             text.textContent = c.comment;
-
-            item.appendChild(author);
+            
             item.appendChild(text);
+            item.appendChild(author);
             listEl.appendChild(item);
         });
 

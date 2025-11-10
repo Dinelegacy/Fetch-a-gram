@@ -13,6 +13,7 @@ export default function setupFeed(openPopup) {
   let page = 1;// Yordanos: Start from page 1 of the API.
   const limit = 6;
   let allPhotos = [];
+   window.__allPhotos = allPhotos; // Sahee:make globally accessible for popup.js
 
   // Yordanos: Fetch one page of photos from the API and normalize the shape we use in the UI.
   async function fetchPhotos(page) {
@@ -42,6 +43,7 @@ export default function setupFeed(openPopup) {
       card.className = "photo-card";
       card.dataset.photoId = p.id; // Anna: added data attribute for popup usage
       const img = document.createElement("img");
+      img.id  = p.id;
       img.src = p.src;
       img.alt = "photo";
 
@@ -67,6 +69,11 @@ export default function setupFeed(openPopup) {
       card.appendChild(img);
       card.appendChild(actions);
       section.appendChild(card); // Yordanos: Insert the card into the main feed.
+
+        // Add to shared array if not already present
+      if (!allPhotos.some(photo => photo.id === p.id)) {
+        allPhotos.push(p);
+      }
     });
   }
 

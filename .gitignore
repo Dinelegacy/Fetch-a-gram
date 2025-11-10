@@ -1,7 +1,12 @@
 node_modules/
 node_modules/
 node_modules/.package-lock.json
+<<<<<<< HEAD
+node_modules/.vite/deps/_metadata.json
+node_modules/.vite/deps/_metadata.json
+=======
 *.lock
 dist/
 .DS_Store
 .vscode/
+>>>>>>> Yordanos-branch
