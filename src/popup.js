@@ -8,7 +8,7 @@ export default function setupPopup() {
   popup.id = "Image-popup";
   popup.className = "hidden";
 
-  popup.innerHTML = `
+ popup.innerHTML = `
     <div class="popup-card">
       <span id="close-popup">&times;</span>
 
@@ -17,22 +17,17 @@ export default function setupPopup() {
       </div>
 
       <div class="popup-right">
-        <h3>Post Info</h3>
-        <div class="likes-container">
-          <button id="like-btn" class="like-button">
-            <span class="icon"></span> 
-            <span class="count">0 Likes</span>
-          </button>
-        </div>
+      
       </div>
 
-      <!-- Jalal: added carousel wrapper for navigation buttons -->
-      <div class="carousel">
-        <button id="prev-popup" class="popup-nav">&#10094;</button>
-        <button id="next-popup" class="popup-nav">&#10095;</button>
-      </div>
-    </div>
-  `;
+      
+</div>
+
+ <button id="prev-popup" class="popup-nav">&#10094;</button>
+ <button id="next-popup" class="popup-nav">&#10095;</button>
+    
+
+ `;
 
   document.body.appendChild(popup);
 
