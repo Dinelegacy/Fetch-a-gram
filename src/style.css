@@ -373,7 +373,7 @@ body.dark-mode #load-more:hover {
 }
 
 .popup-card {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.4);
   width: 75vw;
   max-width: 1200px;
   height: 80vh;
@@ -386,6 +386,7 @@ body.dark-mode #load-more:hover {
 @media (max-width: 768px) {
   .popup-card {
     flex-direction: column;
+    height: auto;
   }
 }
 
@@ -394,7 +395,10 @@ body.dark-mode #load-more:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f9f9f9;
+  /* background: #f9f9f9; */
+  background: rgba(255, 255, 255, 0.95);
+  padding: 10px 0;
+
 }
 
 #popup-img {
@@ -402,6 +406,8 @@ body.dark-mode #load-more:hover {
   max-height: 100%;
   min-width: 50%;
   object-fit: contain;
+  box-shadow: 0 6px 40px rgba(0, 0, 0, 0.25);
+
 }
 
 .popup-right {
@@ -410,7 +416,7 @@ body.dark-mode #load-more:hover {
   flex-direction: column;
   /* justify-content: space-between; */
   justify-content: flex-start;
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.95);
   padding: 20px 24px;
   border-left: 1px solid #eee;
   overflow-y: auto;
@@ -430,7 +436,7 @@ body.dark-mode #load-more:hover {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: white;
+  background: rgba(255, 255, 255, 0.7);
   border: none;
   font-size: 2rem;
   cursor: pointer;
@@ -445,11 +451,17 @@ body.dark-mode #load-more:hover {
 }
 
 #prev-popup {
-  left: 30px;
+  left: 5%;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #next-popup {
-  right: 30px;
+  right: 5%;
+  padding: 0 10px;
+
 }
 
 
@@ -676,7 +688,7 @@ body.dark-mode .comments-info svg {
 }
 
 /* Next / Prev Arrows */
-.popup-nav {
+/* .popup-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -692,15 +704,15 @@ body.dark-mode .comments-info svg {
 
 .popup-nav:hover {
   transform: translateY(-50%) scale(1.12);
-}
+} */
 
-#prev-popup {
+/* #prev-popup {
   left: 30px;
 }
 
 #next-popup {
   right: 30px;
-}
+} */
 
 /* Anna: STYLES FOR COMMENTS */
 
@@ -712,21 +724,16 @@ body.dark-mode .comments-info svg {
   padding: 10px 0;
   row-gap: 10px;
 }
+@media (max-width: 768px) {
+  .comments-container {
+    height: auto;
+  }
+}
 
 .comments-container h2 {
   font-size: 1rem;
   margin: 0;
 }
-/* 
-.comments-list {
-  list-style: none;
-  padding: 0;
-  margin: 10px 10px 10px 0;
-  max-height: 200px;
-  overflow-y: auto;
-  width: 100%;
-  scrollbar-width: thin;
-} */
 
 .comments-list {
   list-style: none;
