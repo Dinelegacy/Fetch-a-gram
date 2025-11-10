@@ -30,6 +30,18 @@ export default function setupPopup() {
       <button id="next-popup" class="popup-nav">&#10095;</button>
     </div>
   `;
+      
+
+
+    <div class="carousel">
+
+      <button id="prev-popup" class="popup-nav">&#10094;</button>
+      <button id="next-popup" class="popup-nav">&#10095;</button>
+
+    </div>
+
+    `;
+   
 
   document.body.appendChild(popup);
 
@@ -74,111 +86,111 @@ export default function setupPopup() {
   async function likeImage(id) {
     try {
       const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await response.json();
+  method: "POST",
+    headers: { "Content-Type": "application/json" },
+});
+const data = await response.json();
 
-      if (data.success) {
-        const count = data.likes_count ?? 0;
-        countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
+if (data.success) {
+  const count = data.likes_count ?? 0;
+  countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
 
-        const svgEl = iconSpan.querySelector("svg");
-        if (svgEl) svgEl.style.fill = "red";
+  const svgEl = iconSpan.querySelector("svg");
+  if (svgEl) svgEl.style.fill = "red";
 
-        changedLikes.add(id);
-        await updateLikeCountInFeed(id, count);
-      }
+  changedLikes.add(id);
+  await updateLikeCountInFeed(id, count);
+}
     } catch (err) {
-      console.error("Error liking image:", err);
+  console.error("Error liking image:", err);
+}
+  }
+
+// -------------------
+// Refresh feed image
+// -------------------
+async function refreshSingleImage(id) {
+  try {
+    const res = await fetch(`https://image-feed-api.vercel.app/api/images/${id}`);
+    const p = await res.json();
+    if (!p) return;
+    updateLikeCountInFeed(p.id, p.likes_count ?? 0);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// -------------------
+// Update feed DOM + local data
+// -------------------
+async function updateLikeCountInFeed(id, newCount) {
+  const card = document.querySelector(`.photo-card[data-photo-id="${id}"]`);
+  if (card) {
+    const likeSpan = card.querySelector(".likes");
+    if (likeSpan) {
+      likeSpan.innerHTML = `${likeIcon} ${newCount} ${newCount === 1 ? "Like" : "Likes"}`;
     }
   }
 
-  // -------------------
-  // Refresh feed image
-  // -------------------
-  async function refreshSingleImage(id) {
-    try {
-      const res = await fetch(`https://image-feed-api.vercel.app/api/images/${id}`);
-      const p = await res.json();
-      if (!p) return;
-      updateLikeCountInFeed(p.id, p.likes_count ?? 0);
-    } catch (err) {
-      console.error(err);
-    }
+  const photo = window.__allPhotos?.find(p => p.id === id);
+  if (photo) photo.likes_count = newCount;
+}
+
+// -------------------
+// Update popup content
+// -------------------
+async function updatePopupContent() {
+  const photo = photosArray[currentIndex];
+  if (!photo) return;
+
+  popupImg.src = photo.src;
+  currentImageId = photo.id;
+
+  try {
+    const res = await fetch(`https://image-feed-api.vercel.app/api/images/${currentImageId}`);
+    const data = await res.json();
+    const count = data.likes_count ?? 0;
+
+    countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
+    const cleanIcon = likeIcon.replace(/\n/g, '');
+    iconSpan.innerHTML = cleanIcon;
+
+    const svgEl = iconSpan.querySelector("svg");
+    if (svgEl) svgEl.style.fill = "black";
+
+    renderComments(photo, popupRight); // ✅ комментарии
+  } catch (err) {
+    console.error(err);
   }
+}
 
-  // -------------------
-  // Update feed DOM + local data
-  // -------------------
-  async function updateLikeCountInFeed(id, newCount) {
-    const card = document.querySelector(`.photo-card[data-photo-id="${id}"]`);
-    if (card) {
-      const likeSpan = card.querySelector(".likes");
-      if (likeSpan) {
-        likeSpan.innerHTML = `${likeIcon} ${newCount} ${newCount === 1 ? "Like" : "Likes"}`;
-      }
-    }
+// -------------------
+// Navigation buttons
+// -------------------
+prevBtn.addEventListener("click", async () => {
+  currentIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
+  await updatePopupContent();
+});
 
-    const photo = window.__allPhotos?.find(p => p.id === id);
-    if (photo) photo.likes_count = newCount;
-  }
+nextBtn.addEventListener("click", async () => {
+  currentIndex = (currentIndex + 1) % photosArray.length;
+  await updatePopupContent();
+});
 
-  // -------------------
-  // Update popup content
-  // -------------------
-  async function updatePopupContent() {
-    const photo = photosArray[currentIndex];
-    if (!photo) return;
+// -------------------
+// Public function: open popup
+// -------------------
+return function openPopup(index, allPhotos) { // Anna: modified to accept allPhotos
+  photosArray = allPhotos;
+  currentIndex = index;
+  const photo = photosArray[currentIndex];
 
-    popupImg.src = photo.src;
-    currentImageId = photo.id;
+  currentImageId = photo.id;
+  popupImg.src = photo.src;
 
-    try {
-      const res = await fetch(`https://image-feed-api.vercel.app/api/images/${currentImageId}`);
-      const data = await res.json();
-      const count = data.likes_count ?? 0;
+  popup.classList.remove("hidden");
+  body.classList.add('popup-open');// Anna: prevent background scroll when popup is open
 
-      countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
-      const cleanIcon = likeIcon.replace(/\n/g, '');
-      iconSpan.innerHTML = cleanIcon;
-
-      const svgEl = iconSpan.querySelector("svg");
-      if (svgEl) svgEl.style.fill = "black";
-
-      renderComments(photo, popupRight); // ✅ комментарии
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  // -------------------
-  // Navigation buttons
-  // -------------------
-  prevBtn.addEventListener("click", async () => {
-    currentIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
-    await updatePopupContent();
-  });
-
-  nextBtn.addEventListener("click", async () => {
-    currentIndex = (currentIndex + 1) % photosArray.length;
-    await updatePopupContent();
-  });
-
-  // -------------------
-  // Public function: open popup
-  // -------------------
-  return function openPopup(index, allPhotos) { // Anna: modified to accept allPhotos
-    photosArray = allPhotos;
-    currentIndex = index;
-    const photo = photosArray[currentIndex];
-
-    currentImageId = photo.id;
-    popupImg.src = photo.src;
-
-    popup.classList.remove("hidden");
-    body.classList.add('popup-open');// Anna: prevent background scroll when popup is open
-
-    updatePopupContent();
-  };
+  updatePopupContent();
+};
 }
