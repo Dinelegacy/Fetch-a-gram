@@ -10,12 +10,10 @@
       
       </div>
 
-      <div class= "carousel">
+      </div> 
 
  <button id="prev-popup" class="popup-nav">&#10094;</button>
-    <button id="next-popup" class="popup-nav">&#10095;</button>
+  <button id="next-popup" class="popup-nav">&#10095;</button>
  
-</div>
-    </div>
 
  `,document.body.appendChild(n);const c=n.querySelector("#popup-img"),r=n.querySelector("#close-popup"),t=n.querySelector("#prev-popup"),e=n.querySelector("#next-popup");let s=0,o=[];return r.addEventListener("click",()=>{n.classList.add("hidden"),i.classList.remove("popup-open")}),t.addEventListener("click",()=>{s=(s-1+o.length)%o.length,c.src=o[s]}),e.addEventListener("click",()=>{s=(s+1)%o.length,c.src=o[s]}),function(g,m){const u=m[g];console.log("Opening popup for photo:",u),s=g,o=m.map(l=>l.src||l.url||l),c.src=u.src,n.classList.remove("hidden"),i.classList.add("popup-open");const h=n.querySelector(".popup-right");console.log("Opening popup for photo:",u),F(u,h)}}const T=O();N();P(T);
