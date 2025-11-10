@@ -445,8 +445,11 @@ body.dark-mode #load-more:hover {
 }
 
 
-
-
+@media (max-width: 768px) {
+  .popup-card {
+    flex-direction: column;
+  }
+}
 
 
 
