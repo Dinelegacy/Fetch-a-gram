@@ -9,6 +9,7 @@
       <div class="popup-right">
       
       </div>
+      </div>
 
       
 </div>
