@@ -261,11 +261,6 @@ body.dark-mode .theme-box button.is-active {
   }
 }
 
-    .photo-section {
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 14px;
-      padding: 16px;
-    }
 
 /* ===== CARD STYLE ===== */
 .photo-card {
@@ -285,18 +280,21 @@ body.dark-mode .theme-box button.is-active {
 }
 
 .photo-card img {
-  height: auto;
-  /* let aspect-ratio control height */
-  aspect-ratio: 1 / 1;
-  /* square tiles feel better on small screens */
+  width: 100%;
+  height: 250px;
   object-fit: cover;
+  display: block;
 }
 
 /* ===== ACTION BUTTONS ===== */
- .actions {
-   padding: 8px;
-   gap: 8px;
- }
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #fafafa;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
 
 .actions button {
   background: transparent;
@@ -1076,4 +1074,18 @@ body.popup-open {
   transform: translateY(0);
   /* press effect */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 640px) {
+  .photo-section {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .photo-card img {
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
 }
