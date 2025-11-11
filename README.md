@@ -18,25 +18,6 @@ It fetches images from a public API, displays them as a responsive gallery, and 
 
 ---
 
-## 🧭 Branching Strategy
-
-- **`main`** — Simulated production branch  
-  → Used for the final project version
-
-- **`develop`** — Default branch for ongoing development  
-  → All feature branches are created off `develop`  
-  → Submit Pull Requests (PRs) from your feature branch into `develop`  
-  → Direct commits to `develop` are **not recommended**
-
----
-
-## 🔗 API Documentation
-
-You can explore the project’s API here:  
-👉 [https://image-feed-api.vercel.app/](https://image-feed-api.vercel.app/)
-
----
-
 ## 🚀 Running the Project
 
 To run the project on your local machine:
@@ -57,32 +38,27 @@ npm run dev
 # 5. Open the project in your browser
 # (Vite will usually start on http://localhost:5173)
 ```
+---
 
 
-# 🏗️ Project Structure : TODO - change structure: keep icons inside /images folder; put js files in "scripts" folder 
+## 🧭 Branching Strategy
 
-Fetch-a-gram/
-│
-├── .github/workflows/ # GitHub Actions for automatic deployment
-├── node_modules/ # Dependencies
-├── public/ # Public assets
-├── src/
-│ ├── fonts/ # Custom fonts
-│ ├── icons/ # SVG icons (move to images/)
-│ ├── images/ # Static images
-│ ├── comments.js # Comment system logic
-│ ├── counter.js # Optional helper scripts
-│ ├── feed.js # Fetch and render photo feed
-│ ├── header.js # Header behavior (theme toggle)
-│ ├── main.js # Entry point for app initialization
-│ ├── popup.js # Popup window (likes + comments)
-│ └── style.css # Global and component styles
-│
-├── index.html # Main HTML entry file
-├── vite.config.js # Vite build configuration
-├── package.json # Dependencies and scripts
-├── .gitignore
-└── README.md
+- **`main`** — Simulated production branch  
+  → Used for the final project version
+
+- **`develop`** — Default branch for ongoing development  
+  → All feature branches are created off `develop`  
+  → Submit Pull Requests (PRs) from your feature branch into `develop`  
+  → Direct commits to `develop` are **not recommended**
+
+---
+
+## 🔗 API Documentation
+
+You can explore the project’s API here:  
+👉 [https://image-feed-api.vercel.app/](https://image-feed-api.vercel.app/)
+
+---
 
 ## ⚙️ Deployment
 
@@ -93,11 +69,22 @@ The project uses **GitHub Actions** for continuous deployment:
 
 ---
 
-### Part Anna TODO-update
+### Part Anna 
+
+I worked on the **Comments feature** and **deployment setup**.
+
+Here is what I did:
+- Implemented the comments functionality — users can view and add comments for each image in the popup.
+- Ensured that the comment count is displayed correctly on both the popup and the feed thumbnails.
+- Fixed the like and comment counters to always show the latest data after user interaction.
+- Structured the code.
+- Configured and tested the deployment setup, ensuring the app builds and runs correctly in the production environment (GitHub Pages / Vite).
+- Worked with HTML and CSS where needed to adjust layout, improve responsiveness, and maintain visual consistency across the app.
+
 
 ### Part Jalal TODO-update
 
-### Part Saheena TODO-update
+### Part Saheena 
 
 I worked on the **Footer section**.  
 Here is what I did:
@@ -125,7 +112,7 @@ Here is what I did:
  **updateLikeCountInFeed**: Updates the like count on the feed cards and updates local data.
 
 
-### 🌸 Part Yordanos TODO-update
+### 🌸 Part Yordanos
 
 I worked on the **Header section**.  
 Here is what I did:
