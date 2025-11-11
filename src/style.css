@@ -143,14 +143,14 @@ body.dark-mode header {
 
 /* ===== THEME TOGGLE BOX ===== */
 .theme-box {
-  display: flex;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
   gap: 6px;
-  padding: 6px;
-  border: 1px solid currentColor;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  max-width: 100%;
+  overflow-x: auto;
+  /* if it gets too tight, allow horizontal scroll */
+  -webkit-overflow-scrolling: touch;
 }
 
 .theme-box button {
@@ -161,6 +161,37 @@ body.dark-mode header {
   cursor: pointer;
   font-weight: 600;
   transition: background 0.2s ease;
+}
+/* Phone breakpoint */
+@media (max-width: 560px) {
+
+  /* Stack header elements nicely */
+  #site-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .site-brand {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .brand-logo {
+    width: 44px;
+  }
+
+  .site-name {
+    font-size: 1.25rem;
+  }
+
+  .theme-box {
+    justify-content: center;
+    padding: 6px;
+  }
+
+  /* When super narrow, hide the big title but keep the logo */
+  
 }
 
 /* active button highlight */
@@ -224,6 +255,18 @@ body.dark-mode .theme-box button.is-active {
   position: relative;
 }
 
+@media (max-width: 1080px) {
+  .photo-section {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+}
+
+    .photo-section {
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+      padding: 16px;
+    }
+
 /* ===== CARD STYLE ===== */
 .photo-card {
   background: #ffffff;
@@ -242,21 +285,18 @@ body.dark-mode .theme-box button.is-active {
 }
 
 .photo-card img {
-  width: 100%;
-  height: 250px;
+  height: auto;
+  /* let aspect-ratio control height */
+  aspect-ratio: 1 / 1;
+  /* square tiles feel better on small screens */
   object-fit: cover;
-  display: block;
 }
 
 /* ===== ACTION BUTTONS ===== */
-.actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px;
-  background: #fafafa;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-}
+ .actions {
+   padding: 8px;
+   gap: 8px;
+ }
 
 .actions button {
   background: transparent;
@@ -639,11 +679,12 @@ body.dark-mode .comments-info svg {
 
 
 #site-header {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  padding: 1.3rem 2.1rem;
-  /* bigger header */
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  /* lets the theme buttons drop to next line */
 }
 
 /* Bigger logo ONLY in header */
