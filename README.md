@@ -95,7 +95,9 @@ The project uses **GitHub Actions** for continuous deployment:
 
 ### Part Anna TODO-update
 
-### Part Jalal TODO-update
+### Part Jalal 
+
+I implemented the image popup modal that opens when a user clicks on a photo. The popup displays the selected image in a larger view and includes next/previous navigation to move between images. I also created the UI section on the right side of the popup for comments and likes, which team mates later expanded with functionality to post and store user interactions. 
 
 ### Part Saheena TODO-update
 
