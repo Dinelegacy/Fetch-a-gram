@@ -1,5 +1,10 @@
 import { renderComments } from './comments.js';
-import likeIcon from './icons/heart-solid-full.svg?raw';
+import {
+  getLikesCount,
+  toggleLike,
+  renderLikesState,
+  updateFeedLikes
+} from './likes.js';
 
 export default function setupPopup() {
   const popup = document.createElement("div");
@@ -7,6 +12,7 @@ export default function setupPopup() {
 
   popup.id = "Image-popup";
   popup.className = "hidden";
+
 
   popup.innerHTML = `
     <div class="popup-card">
@@ -37,8 +43,8 @@ export default function setupPopup() {
   const popupImg = popup.querySelector("#popup-img");
   const closeBtn = popup.querySelector("#close-popup");
   const likeBtn = popup.querySelector("#like-btn");
-  const iconSpan = likeBtn.querySelector(".icon");
-  const countSpan = likeBtn.querySelector(".count");
+  // const iconSpan = likeBtn.querySelector(".icon");
+  // const countSpan = likeBtn.querySelector(".count");
   const prevBtn = popup.querySelector("#prev-popup");
   const nextBtn = popup.querySelector("#next-popup");
   const popupRight = popup.querySelector(".popup-right");
@@ -46,7 +52,8 @@ export default function setupPopup() {
   let currentImageId = null;
   let currentIndex = 0;
   let photosArray = [];
-  const changedLikes = new Set();
+  let isLiked = false;
+ // const changedLikes = new Set();
 
   // -------------------
   // Close popup
@@ -55,75 +62,75 @@ export default function setupPopup() {
     popup.classList.add("hidden");
     body.classList.remove('popup-open'); // Anna: re-enable background scroll when popup is closed
 
-    if (changedLikes.size > 0) {
-      await Promise.all([...changedLikes].map(id => refreshSingleImage(id)));
-      changedLikes.clear();
-    }
+  //  if (changedLikes.size > 0) {
+    //  await Promise.all([...changedLikes].map(id => refreshSingleImage(id)));
+      //changedLikes.clear();
+    //}
   });
 
   // -------------------
   // Like button click
   // -------------------
-  likeBtn.addEventListener("click", async () => {
-    if (!currentImageId) return;
-    await likeImage(currentImageId);
-  });
+  //likeBtn.addEventListener("click", async () => {
+   // if (!currentImageId) return;
+    //await likeImage(currentImageId);
+  //});
 
   // -------------------
   // Like image via API
   // -------------------
-  async function likeImage(id) {
-    try {
-      const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await response.json();
+  // async function likeImage(id) {
+  //   try {
+  //     const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //     });
+  //     const data = await response.json();
 
-      if (data.success) {
-        const count = data.likes_count ?? 0;
-        countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
+  //     if (data.success) {
+  //       const count = data.likes_count ?? 0;
+  //       countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
 
-        const svgEl = iconSpan.querySelector("svg");
-        if (svgEl) svgEl.style.fill = "red";
+  //       const svgEl = iconSpan.querySelector("svg");
+  //       if (svgEl) svgEl.style.fill = "red";
 
-        changedLikes.add(id);
-        await updateLikeCountInFeed(id, count);
-      }
-    } catch (err) {
-      console.error("Error liking image:", err);
-    }
-  }
+  //       changedLikes.add(id);
+  //       await updateLikeCountInFeed(id, count);
+  //     }
+  //   } catch (err) {
+  //     console.error("Error liking image:", err);
+  //   }
+  // }
 
   // -------------------
   // Refresh feed image
   // -------------------
-  async function refreshSingleImage(id) {
-    try {
-      const res = await fetch(`https://image-feed-api.vercel.app/api/images/${id}`);
-      const p = await res.json();
-      if (!p) return;
-      updateLikeCountInFeed(p.id, p.likes_count ?? 0);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  //async function refreshSingleImage(id) {
+    // try {
+    //   const res = await fetch(`https://image-feed-api.vercel.app/api/images/${id}`);
+    //   const p = await res.json();
+    //   if (!p) return;
+    //   updateLikeCountInFeed(p.id, p.likes_count ?? 0);
+    // } catch (err) {
+    //   console.error(err);
+    // }
+ // }
 
   // -------------------
   // Update feed DOM + local data
-  // -------------------
-  async function updateLikeCountInFeed(id, newCount) {
-    const card = document.querySelector(`.photo-card[data-photo-id="${id}"]`);
-    if (card) {
-      const likeSpan = card.querySelector(".likes");
-      if (likeSpan) {
-        likeSpan.innerHTML = `${likeIcon} ${newCount} ${newCount === 1 ? "Like" : "Likes"}`;
-      }
-    }
+  // // -------------------
+  // async function updateLikeCountInFeed(id, newCount) {
+  //   const card = document.querySelector(`.photo-card[data-photo-id="${id}"]`);
+  //   if (card) {
+  //     const likeSpan = card.querySelector(".likes");
+  //     if (likeSpan) {
+  //       likeSpan.innerHTML = `${likeIcon} ${newCount} ${newCount === 1 ? "Like" : "Likes"}`;
+  //     }
+  //   }
 
-    const photo = window.__allPhotos?.find(p => p.id === id);
-    if (photo) photo.likes_count = newCount;
-  }
+  //   const photo = window.__allPhotos?.find(p => p.id === id);
+  //   if (photo) photo.likes_count = newCount;
+  // }
 
   // -------------------
   // Update popup content
@@ -136,22 +143,30 @@ export default function setupPopup() {
     currentImageId = photo.id;
 
     try {
-      const res = await fetch(`https://image-feed-api.vercel.app/api/images/${currentImageId}`);
-      const data = await res.json();
-      const count = data.likes_count ?? 0;
+      // const res = await fetch(`https://image-feed-api.vercel.app/api/images/${currentImageId}`);
+      // const data = await res.json();
+      // const count = data.likes_count ?? 0;
 
-      countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
-      const cleanIcon = likeIcon.replace(/\n/g, '');
-      iconSpan.innerHTML = cleanIcon;
+      // countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
+      // const cleanIcon = likeIcon.replace(/\n/g, '');
+      // iconSpan.innerHTML = cleanIcon;
 
-      const svgEl = iconSpan.querySelector("svg");
-      if (svgEl) svgEl.style.fill = "black";
-
-      renderComments(photo, popupRight); // ✅ комментарии
+      // const svgEl = iconSpan.querySelector("svg");
+      // if (svgEl) svgEl.style.fill = "black";
+      const count= await getLikesCount(currentImageId);
+      renderLikesState({ button: likeBtn, count, isLiked });
+      renderComments(photo, popupRight);
     } catch (err) {
       console.error(err);
     }
   }
+ likeBtn.addEventListener('click', async () =>{
+  if (!currentImageId) return;
+  const result = await toggleLike(currentImageId, isLiked);
+  isLiked = result.liked;
+  renderLikesState({ button: likeBtn, count: result.count, isLiked});
+  updateFeedLikes(currentImageId, result.count);
+ });
 
   // -------------------
   // Navigation buttons
@@ -182,4 +197,4 @@ export default function setupPopup() {
 
     updatePopupContent();
   };
-}
+  }
