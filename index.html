@@ -1,112 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/icons/logo-1.png" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/src/style.css" />
-    <title>Fetchagram</title>
-  </head>
 
-  <body>
-    <!-- header  Yordanos -->
-    <header id="site-header">
-      <div class="site-brand">
-        <img src="/icons/logo-1.png" alt="App logo" class="logo brand-logo" />
-        <h1 class="site-name">Fetchagram</h1>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="/icons/logo-1.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+  <title>Fetchagram</title>
+</head>
 
-      <!-- buttons side-by-side -->
-      <div class="theme-box">
-        <button id="btn-auto" type="button" class="is-active">Auto</button>
-        <button id="btn-dark" type="button">Dark</button>
-        <button id="btn-light" type="button">Light</button>
-      </div>
-    </header>
-    <main>
-      <section id="section1" class="photo-section">
-        <!-- loader element. Anna -->
-        <div class="lds-ripple-container">
-          <div class="lds-ripple">
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-        <!--  -->
-      </section>
-      <button id="load-more">Show More</button>
+<body>
+  <!-- header  Yordanos -->
+  <header id="site-header">
+    <div class="site-brand">
+      <img src="/icons/logo-1.png" alt="App logo" class="logo brand-logo" />
+      <h1 class="site-name">Fetchagram</h1>
+    </div>
 
-      <div class="comments-popup" id="comments-popup">
-        <div class="comments-popup__overlay"></div>
-        <div class="comments-popup__content">
-          <h2>Add your comment</h2>
-          <form class="comments-form" novalidate>
-            <h3 class="comments-form__title">Add a comment</h3>
-      
-            <input
-              class="input-name"
-              type="text"
-              placeholder="Your name"
-              required
-            />
-      
-            <textarea
-              class="input-comment"
-              placeholder="Your comment"
-              required
-            ></textarea>
-      
-            <button class="submit-comment" type="submit">Post</button>
-          </form>
+    <!-- buttons side-by-side -->
+    <div class="theme-box">
+      <button id="btn-auto" type="button" class="is-active">Auto</button>
+      <button id="btn-dark" type="button">Dark</button>
+      <button id="btn-light" type="button">Light</button>
+    </div>
+  </header>
+  <main>
+    <section id="section1" class="photo-section">
+      <!-- loader element. Anna -->
+      <div class="lds-ripple-container">
+        <div class="lds-ripple">
+          <div></div>
+          <div></div>
         </div>
       </div>
-      
-    </main>
+      <!--  -->
+    </section>
+    <button id="load-more">Show More</button>
 
-    <!-- Sahee -->
-    <footer class="footer">
-      <div class="footer-container">
-        <div class="footer-left">
-          <img src="/src/icons/github.svg" alt="App logo" class="logo" />
-          <a
-            href="https://github.com/Dinelegacy/Fetch-a-gram.git"
-            target="_blank"
-          >
-            <i class="fa-brands fa-github"></i> Project Repo
-          </a>
-        </div>
+    <div class="comments-popup" id="comments-popup">
+      <div class="comments-popup__overlay"></div>
+      <div class="comments-popup__content">
+        <h2>Add your comment</h2>
+        <form class="comments-form" novalidate>
+          <h3 class="comments-form__title">Add a comment</h3>
 
-        <div class="footer-right">
-          <img src="/src/icons/linkedln2.svg" alt="App logo" class="logo" />
-          <a href="https://www.linkedin.com/in/anna-baidikova" target="_blank">
-            <i class="fa-brands fa-linkedin"></i> Anna
-          </a>
-          <a
-            href="https://www.linkedin.com/in/jalal-dine-k-0724971a3/"
-            target="_blank"
-          >
-            <i class="fa-brands fa-linkedin"></i> Jalal
-          </a>
-          <a
-            href="https://www.linkedin.com/in/saheena-nazrin-k-412240b7"
-            target="_blank"
-          >
-            <i class="fa-brands fa-linkedin"></i> Saheena
-          </a>
-          <a
-            href="https://www.linkedin.com/in/yordanos-a-2636a5240/"
-            target="_blank"
-          >
-            <i class="fa-brands fa-linkedin"></i> Yordanos
-          </a>
-        </div>
+          <input class="input-name" type="text" placeholder="Your name" required />
+
+          <textarea class="input-comment" placeholder="Your comment" required></textarea>
+
+          <button class="submit-comment" type="submit">Post</button>
+        </form>
       </div>
-    </footer>
+    </div>
 
-    <script type="module" src="/src/main.js"></script>
-  </body>
+  </main>
+
+  <!-- Sahee -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <img src="/src/icons/github.svg" alt="App logo" class="logo" />
+        <a href="https://github.com/Dinelegacy/Fetch-a-gram.git" target="_blank">
+          <i class="fa-brands fa-github"></i> Project Repo
+        </a>
+      </div>
+
+      <div class="footer-right">
+        <img src="/src/icons/linkedln2.svg" alt="App logo" class="logo" />
+        <a href="https://www.linkedin.com/in/anna-baidikova" target="_blank">
+          <i class="fa-brands fa-linkedin"></i> Anna
+        </a>
+        <a href="https://www.linkedin.com/in/jalal-dine-k-0724971a3/" target="_blank">
+          <i class="fa-brands fa-linkedin"></i> Jalal
+        </a>
+        <a href="https://www.linkedin.com/in/saheena-nazrin-k-412240b7" target="_blank">
+          <i class="fa-brands fa-linkedin"></i> Saheena
+        </a>
+        <a href="https://www.linkedin.com/in/yordanos-a-2636a5240/" target="_blank">
+          <i class="fa-brands fa-linkedin"></i> Yordanos
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
