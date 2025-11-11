@@ -17,20 +17,18 @@ export default function setupPopup() {
       </div>
 
       <div class="popup-right">
-        <h3>Post Info</h3>
-        <div class="likes-container">
-          <button id="like-btn" class="like-button">
-            <span class="icon"></span> 
-            <span class="count">0 Likes</span>
-          </button>
-        </div>
-      </div>
+      
       </div>
 
-      <!-- Jalal: added carousel wrapper for navigation buttons -->
-        <button id="prev-popup" class="popup-nav">&#10094;</button>
-        <button id="next-popup" class="popup-nav">&#10095;</button>
-  `;
+      
+</div>
+
+ <button id="prev-popup" class="popup-nav">&#10094;</button>
+ <button id="next-popup" class="popup-nav">&#10095;</button>
+    
+
+ `;
+
 
   document.body.appendChild(popup);
 
