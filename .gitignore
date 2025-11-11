@@ -1,7 +1,13 @@
+
+
+[200~# dependencies
 node_modules/
-node_modules/.package-lock.json
-node_modules/.vite/deps/_metadata.json
-*.lock
+
+# build outputs
 dist/
+.vite/
+
+# editor/system
 .DS_Store
 .vscode/
+~
