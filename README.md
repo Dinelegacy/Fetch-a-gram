@@ -38,27 +38,32 @@ npm run dev
 # 5. Open the project in your browser
 # (Vite will usually start on http://localhost:5173)
 ```
----
 
 
-## 🧭 Branching Strategy
+# 🏗️ Project Structure : TODO - change structure: keep icons inside /images folder; put js files in "scripts" folder 
 
-- **`main`** — Simulated production branch  
-  → Used for the final project version
-
-- **`develop`** — Default branch for ongoing development  
-  → All feature branches are created off `develop`  
-  → Submit Pull Requests (PRs) from your feature branch into `develop`  
-  → Direct commits to `develop` are **not recommended**
-
----
-
-## 🔗 API Documentation
-
-You can explore the project’s API here:  
-👉 [https://image-feed-api.vercel.app/](https://image-feed-api.vercel.app/)
-
----
+Fetch-a-gram/
+│
+├── .github/workflows/ # GitHub Actions for automatic deployment
+├── node_modules/ # Dependencies
+├── public/ # Public assets
+├── src/
+│ ├── fonts/ # Custom fonts
+│ ├── icons/ # SVG icons (move to images/)git
+│ ├── images/ # Static images
+│ ├── comments.js # Comment system logic
+│ ├── counter.js # Optional helper scripts
+│ ├── feed.js # Fetch and render photo feed
+│ ├── header.js # Header behavior (theme toggle)
+│ ├── main.js # Entry point for app initialization
+│ ├── popup.js # Popup window (likes + comments)
+│ └── style.css # Global and component styles
+│
+├── index.html # Main HTML entry file
+├── vite.config.js # Vite build configuration
+├── package.json # Dependencies and scripts
+├── .gitignore
+└── README.md
 
 ## ⚙️ Deployment
 
@@ -84,41 +89,15 @@ Here is what I did:
 
 ### Part Jalal 
 
-I worked on **Popup image viewer** and its **UI integration**.
+I worked on **Popup image viewer** and its **UI integration**
 
-- I implemented the image popup modal that opens when a user clicks on a photo. 
-- The popup displays the selected image in a larger view and includes next/previous navigation to move    between images. 
-- I also created the UI section on the right side of the popup for comments and likes, which team mates later expanded with functionality to post and store user interactions.
+ - I implemented the image popup modal that opens when a user clicks on a photo. 
+ - The popup displays the selected image in a larger view and includes next/previous navigation to move between images. 
+ - I also created the UI section on the right side of the popup for comments and likes, which team mates later expanded with functionality to post and store user interactions.
 
-### Part Saheena 
+### Part Saheena TODO-update
 
-I worked on the **Footer section**.  
-Here is what I did:
-
-- Added a **Project Repo link** with the GitHub logo for easy access to the repository.
-- Added team member **LinkedIn profiles** with logos for attribution.
-- Made the footer **responsive** so it adapts to both small and large screens.
-- Designed a clean and simple layout that aligns with the overall app theme.
-- Used simple **HTML and CSS** so the team can easily maintain it.
-
-
-I worked on the **Like functionality**.
-Here is what I did:
-
-- Users can **like an image from the popup**.
-- Updates **like count in the popup instantly**.
-- Syncs the **like count with feed cards** on the main page.
-- Tracks **changed likes** to refresh feed images when the popup is closed.
-- Modular and reusable functions (**likeImage**, **refreshSingleImage**,                  **updateLikeCountInFeed**) for easy maintenance.
-
- **likeImage**: Sends a POST request to the API to like an image, updates the heart icon and like count in the popup.
-
- **refreshSingleImage**: Fetches the latest like count for a single image and updates the feed.
-
- **updateLikeCountInFeed**: Updates the like count on the feed cards and updates local data.
-
-
-### Part Yordanos
+### 🌸 Part Yordanos TODO-update
 
 I worked on the **Header section**.  
 Here is what I did:
