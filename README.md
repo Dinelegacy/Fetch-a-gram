@@ -68,7 +68,7 @@ Fetch-a-gram/
 ├── public/ # Public assets
 ├── src/
 │ ├── fonts/ # Custom fonts
-│ ├── icons/ # SVG icons (move to images/)
+│ ├── icons/ # SVG icons (move to images/)git
 │ ├── images/ # Static images
 │ ├── comments.js # Comment system logic
 │ ├── counter.js # Optional helper scripts
@@ -97,7 +97,11 @@ The project uses **GitHub Actions** for continuous deployment:
 
 ### Part Jalal 
 
-I implemented the image popup modal that opens when a user clicks on a photo. The popup displays the selected image in a larger view and includes next/previous navigation to move between images. I also created the UI section on the right side of the popup for comments and likes, which team mates later expanded with functionality to post and store user interactions. 
+I worked on **Popup image viewer** and its **UI integration**
+
+ - I implemented the image popup modal that opens when a user clicks on a photo. 
+ - The popup displays the selected image in a larger view and includes next/previous navigation to move between images. 
+ - I also created the UI section on the right side of the popup for comments and likes, which team mates later expanded with functionality to post and store user interactions.
 
 ### Part Saheena TODO-update
 
