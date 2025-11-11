@@ -57,7 +57,14 @@ export default function setupFeed(openPopup) {
       img.id  = p.id;
       img.src = p.src;
       img.alt = "photo";
-      img.addEventListener("click", () => openPopup(i, allPhotos)); // Anna: needed to fix for commens and likes function
+
+      // img.addEventListener("click", () => openPopup(i, allPhotos)); //  mistake. solution below
+      
+      img.addEventListener("click", () => { // Anna: needed to fix for commens and likes function 
+        const globalIndex = allPhotos.findIndex(photo => photo.id === p.id);
+        openPopup(globalIndex, allPhotos);
+      });
+
       const actions = document.createElement("div");
       actions.className = "actions"; // Yordanos: Row for likes and comments counters.
       const likeInfo = document.createElement("span");
