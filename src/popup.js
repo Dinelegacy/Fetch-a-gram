@@ -17,24 +17,28 @@ export default function setupPopup() {
       </div>
 
       <div class="popup-right">
-      
+        <h3>Post Info</h3>
+        <div class="likes-container">
+          <button id="like-btn" class="like-button">
+            <span class="icon"></span> 
+            <span class="count">0 Likes</span>
+          </button>
+        </div>
       </div>
-    </div>
+      </div>
 
-    <button id="prev-popup" class="popup-nav">&#10094;</button>
-    <button id="next-popup" class="popup-nav">&#10095;</button>
+      <!-- Jalal: added carousel wrapper for navigation buttons -->
+        <button id="prev-popup" class="popup-nav">&#10094;</button>
+        <button id="next-popup" class="popup-nav">&#10095;</button>
   `;
 
   document.body.appendChild(popup);
 
-  // -------------------
-  // Query elements safely
-  // -------------------
   const popupImg = popup.querySelector("#popup-img");
   const closeBtn = popup.querySelector("#close-popup");
   const likeBtn = popup.querySelector("#like-btn");
-  const iconSpan = likeBtn?.querySelector(".icon");
-  const countSpan = likeBtn?.querySelector(".count");
+  const iconSpan = likeBtn.querySelector(".icon");
+  const countSpan = likeBtn.querySelector(".count");
   const prevBtn = popup.querySelector("#prev-popup");
   const nextBtn = popup.querySelector("#next-popup");
   const popupRight = popup.querySelector(".popup-right");
@@ -47,34 +51,28 @@ export default function setupPopup() {
   // -------------------
   // Close popup
   // -------------------
-  if (closeBtn) {
-    closeBtn.addEventListener("click", async () => {
-      popup.classList.add("hidden");
-      body.classList.remove('popup-open'); 
+  closeBtn.addEventListener("click", async () => {
+    popup.classList.add("hidden");
+    body.classList.remove('popup-open'); // Anna: re-enable background scroll when popup is closed
 
-      if (changedLikes.size > 0) {
-        await Promise.all([...changedLikes].map(id => refreshSingleImage(id)));
-        changedLikes.clear();
-      }
-    });
-  }
+    if (changedLikes.size > 0) {
+      await Promise.all([...changedLikes].map(id => refreshSingleImage(id)));
+      changedLikes.clear();
+    }
+  });
 
   // -------------------
   // Like button click
   // -------------------
-  if (likeBtn) {
-    likeBtn.addEventListener("click", async () => {
-      if (!currentImageId) return;
-      await likeImage(currentImageId);
-    });
-  }
+  likeBtn.addEventListener("click", async () => {
+    if (!currentImageId) return;
+    await likeImage(currentImageId);
+  });
 
   // -------------------
   // Like image via API
   // -------------------
   async function likeImage(id) {
-    if (!likeBtn || !iconSpan || !countSpan) return;
-
     try {
       const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, {
         method: "POST",
@@ -134,7 +132,7 @@ export default function setupPopup() {
     const photo = photosArray[currentIndex];
     if (!photo) return;
 
-    if (popupImg) popupImg.src = photo.src;
+    popupImg.src = photo.src;
     currentImageId = photo.id;
 
     try {
@@ -142,10 +140,14 @@ export default function setupPopup() {
       const data = await res.json();
       const count = data.likes_count ?? 0;
 
-      if (countSpan) countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
-      if (iconSpan) iconSpan.innerHTML = likeIcon.replace(/\n/g, '');
+      countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
+      const cleanIcon = likeIcon.replace(/\n/g, '');
+      iconSpan.innerHTML = cleanIcon;
 
-      renderComments(photo, popupRight);
+      const svgEl = iconSpan.querySelector("svg");
+      if (svgEl) svgEl.style.fill = "black";
+
+      renderComments(photo, popupRight); // ✅ комментарии
     } catch (err) {
       console.error(err);
     }
@@ -154,33 +156,29 @@ export default function setupPopup() {
   // -------------------
   // Navigation buttons
   // -------------------
-  if (prevBtn) {
-    prevBtn.addEventListener("click", async () => {
-      currentIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
-      await updatePopupContent();
-    });
-  }
+  prevBtn.addEventListener("click", async () => {
+    currentIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
+    await updatePopupContent();
+  });
 
-  if (nextBtn) {
-    nextBtn.addEventListener("click", async () => {
-      currentIndex = (currentIndex + 1) % photosArray.length;
-      await updatePopupContent();
-    });
-  }
+  nextBtn.addEventListener("click", async () => {
+    currentIndex = (currentIndex + 1) % photosArray.length;
+    await updatePopupContent();
+  });
 
   // -------------------
   // Public function: open popup
   // -------------------
-  return function openPopup(index, allPhotos) {
+  return function openPopup(index, allPhotos) { // Anna: modified to accept allPhotos
     photosArray = allPhotos;
     currentIndex = index;
     const photo = photosArray[currentIndex];
 
     currentImageId = photo.id;
-    if (popupImg) popupImg.src = photo.src;
+    popupImg.src = photo.src;
 
     popup.classList.remove("hidden");
-    body.classList.add('popup-open');
+    body.classList.add('popup-open'); // Anna: prevent background scroll when popup is open
 
     updatePopupContent();
   };
