@@ -123,8 +123,6 @@ Here is what I did:
 - Made the header **responsive** (works on small and big screens).
 - Wrote **simple CSS and JavaScript** so everyone on the team can understand it.
 
----
-
 I worked on the **Feed (API + Display)**.
 
 - Connected to the API to **fetch photos**.
