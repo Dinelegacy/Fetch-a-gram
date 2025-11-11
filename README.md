@@ -112,7 +112,7 @@ Here is what I did:
  **updateLikeCountInFeed**: Updates the like count on the feed cards and updates local data.
 
 
-### 🌸 Part Yordanos
+### Part Yordanos
 
 I worked on the **Header section**.  
 Here is what I did:
@@ -125,18 +125,20 @@ Here is what I did:
 
 ---
 
-## 🧠 How the Dark Mode Works
+I worked on the **Feed (API + Display)**.
 
-- The toggle button adds or removes a class called `dark-mode` on the `<body>`.
-- When `dark-mode` is active, the background turns dark navy and the text turns white.
-- When you click again, it goes back to light mode.
+- Connected to the API to **fetch photos**.
+- Cleaned/normalized the data so every photo always has:
+  - id
+  - src (image url)
+  - likes_count (default 0)
+  - comments (default [])
+- Rendered (showed) each photo on the page inside a card.
+- Displayed the number of **likes + comments** under each photo.
+- Added the **Show More** button so more photos load when clicked.
+- Kept track of pages (page 1, page 2…) so it loads new photos every time.
+
 
 ---
-
-## 🧩 Files I Worked On
-
-- `index.html` → Header structure  
-- `style.css` → Header style + dark/light mode  
-- `main.js` → Toggle button JavaScript
 
 
