@@ -1,5 +1,5 @@
 import { renderComments } from './comments.js';
-import likeIcon from './icons/heart-solid-full.svg?raw';
+import likeIcon from './icons/heart-solid-full.svg?raw'; // 💗 THIS IS FOR LIKE
 
 export default function setupPopup() {
   const popup = document.createElement("div");
@@ -18,10 +18,10 @@ export default function setupPopup() {
 
       <div class="popup-right">
         <h3>Post Info</h3>
-        <div class="likes-container">
-          <button id="like-btn" class="like-button">
-            <span class="icon"></span> 
-            <span class="count">0 Likes</span>
+        <div class="likes-container"> <!-- 💗 THIS IS FOR LIKE -->
+          <button id="like-btn" class="like-button"> <!-- 💗 THIS IS FOR LIKE -->
+            <span class="icon"></span>  <!-- 💗 THIS IS FOR LIKE -->
+            <span class="count">0 Likes</span> <!-- 💗 THIS IS FOR LIKE -->
           </button>
         </div>
       </div>
@@ -36,9 +36,9 @@ export default function setupPopup() {
 
   const popupImg = popup.querySelector("#popup-img");
   const closeBtn = popup.querySelector("#close-popup");
-  const likeBtn = popup.querySelector("#like-btn");
-  const iconSpan = likeBtn.querySelector(".icon");
-  const countSpan = likeBtn.querySelector(".count");
+  // const likeBtn = popup.querySelector("#like-btn"); // 💗 THIS IS FOR LIKE
+  // const iconSpan = likeBtn.querySelector(".icon"); // 💗 THIS IS FOR LIKE
+  // const countSpan = likeBtn.querySelector(".count"); // 💗 THIS IS FOR LIKE
   const prevBtn = popup.querySelector("#prev-popup");
   const nextBtn = popup.querySelector("#next-popup");
   const popupRight = popup.querySelector(".popup-right");
@@ -46,7 +46,7 @@ export default function setupPopup() {
   let currentImageId = null;
   let currentIndex = 0;
   let photosArray = [];
-  const changedLikes = new Set();
+  // const changedLikes = new Set(); // 💗 THIS IS FOR LIKE
 
   // -------------------
   // Close popup
@@ -55,75 +55,75 @@ export default function setupPopup() {
     popup.classList.add("hidden");
     body.classList.remove('popup-open'); // Anna: re-enable background scroll when popup is closed
 
-    if (changedLikes.size > 0) {
-      await Promise.all([...changedLikes].map(id => refreshSingleImage(id)));
-      changedLikes.clear();
-    }
+    // if (changedLikes.size > 0) { // 💗 THIS IS FOR LIKE
+    //   await Promise.all([...changedLikes].map(id => refreshSingleImage(id))); // 💗 THIS IS FOR LIKE
+    //   changedLikes.clear(); // 💗 THIS IS FOR LIKE
+    // }
   });
 
   // -------------------
   // Like button click
   // -------------------
-  likeBtn.addEventListener("click", async () => {
-    if (!currentImageId) return;
-    await likeImage(currentImageId);
-  });
+  // likeBtn.addEventListener("click", async () => { // 💗 THIS IS FOR LIKE
+  //   if (!currentImageId) return; // 💗 THIS IS FOR LIKE
+  //   await likeImage(currentImageId); // 💗 THIS IS FOR LIKE
+  // });
 
   // -------------------
   // Like image via API
   // -------------------
-  async function likeImage(id) {
-    try {
-      const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await response.json();
+  // async function likeImage(id) { // 💗 THIS IS FOR LIKE
+  //   try {
+  //     const response = await fetch(`https://image-feed-api.vercel.app/api/images/${id}/like`, { // 💗 THIS IS FOR LIKE
+  //       method: "POST", // 💗 THIS IS FOR LIKE
+  //       headers: { "Content-Type": "application/json" }, // 💗 THIS IS FOR LIKE
+  //     });
+  //     const data = await response.json(); // 💗 THIS IS FOR LIKE
 
-      if (data.success) {
-        const count = data.likes_count ?? 0;
-        countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
+  //     if (data.success) { // 💗 THIS IS FOR LIKE
+  //       const count = data.likes_count ?? 0; // 💗 THIS IS FOR LIKE
+  //       countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`; // 💗 THIS IS FOR LIKE
 
-        const svgEl = iconSpan.querySelector("svg");
-        if (svgEl) svgEl.style.fill = "red";
+  //       const svgEl = iconSpan.querySelector("svg"); // 💗 THIS IS FOR LIKE
+  //       if (svgEl) svgEl.style.fill = "red"; // 💗 THIS IS FOR LIKE
 
-        changedLikes.add(id);
-        await updateLikeCountInFeed(id, count);
-      }
-    } catch (err) {
-      console.error("Error liking image:", err);
-    }
-  }
+  //       changedLikes.add(id); // 💗 THIS IS FOR LIKE
+  //       await updateLikeCountInFeed(id, count); // 💗 THIS IS FOR LIKE
+  //     }
+  //   } catch (err) {
+  //     console.error("Error liking image:", err); // 💗 THIS IS FOR LIKE
+  //   }
+  // }
 
   // -------------------
   // Refresh feed image
   // -------------------
-  async function refreshSingleImage(id) {
-    try {
-      const res = await fetch(`https://image-feed-api.vercel.app/api/images/${id}`);
-      const p = await res.json();
-      if (!p) return;
-      updateLikeCountInFeed(p.id, p.likes_count ?? 0);
-    } catch (err) {
-      console.error(err);
-    }
-  }
+  // async function refreshSingleImage(id) { // 💗 THIS IS FOR LIKE
+  //   try {
+  //     const res = await fetch(`https://image-feed-api.vercel.app/api/images/${id}`); // 💗 THIS IS FOR LIKE
+  //     const p = await res.json(); // 💗 THIS IS FOR LIKE
+  //     if (!p) return; // 💗 THIS IS FOR LIKE
+  //     updateLikeCountInFeed(p.id, p.likes_count ?? 0); // 💗 THIS IS FOR LIKE
+  //   } catch (err) {
+  //     console.error(err); // 💗 THIS IS FOR LIKE
+  //   }
+  // }
 
   // -------------------
   // Update feed DOM + local data
   // -------------------
-  async function updateLikeCountInFeed(id, newCount) {
-    const card = document.querySelector(`.photo-card[data-photo-id="${id}"]`);
-    if (card) {
-      const likeSpan = card.querySelector(".likes");
-      if (likeSpan) {
-        likeSpan.innerHTML = `${likeIcon} ${newCount} ${newCount === 1 ? "Like" : "Likes"}`;
-      }
-    }
+  // async function updateLikeCountInFeed(id, newCount) { // 💗 THIS IS FOR LIKE
+  //   const card = document.querySelector(`.photo-card[data-photo-id="${id}"]`); // 💗 THIS IS FOR LIKE
+  //   if (card) { // 💗 THIS IS FOR LIKE
+  //     const likeSpan = card.querySelector(".likes"); // 💗 THIS IS FOR LIKE
+  //     if (likeSpan) { // 💗 THIS IS FOR LIKE
+  //       likeSpan.innerHTML = `${likeIcon} ${newCount} ${newCount === 1 ? "Like" : "Likes"}`; // 💗 THIS IS FOR LIKE
+  //     }
+  //   }
 
-    const photo = window.__allPhotos?.find(p => p.id === id);
-    if (photo) photo.likes_count = newCount;
-  }
+  //   const photo = window.__allPhotos?.find(p => p.id === id); // 💗 THIS IS FOR LIKE
+  //   if (photo) photo.likes_count = newCount; // 💗 THIS IS FOR LIKE
+  // }
 
   // -------------------
   // Update popup content
@@ -136,18 +136,18 @@ export default function setupPopup() {
     currentImageId = photo.id;
 
     try {
-      const res = await fetch(`https://image-feed-api.vercel.app/api/images/${currentImageId}`);
-      const data = await res.json();
-      const count = data.likes_count ?? 0;
+      // const res = await fetch(`https://image-feed-api.vercel.app/api/images/${currentImageId}`); // 💗 THIS IS FOR LIKE
+      // const data = await res.json(); // 💗 THIS IS FOR LIKE
+      // const count = data.likes_count ?? 0; // 💗 THIS IS FOR LIKE
 
-      countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`;
-      const cleanIcon = likeIcon.replace(/\n/g, '');
-      iconSpan.innerHTML = cleanIcon;
+      // countSpan.textContent = `${count} ${count === 1 ? "Like" : "Likes"}`; // 💗 THIS IS FOR LIKE
+      // const cleanIcon = likeIcon.replace(/\n/g, ''); // 💗 THIS IS FOR LIKE
+      // iconSpan.innerHTML = cleanIcon; // 💗 THIS IS FOR LIKE
 
-      const svgEl = iconSpan.querySelector("svg");
-      if (svgEl) svgEl.style.fill = "black";
+      // const svgEl = iconSpan.querySelector("svg"); // 💗 THIS IS FOR LIKE
+      // if (svgEl) svgEl.style.fill = "black"; // 💗 THIS IS FOR LIKE
 
-      renderComments(photo, popupRight); // ✅ комментарии
+      renderComments(photo, popupRight); // ✅ Comments
     } catch (err) {
       console.error(err);
     }
