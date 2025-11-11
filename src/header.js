@@ -1,5 +1,4 @@
-// Yordanos header toggle
-
+// Yordanos header toggle 
 export default function setupHeader() {
   const header   = document.getElementById('site-header');
   const btnAuto  = document.getElementById('btn-auto');
@@ -8,13 +7,28 @@ export default function setupHeader() {
   if (!header || !btnAuto || !btnDark || !btnLight) return;
 
   const mql = window.matchMedia('(prefers-color-scheme: dark)');
-  let mode = 'auto'; // default
+  const storageKey = 'fetchagram-theme';
+
+  function loadMode() {
+    return localStorage.getItem(storageKey) || 'auto';
+  }
+  function saveMode(v) {
+    localStorage.setItem(storageKey, v);
+  }
+
+  let mode = loadMode();
 
   function setActive() {
-    [btnAuto, btnDark, btnLight].forEach(b => b.classList.remove('is-active'));
-    if (mode === 'auto') btnAuto.classList.add('is-active');
-    if (mode === 'dark') btnDark.classList.add('is-active');
-    if (mode === 'light') btnLight.classList.add('is-active');
+    const buttons = [btnAuto, btnDark, btnLight];
+    buttons.forEach(b => {
+      const active = (
+        (b === btnAuto  && mode === 'auto') ||
+        (b === btnDark  && mode === 'dark') ||
+        (b === btnLight && mode === 'light')
+      );
+      b.classList.toggle('is-active', active);
+      b.setAttribute('aria-selected', String(active));
+    });
   }
 
   function apply() {
@@ -23,17 +37,25 @@ export default function setupHeader() {
 
     if (mode === 'auto') {
       if (mql.matches) document.body.classList.add('dark-mode'); // follow system
-      header.classList.add('header--auto');                       // light-blue header
+      header.classList.add('header--auto');                       // light-blue header tint
+    } else if (mode === 'dark') {
+      document.body.classList.add('dark-mode');
     }
-    if (mode === 'dark') document.body.classList.add('dark-mode');
+    // light mode = no dark-mode class
 
     setActive();
+    saveMode(mode);
   }
 
-  mql.addEventListener('change', () => { if (mode==='auto') apply(); });
-  btnAuto.addEventListener('click',  () => { mode='auto';  apply(); });
-  btnDark.addEventListener('click',  () => { mode='dark';  apply(); });
-  btnLight.addEventListener('click', () => { mode='light'; apply(); });
+  // React to OS changes only when in auto
+  const onSystemChange = () => { if (mode === 'auto') apply(); };
+  if (mql.addEventListener) mql.addEventListener('change', onSystemChange);
+  else mql.addListener(onSystemChange); // Safari <14 fallback
+
+  // Wire buttons
+  btnAuto.addEventListener('click',  () => { mode = 'auto';  apply(); });
+  btnDark.addEventListener('click',  () => { mode = 'dark';  apply(); });
+  btnLight.addEventListener('click', () => { mode = 'light'; apply(); });
 
   apply(); // first paint
 }

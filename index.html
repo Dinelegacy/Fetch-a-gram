@@ -21,10 +21,22 @@
       </div>
 
       <!-- buttons side-by-side -->
-      <div class="theme-box">
-        <button id="btn-auto" type="button" class="is-active">Auto</button>
-        <button id="btn-dark" type="button">Dark</button>
-        <button id="btn-light" type="button">Light</button>
+      <div class="theme-box" role="tablist" aria-label="Theme">
+        <button
+          id="btn-auto"
+          type="button"
+          class="is-active"
+          role="tab"
+          aria-selected="true"
+        >
+          Auto
+        </button>
+        <button id="btn-dark" type="button" role="tab" aria-selected="false">
+          Dark
+        </button>
+        <button id="btn-light" type="button" role="tab" aria-selected="false">
+          Light
+        </button>
       </div>
     </header>
     <main>
