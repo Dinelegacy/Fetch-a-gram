@@ -82,7 +82,13 @@ Here is what I did:
 - Worked with HTML and CSS where needed to adjust layout, improve responsiveness, and maintain visual consistency across the app.
 
 
-### Part Jalal TODO-update
+### Part Jalal 
+
+I worked on **Popup image viewer** and its **UI integration**.
+
+- I implemented the image popup modal that opens when a user clicks on a photo. 
+- The popup displays the selected image in a larger view and includes next/previous navigation to move    between images. 
+- I also created the UI section on the right side of the popup for comments and likes, which team mates later expanded with functionality to post and store user interactions.
 
 ### Part Saheena 
 
