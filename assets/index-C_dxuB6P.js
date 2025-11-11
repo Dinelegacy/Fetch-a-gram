@@ -7,15 +7,17 @@
       </div>
 
       <div class="popup-right">
-      
+        <h3>Post Info</h3>
+        <div class="likes-container">
+          <button id="like-btn" class="like-button">
+            <span class="icon"></span> 
+            <span class="count">0 Likes</span>
+          </button>
+        </div>
       </div>
       </div>
 
-      
-</div>
-
- <button id="prev-popup" class="popup-nav">&#10094;</button>
- <button id="next-popup" class="popup-nav">&#10095;</button>
-    
-
- `,document.body.appendChild(n);const a=n.querySelector("#popup-img"),r=n.querySelector("#close-popup"),t=n.querySelector("#like-btn"),e=t.querySelector(".icon"),d=t.querySelector(".count"),y=n.querySelector("#prev-popup"),l=n.querySelector("#next-popup"),u=n.querySelector(".popup-right");let L=null,c=0,h=[];const g=new Set;r.addEventListener("click",async()=>{n.classList.add("hidden"),m.classList.remove("popup-open"),g.size>0&&(await Promise.all([...g].map(i=>k(i))),g.clear())}),t.addEventListener("click",async()=>{L&&await v(L)});async function v(i){try{const o=await(await fetch(`https://image-feed-api.vercel.app/api/images/${i}/like`,{method:"POST",headers:{"Content-Type":"application/json"}})).json();if(o.success){const s=o.likes_count??0;d.textContent=`${s} ${s===1?"Like":"Likes"}`;const f=e.querySelector("svg");f&&(f.style.fill="red"),g.add(i),await w(i,s)}}catch(p){console.error("Error liking image:",p)}}async function k(i){try{const o=await(await fetch(`https://image-feed-api.vercel.app/api/images/${i}`)).json();if(!o)return;w(o.id,o.likes_count??0)}catch(p){console.error(p)}}async function w(i,p){const o=document.querySelector(`.photo-card[data-photo-id="${i}"]`);if(o){const f=o.querySelector(".likes");f&&(f.innerHTML=`${I} ${p} ${p===1?"Like":"Likes"}`)}const s=window.__allPhotos?.find(f=>f.id===i);s&&(s.likes_count=p)}async function E(){const i=h[c];if(i){a.src=i.src,L=i.id;try{const s=(await(await fetch(`https://image-feed-api.vercel.app/api/images/${L}`)).json()).likes_count??0;d.textContent=`${s} ${s===1?"Like":"Likes"}`;const f=I.replace(/\n/g,"");e.innerHTML=f;const C=e.querySelector("svg");C&&(C.style.fill="black"),_(i,u)}catch(p){console.error(p)}}}return y.addEventListener("click",async()=>{c=(c-1+h.length)%h.length,await E()}),l.addEventListener("click",async()=>{c=(c+1)%h.length,await E()}),function(p,o){h=o,c=p;const s=h[c];L=s.id,a.src=s.src,n.classList.remove("hidden"),m.classList.add("popup-open"),E()}}const F=T();A();M(F);
+      <!-- Jalal: added carousel wrapper for navigation buttons -->
+        <button id="prev-popup" class="popup-nav">&#10094;</button>
+        <button id="next-popup" class="popup-nav">&#10095;</button>
+  `,document.body.appendChild(n);const a=n.querySelector("#popup-img"),r=n.querySelector("#close-popup"),t=n.querySelector("#like-btn"),e=t.querySelector(".icon"),d=t.querySelector(".count"),y=n.querySelector("#prev-popup"),l=n.querySelector("#next-popup"),u=n.querySelector(".popup-right");let L=null,c=0,h=[];const g=new Set;r.addEventListener("click",async()=>{n.classList.add("hidden"),m.classList.remove("popup-open"),g.size>0&&(await Promise.all([...g].map(i=>k(i))),g.clear())}),t.addEventListener("click",async()=>{L&&await v(L)});async function v(i){try{const o=await(await fetch(`https://image-feed-api.vercel.app/api/images/${i}/like`,{method:"POST",headers:{"Content-Type":"application/json"}})).json();if(o.success){const s=o.likes_count??0;d.textContent=`${s} ${s===1?"Like":"Likes"}`;const f=e.querySelector("svg");f&&(f.style.fill="red"),g.add(i),await w(i,s)}}catch(p){console.error("Error liking image:",p)}}async function k(i){try{const o=await(await fetch(`https://image-feed-api.vercel.app/api/images/${i}`)).json();if(!o)return;w(o.id,o.likes_count??0)}catch(p){console.error(p)}}async function w(i,p){const o=document.querySelector(`.photo-card[data-photo-id="${i}"]`);if(o){const f=o.querySelector(".likes");f&&(f.innerHTML=`${I} ${p} ${p===1?"Like":"Likes"}`)}const s=window.__allPhotos?.find(f=>f.id===i);s&&(s.likes_count=p)}async function E(){const i=h[c];if(i){a.src=i.src,L=i.id;try{const s=(await(await fetch(`https://image-feed-api.vercel.app/api/images/${L}`)).json()).likes_count??0;d.textContent=`${s} ${s===1?"Like":"Likes"}`;const f=I.replace(/\n/g,"");e.innerHTML=f;const C=e.querySelector("svg");C&&(C.style.fill="black"),_(i,u)}catch(p){console.error(p)}}}return y.addEventListener("click",async()=>{c=(c-1+h.length)%h.length,await E()}),l.addEventListener("click",async()=>{c=(c+1)%h.length,await E()}),function(p,o){h=o,c=p;const s=h[c];L=s.id,a.src=s.src,n.classList.remove("hidden"),m.classList.add("popup-open"),E()}}const F=T();A();M(F);
