@@ -42,7 +42,7 @@ export default function setupFeed(openPopup) {
           allPhotos.map(x => ({ id: x.id, src: x.src, comments: x.comments }))
         )
       );
-      // In the fixed version, we use the real index in the full list of all photos — not just in the small group we just loaded.
+      // In the new version, we use the real index in the full list of all photos — not just in the small group we just loaded.
       // We get this correct index using allPhotos.length before adding the new photo.
       // That number tells us the true position of the photo in the full array.
 
