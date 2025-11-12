@@ -290,12 +290,14 @@ body.dark-mode .theme-box button.is-active {
 .actions {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   padding: 10px;
   background: #fafafa;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
+  flex-wrap: nowrap;
+  /* don't wrap unless we absolutely must */
 }
-
 .actions button {
   background: transparent;
   border: 1px solid currentColor;
@@ -660,9 +662,29 @@ body.dark-mode .lds-ripple div {
 /* Likes / comments icons */
 .likes,
 .comments-info {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
+  white-space: nowrap;
+  /* keep text together */
+  min-width: 0;
+}
+/* tighten spacing & font-size a bit around 665px */
+@media (max-width: 680px) {
+  .actions {
+    gap: 8px;
+  }
+
+  .likes,
+  .comments-info {
+    font-size: 0.95rem;
+  }
+
+  .likes svg,
+  .comments-info svg {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 .likes svg,

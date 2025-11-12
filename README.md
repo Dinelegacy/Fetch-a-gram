@@ -53,12 +53,12 @@ Fetch-a-gram/
 │ ├── images/ # Static images
 │ ├── comments.js # Comment system logic
 │ ├── counter.js # Optional helper scripts
-│ ├── feed.js # Fetch and render photo feed
+│ ├── feed.helpers.js # API helper functions for fetching photos and likes
+│ ├── feed.js # Renders the photo feed and connects with the helper file
 │ ├── header.js # Header behavior (theme toggle)
 │ ├── main.js # Entry point for app initialization
 │ ├── popup.js # Popup window (likes + comments)
 │ └── style.css # Global and component styles
-│
 ├── index.html # Main HTML entry file
 ├── vite.config.js # Vite build configuration
 ├── package.json # Dependencies and scripts
