@@ -39,8 +39,9 @@ npm run dev
 # (Vite will usually start on http://localhost:5173)
 ```
 
-
 # 🏗️ Project Structure : TODO - change structure: keep icons inside /images folder; put js files in "scripts" folder 
+
+```
 
 Fetch-a-gram/
 │
@@ -49,7 +50,7 @@ Fetch-a-gram/
 ├── public/ # Public assets
 ├── src/
 │ ├── fonts/ # Custom fonts
-│ ├── icons/ # SVG icons (move to images/)git
+│ ├── icons/ # SVG icons
 │ ├── images/ # Static images
 │ ├── comments.js # Comment system logic
 │ ├── counter.js # Optional helper scripts
@@ -64,6 +65,7 @@ Fetch-a-gram/
 ├── package.json # Dependencies and scripts
 ├── .gitignore
 └── README.md
+```
 
 ## ⚙️ Deployment
 
