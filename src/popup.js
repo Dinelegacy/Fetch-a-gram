@@ -6,25 +6,26 @@ export default function setupPopup() {
   const body = document.body;
   popup.id = "Image-popup";
   popup.className = "hidden";
+
   popup.innerHTML = `
     <div class="popup-card">
-      <span id="close-popup">&times;</span>
-      <div class="popup-left">
-        <img id="popup-img" src="" alt="popup image">
-      </div>
-      <div class="popup-right">
-        <h3>Post Info</h3>
-        <div class="likes-container">
-          <button id="like-btn" class="like-button">
-            <span class="icon"></span>
-            <span class="count">0 Likes</span>
-          </button>
-        </div>
-      </div>
-      </div>
-      <!-- Jalal: added carousel wrapper for navigation buttons -->
-        <button id="prev-popup" class="popup-nav">&#10094;</button>
-        <button id="next-popup" class="popup-nav">&#10095;</button>
+    <span id="close-popup">&times;</span>
+    <div class="popup-left">
+    <img id="popup-img" src="" alt="popup image">
+    </div>
+    <div class="popup-right">
+    <h3>Post Info</h3>
+    <div class="likes-container">
+    <button id="like-btn" class="like-button">
+    <span class="icon"></span>
+    <span class="count">0 Likes</span>
+    </button>
+    </div>
+    </div>
+    </div>
+      <!-carousel wrapper for navigation buttons -->
+     <button id="prev-popup" class="popup-nav">&#10094;</button>
+    <button id="next-popup" class="popup-nav">&#10095;</button>
   `;
   document.body.appendChild(popup);
   const popupImg = popup.querySelector("#popup-img");
@@ -91,33 +92,26 @@ export default function setupPopup() {
     await updatePopupContent();
   });
 
-// Handle swipe gestures on mobile
-let touchStartX = 0;
-let touchEndX = 0;
+  // --- Swipe (Touch) Support for Mobile ---
+ let startX = 0;
 
-popup.addEventListener("touchstart", (e) => {
-  touchStartX = e.changedTouches[0].screenX;
+ popupImg.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
 });
 
-popup.addEventListener("touchend", (e) => {
-  touchEndX = e.changedTouches[0].screenX;
-  handleSwipe();
-});
-
-function handleSwipe() {
-  const swipeDistance = touchEndX - touchStartX;
-  const swipeThreshold = 50; // minimum distance to count as a swipe
-  if (Math.abs(swipeDistance) > swipeThreshold) {
-    if (swipeDistance > 0) {
-      // swipe right → previous
-      currentIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
-    } else {
-      // swipe left → next
-      currentIndex = (currentIndex + 1) % photosArray.length;
-    }
+ popupImg.addEventListener('touchend', (e) => {
+  const endX = e.changedTouches[0].clientX;
+  if (startX - endX > 50) {
+    // swipe left → next
+    currentIndex = (currentIndex + 1) % photosArray.length;
+    popupImg.src = photosArray[currentIndex];
+  } else if (endX - startX > 50) {
+    // swipe right → previous
+    currentIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
     popupImg.src = photosArray[currentIndex];
   }
-}
+});
+
   // -------------------
   // Public function: open popup
   // -------------------
