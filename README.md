@@ -91,11 +91,24 @@ Here is what I did:
 
 ### Part Jalal 
 
-I worked on **Popup image viewer** and its **UI integration**
+I worked on **Popup Image Viewer** & **UI Integration**
 
- - I implemented the image popup modal that opens when a user clicks on a photo. 
- - The popup displays the selected image in a larger view and includes next/previous navigation to move between images. 
- - I also created the UI section on the right side of the popup for comments and likes, which team mates later expanded with functionality to post and store user interactions.
+- I worked on the Popup Image Viewer and its UI integration, enhancing the user experience for viewing photos in detail.
+
+- Implemented a clickable image popup modal that opens when a user selects a photo.
+
+- The popup displays the selected image in a larger view for better visibility.
+
+- Added navigation controls within the popup, allowing users to move forward and backward between images seamlessly.
+
+- Designed the right-side UI panel in the popup to show comments and likes, providing a framework for interaction.
+
+- While I focused on the layout and design, team members later expanded this section to handle posting comments, liking photos, and storing user interactions.
+
+- Ensured the popup updates dynamically when navigating through images, maintaining the correct image and associated UI elements.
+
+- Paid attention to responsive design, so the popup works well on different screen sizes, including small screens where the carousel hides appropriately.
+
 
 
 ### Part Saheena
