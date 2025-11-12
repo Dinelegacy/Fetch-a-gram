@@ -90,6 +90,34 @@ export default function setupPopup() {
     currentIndex = (currentIndex + 1) % photosArray.length;
     await updatePopupContent();
   });
+
+// Handle swipe gestures on mobile
+let touchStartX = 0;
+let touchEndX = 0;
+
+popup.addEventListener("touchstart", (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+});
+
+popup.addEventListener("touchend", (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+});
+
+function handleSwipe() {
+  const swipeDistance = touchEndX - touchStartX;
+  const swipeThreshold = 50; // minimum distance to count as a swipe
+  if (Math.abs(swipeDistance) > swipeThreshold) {
+    if (swipeDistance > 0) {
+      // swipe right → previous
+      currentIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
+    } else {
+      // swipe left → next
+      currentIndex = (currentIndex + 1) % photosArray.length;
+    }
+    popupImg.src = photosArray[currentIndex];
+  }
+}
   // -------------------
   // Public function: open popup
   // -------------------
