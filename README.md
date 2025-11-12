@@ -95,8 +95,36 @@ I worked on **Popup image viewer** and its **UI integration**
  - The popup displays the selected image in a larger view and includes next/previous navigation to move between images. 
  - I also created the UI section on the right side of the popup for comments and likes, which team mates later expanded with functionality to post and store user interactions.
 
-### Part Saheena TODO-update
 
+### Part Saheena
+
+I worked on the **Footer section**.  
+Here is what I did:
+
+- Added a **Project Repo link** with the GitHub logo for easy access to the repository.
+- Added team member **LinkedIn profiles** with logos for attribution.
+- Made the footer **responsive** so it adapts to both small and large screens.
+- Designed a clean and simple layout that aligns with the overall app theme.
+- Used simple **HTML and CSS** so the team can easily maintain it.
+
+I worked on the **Like functionality**.
+Here is what I did:
+
+- Users can **like an image from the popup**.
+- Updates **like count in the popup instantly**.
+- Syncs the **like count with feed cards** on the main page.
+- Tracks **changed likes** to refresh feed images when the popup is closed.
+- Modular and reusable functions (**likeImage**
+ **refreshSingleImage**,**updateLikeCountInFeed**) for easy maintenance.
+
+ **likeImage**: Sends a POST request to the API to like an image, updates the heart icon and like count in the popup.
+
+ **refreshSingleImage**: Fetches the latest like count for a single image and updates the feed.
+
+ **updateLikeCountInFeed**: Updates the like count on the feed cards and updates local data.
+
+
+### 🌸 Part Yordanos
 
 
 
