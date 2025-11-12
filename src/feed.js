@@ -23,9 +23,31 @@ export default function setupFeed(openPopup) {
       img.id = p.id;
       img.src = p.src;
       img.alt = "photo";
+
+      // old version:
+      
+      // img.addEventListener("click", () =>
+      //   openPopup(i, allPhotos.map(x => ({ id: x.id, src: x.src, comments: x.comments })))
+      // ); //       In this version, the problem was that the click event used the wrong index. 
+      // When new photos were loaded, each new group of photos started counting again from zero (i = 0, 1, 2...).
+      // So when you clicked a new photo, the popup opened an old photo from the first group — because it used that small index (0, 1, 2) instead of the real position in the full list.
+
+
+      // new version:
+      const globalIndex = allPhotos.length;
+
       img.addEventListener("click", () =>
-        openPopup(i, allPhotos.map(x => ({ id: x.id, src: x.src, comments: x.comments })))
+        openPopup(
+          globalIndex,
+          allPhotos.map(x => ({ id: x.id, src: x.src, comments: x.comments }))
+        )
       );
+      // In the fixed version, we use the real index in the full list of all photos — not just in the small group we just loaded.
+      // We get this correct index using allPhotos.length before adding the new photo.
+      // That number tells us the true position of the photo in the full array.
+
+      // So now, when you click any photo — old or new —
+      // the popup opens the correct image, because it knows exactly where that photo is in the whole list.
 
       const actions = document.createElement("div");
       actions.className = "actions";
