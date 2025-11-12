@@ -1,1 +1,13 @@
+
+
+[200~# dependencies
 node_modules/
+
+# build outputs
+dist/
+.vite/
+
+# editor/system
+.DS_Store
+.vscode/
+~
