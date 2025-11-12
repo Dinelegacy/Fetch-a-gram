@@ -143,14 +143,14 @@ body.dark-mode header {
 
 /* ===== THEME TOGGLE BOX ===== */
 .theme-box {
-  flex: 0 0 auto;
-  display: inline-flex;
-  align-items: center;
+  display: flex;
   gap: 6px;
-  max-width: 100%;
-  overflow-x: auto;
-  /* if it gets too tight, allow horizontal scroll */
-  -webkit-overflow-scrolling: touch;
+  padding: 6px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .theme-box button {
@@ -161,37 +161,6 @@ body.dark-mode header {
   cursor: pointer;
   font-weight: 600;
   transition: background 0.2s ease;
-}
-/* Phone breakpoint */
-@media (max-width: 560px) {
-
-  /* Stack header elements nicely */
-  #site-header {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .site-brand {
-    justify-content: flex-start;
-    gap: 10px;
-  }
-
-  .brand-logo {
-    width: 44px;
-  }
-
-  .site-name {
-    font-size: 1.25rem;
-  }
-
-  .theme-box {
-    justify-content: center;
-    padding: 6px;
-  }
-
-  /* When super narrow, hide the big title but keep the logo */
-  
 }
 
 /* active button highlight */
@@ -255,13 +224,6 @@ body.dark-mode .theme-box button.is-active {
   position: relative;
 }
 
-@media (max-width: 1080px) {
-  .photo-section {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  }
-}
-
-
 /* ===== CARD STYLE ===== */
 .photo-card {
   background: #ffffff;
@@ -290,14 +252,12 @@ body.dark-mode .theme-box button.is-active {
 .actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 10px;
   padding: 10px;
   background: #fafafa;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
-  flex-wrap: nowrap;
-  /* don't wrap unless we absolutely must */
 }
+
 .actions button {
   background: transparent;
   border: 1px solid currentColor;
@@ -662,29 +622,9 @@ body.dark-mode .lds-ripple div {
 /* Likes / comments icons */
 .likes,
 .comments-info {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 6px;
-  white-space: nowrap;
-  /* keep text together */
-  min-width: 0;
-}
-/* tighten spacing & font-size a bit around 665px */
-@media (max-width: 680px) {
-  .actions {
-    gap: 8px;
-  }
-
-  .likes,
-  .comments-info {
-    font-size: 0.95rem;
-  }
-
-  .likes svg,
-  .comments-info svg {
-    width: 18px;
-    height: 18px;
-  }
+  gap: 5px;
 }
 
 .likes svg,
@@ -699,12 +639,11 @@ body.dark-mode .comments-info svg {
 
 
 #site-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  flex-wrap: wrap;
-  /* lets the theme buttons drop to next line */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 1.3rem 2.1rem;
+  /* bigger header */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 /* Bigger logo ONLY in header */
@@ -1096,18 +1035,4 @@ body.popup-open {
   transform: translateY(0);
   /* press effect */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-@media (max-width: 640px) {
-  .photo-section {
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 14px;
-    padding: 16px;
-  }
-
-  .photo-card img {
-    height: auto;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-  }
 }

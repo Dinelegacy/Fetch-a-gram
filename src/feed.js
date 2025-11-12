@@ -1,74 +1,113 @@
-import likeIcon from './icons/heart-solid-full.svg?raw';
-import commentIcon from './icons/comment-solid-full.svg?raw';
-import { fetchPhotos, refreshLikesForPhotos } from './feed.helpers.js';
-
-const loaderElement = document.querySelector('.lds-ripple-container');
-
+import likeIcon from './icons/heart-solid-full.svg?raw'; //Anna: import like icon as SVG code (needed to use it in innerHTML and change colors)
+import commentIcon from './icons/comment-solid-full.svg?raw'; //Anna: import comment icon as SVG code (needed to use it in innerHTML and change colors)
+const loaderElement = document.querySelector('.lds-ripple-container'); // Anna: Select loader element. Alrady exist in the index.html
 export default function setupFeed(openPopup) {
+  // Yordanos: Grab the main feed section and the "Load more" button.
   const section = document.getElementById("section1");
   const loadMoreBtn = document.getElementById("load-more");
-  if (!section || !loadMoreBtn) return;
-
-  let page = 1;
+  if (!section || !loadMoreBtn) return;// Yordanos: If required elements are missing, exit early to avoid errors.
+  let page = 1;// Yordanos: Start from page 1 of the API.
+  const limit = 6;
   let allPhotos = [];
-  window.__allPhotos = allPhotos; // required by current likes.js
-
+   window.__allPhotos = allPhotos; // Sahee:make globally accessible for popup.js
+  // Yordanos: Fetch one page of photos from the API and normalize the shape we use in the UI.
+  async function fetchPhotos(page) {
+    try {
+      const res = await fetch(`https://image-feed-api.vercel.app/api/images?page=${page}`);
+      const data = await res.json();// Yordanos: Parse JSON payload from the API.
+      // Yordanos: Normalize each item to ensure stable fields for rendering.
+      return data.data.map(p => ({
+        id: p.id, // Anna: added id field for popup usage
+        src: p.image_url,// Yordanos: Image source URL used by the <img>.
+        likes_count: p.likes_count ?? 0,
+        comments: Array.isArray(p.comments) ? p.comments : [],
+      }));
+    } catch (err) {
+      console.error("Error loading API:", err); // Yordanos: Log and recover.
+      return [];// Yordanos: Return empty list so UI keeps working even if a page fails.
+    }
+  }
+  // Anna: Helper function - fetch single photo to refresh likes
+  async function fetchSinglePhoto(id) {
+    try {
+      const res = await fetch(`https://image-feed-api.vercel.app/api/images/${id}`);
+      const data = await res.json();
+      return data.likes_count ?? 0;
+    } catch (err) {
+      console.error("Error refreshing single photo:", err);
+      return 0;
+    }
+  }
+  // Anna: Helper function -  Update like counts before render
+  async function refreshLikesForPhotos(photos) {
+    return Promise.all(
+      photos.map(async (p) => {
+        const latestLikes = await fetchSinglePhoto(p.id);
+        return { ...p, likes_count: latestLikes };
+      })
+    );
+  }
+  // Yordanos: Render a list of photos into the feed (DOM creation + event wiring).
   function renderPhotos(photos) {
     photos.forEach((p, i) => {
       const card = document.createElement("div");
       card.className = "photo-card";
-      card.dataset.photoId = p.id;
-
+      card.dataset.photoId = p.id; // Anna: added data attribute for popup usage
       const img = document.createElement("img");
-      img.id = p.id;
+      img.id  = p.id;
       img.src = p.src;
       img.alt = "photo";
-      img.addEventListener("click", () =>
-        openPopup(i, allPhotos.map(x => ({ id: x.id, src: x.src, comments: x.comments })))
-      );
+
+      // img.addEventListener("click", () => openPopup(i, allPhotos)); //  mistake. solution below
+      
+      img.addEventListener("click", () => { // Anna: needed to fix for commens and likes function 
+        const globalIndex = allPhotos.findIndex(photo => photo.id === p.id);
+        openPopup(globalIndex, allPhotos);
+      });
 
       const actions = document.createElement("div");
-      actions.className = "actions";
-
+      actions.className = "actions"; // Yordanos: Row for likes and comments counters.
       const likeInfo = document.createElement("span");
       likeInfo.className = "likes";
-      likeInfo.innerHTML = `${likeIcon} ${p.likes_count} Likes`;
-
-      const commentsCount = Array.isArray(p.comments) ? p.comments.length : 0;
+      likeInfo.innerHTML = `${likeIcon} ${p.likes_count} Likes`; // Anna: Use likeIcon SVG code here
+      const commentsCount = Array.isArray(p.comments) ? p.comments.length : 0; // Anna: Safely get comments count
       const commentsInfo = document.createElement("span");
       commentsInfo.className = "comments-info";
-      commentsInfo.innerHTML = `${commentIcon} ${commentsCount} ${commentsCount === 1 ? 'Comment' : 'Comments'}`;
-
+      commentsInfo.innerHTML = `${commentIcon} ${commentsCount} ${commentsCount === 1 ? 'Comment' : 'Comments'}`; // Anna: Use commentIcon SVG code here
+      // Yordanos: Attach counters to the actions row, then assemble the card.
       actions.appendChild(likeInfo);
       actions.appendChild(commentsInfo);
+      // Yordanos: Insert the card into the main feed.
       card.appendChild(img);
       card.appendChild(actions);
-      section.appendChild(card);
-
-      allPhotos.push(p);
+      section.appendChild(card); // Yordanos: Insert the card into the main feed.
+        // Add to shared array if not already present
+      if (!allPhotos.some(photo => photo.id === p.id)) {
+        allPhotos.push(p);
+      }
     });
   }
-
   async function load() {
-    loadMoreBtn.style.opacity = "0";
-    await new Promise(requestAnimationFrame);
-
+    loadMoreBtn.style.opacity = "0"; // Anna: Hide button during load
+    await new Promise(requestAnimationFrame); // Anna: Allow UI to update
+    // Yordanos
     const photos = [
+      //Andreas valegard: Fetch three consecutive pages in parallel, then combine.
       ...await fetchPhotos(page),
       ...await fetchPhotos(page + 1),
       ...await fetchPhotos(page + 2)
     ];
-    const updated = await refreshLikesForPhotos(photos);
-    renderPhotos(updated);
-
-    loaderElement?.remove();
-    loadMoreBtn.style.opacity = "1";
+    const updatedPhotos = await refreshLikesForPhotos(photos); // Anna: update likes count before render
+    renderPhotos(updatedPhotos); // Yordanos: Paint all fetched photos to the DOM.
+    loaderElement.remove(); // Anna: Remove loader element after first load of imges collection
+    loadMoreBtn.style.opacity = "1"; // Anna: return button after load
   }
-
   load();
-
+  // Yordanos: On click, move the paging window forward by 3 and load more photos.
+  // Yordanos: On click, move the paging window forward by 3 and load more photos.
   loadMoreBtn.addEventListener("click", () => {
-    page += 3;
+    // Andreas valegard: Advance pagination in steps of three pages.
+    page = page + 3;
     load();
   });
 }
