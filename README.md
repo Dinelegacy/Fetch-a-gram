@@ -97,31 +97,33 @@ I worked on **Popup image viewer** and its **UI integration**
 
 ### Part Saheena TODO-update
 
-### 🌸 Part Yordanos TODO-update
-
-I worked on the **Header section**.  
-Here is what I did:
-
-- Added a **sticky header** that stays on top when you scroll.
-- Added a **logo** and the **Fetch-a-gram** name.
-- Added a **Dark Mode / Light Mode toggle** that changes the color of the whole page.
-- Made the header **responsive** (works on small and big screens).
-- Wrote **simple CSS and JavaScript** so everyone on the team can understand it.
-
-I worked on the **Feed (API + Display)**.
-
-- Connected to the API to **fetch photos**.
-- Cleaned/normalized the data so every photo always has:
-  - id
-  - src (image url)
-  - likes_count (default 0)
-  - comments (default [])
-- Rendered (showed) each photo on the page inside a card.
-- Displayed the number of **likes + comments** under each photo.
-- Added the **Show More** button so more photos load when clicked.
-- Kept track of pages (page 1, page 2…) so it loads new photos every time.
 
 
----
 
+🌸 Part Yordanos
 
+- I worked on both the Header section and the Feed system — including connecting to the API, displaying photos, and improving the overall responsive design.
+
+- 🧭 Header
+
+- Created a sticky header that stays at the top while scrolling.
+
+- Implemented a Dark / Light / Auto theme toggle that automatically follows the user’s system theme (so it changes color based on the user’s device settings).
+
+🖼️ Feed (API + Display)
+
+- Connected the app to the Image Feed API to fetch photos dynamically.
+   Cleaned and normalized the API data so each photo card always has:
+
+- an id,
+
+- an image source (src),
+
+- a likes_count,
+
+- and a list of comments.
+
+- Rendered the fetched photos into the feed as image cards.
+  Added a “Load More” button to fetch and display new photos from the next API pages.
+
+- Ensured smooth responsive behavior across all devices.
