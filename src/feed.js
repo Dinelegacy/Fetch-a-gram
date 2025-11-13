@@ -77,8 +77,8 @@ export default function setupFeed(openPopup) {
 
     const photos = [
       ...await fetchPhotos(page),
-      ...await fetchPhotos(page + 1),
-      ...await fetchPhotos(page + 2)
+      //...await fetchPhotos(page + 1),
+     // ...await fetchPhotos(page + 2)
     ];
     const updated = await refreshLikesForPhotos(photos);
     renderPhotos(updated);
