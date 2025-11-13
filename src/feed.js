@@ -90,7 +90,7 @@ export default function setupFeed(openPopup) {
   load();
 
   loadMoreBtn.addEventListener("click", () => {
-    page += 3;
+    page += 1;
     load();
   });
 }
