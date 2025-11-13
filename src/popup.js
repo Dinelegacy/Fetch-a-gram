@@ -116,9 +116,11 @@ function handleSwipe() {
       // swipe left → next
       currentIndex = (currentIndex + 1) % photosArray.length;
     }
-    popupImg.src = photosArray[currentIndex];
+    updatePopupContent(); // update image and info
   }
 }
+
+
   // -------------------
   // Public function: open popup
   // -------------------
