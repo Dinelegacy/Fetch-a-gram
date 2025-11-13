@@ -99,18 +99,26 @@ export default function setupPopup() {
   startX = e.touches[0].clientX;
 });
 
- popupImg.addEventListener('touchend', (e) => {
-  const endX = e.changedTouches[0].clientX;
-  if (startX - endX > 50) {
-    // swipe left → next
-    currentIndex = (currentIndex + 1) % photosArray.length;
-    popupImg.src = photosArray[currentIndex];
-  } else if (endX - startX > 50) {
-    // swipe right → previous
-    currentIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
-    popupImg.src = photosArray[currentIndex];
-  }
+popup.addEventListener("touchend", (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
 });
+
+function handleSwipe() {
+  const swipeDistance = touchEndX - touchStartX;
+  const swipeThreshold = 50; // minimum distance to count as a swipe
+  if (Math.abs(swipeDistance) > swipeThreshold) {
+    if (swipeDistance > 0) {
+      // swipe right → previous
+      currentIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
+    } else {
+      // swipe left → next
+      currentIndex = (currentIndex + 1) % photosArray.length;
+    }
+    updatePopupContent(); // update image and info
+  }
+}
+
 
   // -------------------
   // Public function: open popup
