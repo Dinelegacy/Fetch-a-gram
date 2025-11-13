@@ -107,20 +107,18 @@ popup.addEventListener("touchend", (e) => {
 
 function handleSwipe() {
   const swipeDistance = touchEndX - touchStartX;
-  const swipeThreshold = 50; // minimum distance to count as a swipe
+  const swipeThreshold = 50; 
   if (Math.abs(swipeDistance) > swipeThreshold) {
     if (swipeDistance > 0) {
-      // swipe right → previous
+      
       currentIndex = (currentIndex - 1 + photosArray.length) % photosArray.length;
     } else {
-      // swipe left → next
+      
       currentIndex = (currentIndex + 1) % photosArray.length;
     }
-    updatePopupContent(); // update image and info
+    updatePopupContent(); 
   }
 }
-
-
   // -------------------
   // Public function: open popup
   // -------------------

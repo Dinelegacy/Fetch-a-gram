@@ -448,6 +448,7 @@ body.dark-mode #load-more:hover {
   display: flex;
   flex: 1;
   flex-direction: column;
+  
   /* justify-content: space-between; */
   justify-content: flex-start;
   background: rgba(255, 255, 255, 0.95);
@@ -498,7 +499,7 @@ body.dark-mode #load-more:hover {
 
 }
 
-/* ========== MOBILE RESPONSIVE POPUP (FIXED TOP LOGO ISSUE) ========== */
+/* ========== MOBILE RESPONSIVE POPUP ========== */
 
 @media (max-width: 768px) {
   body.popup-open {
@@ -507,7 +508,7 @@ body.dark-mode #load-more:hover {
 
   #Image-popup {
     position: fixed;
-    top: 70px; /* adjust to your header height */
+    top: 70px; 
     left: 0;
     right: 0;
     bottom: 0;
@@ -556,7 +557,7 @@ body.dark-mode #load-more:hover {
   }
 
   .popup-nav {
-    display: none !important; /* hide arrows on mobile */
+    display: none !important; 
   }
 
   #close-popup {
@@ -810,32 +811,6 @@ body.dark-mode .comments-info svg {
   color: #333;
 }
 
-/* Next / Prev Arrows */
-/* .popup-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: white;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-  padding: 0.4rem 0.7rem;
-  border-radius: 50%;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-  transition: 0.2s;
-}
-
-.popup-nav:hover {
-  transform: translateY(-50%) scale(1.12);
-} */
-
-/* #prev-popup {
-  left: 30px;
-}
-
-#next-popup {
-  right: 30px;
-} */
 
 /* Anna: STYLES FOR COMMENTS */
 
